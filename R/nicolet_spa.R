@@ -1,7 +1,7 @@
 #source("spectrum_format.R")
 
 NicoletSpa <- R6::R6Class("NicoletSpa",
-  inherit = SpectrumFormat,
+  inherit = soilspec.format::SpectrumFormat,
 
   public = list(
     initialize = function() {
