@@ -1,5 +1,3 @@
-#source("spectrum_format.R")
-
 BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
   inherit = soilspec.format::SpectrumFormat,
 
