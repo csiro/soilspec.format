@@ -19,16 +19,16 @@ test_that("Read Bruker Opus Binary example file", {
                          expected = 4827)
 
   testthat::expect_equal(object = result$data[1,]$wavenumber,
-                   expected = 7498.2, tolerance = 1e-4)
+                         expected = 7498.2, tolerance = 1e-4)
 
   testthat::expect_equal(object = result$data[1,]$intensity,
                          expected = 0.1366372, tolerance = 1e-4)
 
-  last <- nrow(result$data)
-  testthat::expect_equal(object = result$data[last,]$wavenumber,
+  last.index <- nrow(result$data)
+  testthat::expect_equal(object = result$data[last.index,]$wavenumber,
                          expected = 598.9982, tolerance = 1e-4)
 
-  testthat::expect_equal(object = result$data[last,]$intensity,
+  testthat::expect_equal(object = result$data[last.index,]$intensity,
                          expected = 1.656751, tolerance = 1e-4)
 
   testthat::expect_equal(object = length(result$metadata),

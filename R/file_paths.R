@@ -1,0 +1,18 @@
+# Example file path access functions
+
+#' Return the full path to the Bruker Opus Binary example file
+#' @export
+#' @return full path to the Bruker Opus Binary example file
+bruker.opus.binary.file.path <- function() {
+  system.file("extdata", "BrukerOpusBinary", "example.0",
+              package = "soilspec.format")
+}
+
+#' Return the full path to the Nicolet spa example file
+#' @export
+#' @return full path to the Nicolet spa example file
+nicolet.spa.file.path <- function() {
+  system.file("extdata", "NicoletSpa", "example.spa",
+              package = "soilspec.format")
+}
+

@@ -7,26 +7,21 @@ SpectrumFormat <- R6::R6Class("SpectrumFormat", public = list(
   yunits = NULL,
   suffix = NULL, # of source spectrum file
   num.rows = NULL, # required in source spectrum file
-  # TODO: given XRF, NMR and other non IR spectra, we may need a set of permissible values
-  is_reflectance = NULL,
 
   initialize = function(origin, type_name, method, suffix,
                         xunits = "ARBITRARY UNITS",
-                        yunits = "ARBITRARY UNITS",
-                        is_reflectance = FALSE) {
+                        yunits = "ARBITRARY UNITS") {
     stopifnot(is.character(origin), length(origin) == 1)
     stopifnot(is.character(type_name), length(type_name) == 1)
     stopifnot(is.character(xunits), length(xunits) == 1)
     stopifnot(is.character(yunits), length(yunits) == 1)
     stopifnot(is.character(suffix), length(suffix) == 1)
-    stopifnot(is_reflectance == TRUE || is_reflectance == FALSE)
 
     self$origin <- origin
     self$type_name <- type_name
     self$xunits <- xunits
     self$yunits <- yunits
     self$suffix <- suffix
-    self$is_reflectance <- is_reflectance
   },
 
   create.result = function(data, meta) {

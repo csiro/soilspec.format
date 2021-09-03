@@ -7,8 +7,7 @@ BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
                        type_name = "MIR",
                        suffix = ".0",
                        xunits = "Wavenumber",
-                       yunits = "Reflectance",
-                       is_reflectance = TRUE)
+                       yunits = "Reflectance")
     },
 
     read = function(path) {
