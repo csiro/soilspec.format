@@ -34,5 +34,11 @@ test_that("Read Nicolet spa example file", {
   testthat::expect_equal(object = length(result$metadata),
                          expected = 1)
 
-  # TODO: test extract metadata; currentlly empty vector
+  # TODO: test extract metadata; currentlly empty vector; re-implement spa2strings in C
+  # testthat::expect_equal(object =
+  #                          grep(result$metadata,
+  #                               pattern = "Not yet!"),
+  #                        expected = 1)
 })
+
+# TODO: need test for file not found (FNF)
