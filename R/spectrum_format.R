@@ -1,33 +1,35 @@
 # Spectrum format base class
+# TODO:
+# - do we want to return metadata as lists, data frames?
+# - enumeration of units
+# - forward or reversed wavenumbers
+# - missing or less rich metadata in some formats (e.g. Nicolet)
+# - standardising metadata: possible? useful as-is since each different?
 
 SpectrumFormat <- R6::R6Class("SpectrumFormat", public = list(
   origin = NULL,
   type_name = NULL,
-  xunits = NULL,
-  yunits = NULL,
   suffix = NULL, # of source spectrum file
-  num.rows = NULL, # required in source spectrum file
 
-  initialize = function(origin, type_name, method, suffix,
-                        xunits = "ARBITRARY UNITS",
-                        yunits = "ARBITRARY UNITS") {
+  initialize = function(origin, type_name, method, suffix) {
     stopifnot(is.character(origin), length(origin) == 1)
     stopifnot(is.character(type_name), length(type_name) == 1)
-    stopifnot(is.character(xunits), length(xunits) == 1)
-    stopifnot(is.character(yunits), length(yunits) == 1)
     stopifnot(is.character(suffix), length(suffix) == 1)
 
     self$origin <- origin
     self$type_name <- type_name
-    self$xunits <- xunits
-    self$yunits <- yunits
     self$suffix <- suffix
   },
 
-  create.result = function(data, meta) {
+  create.result = function(status, mode, units, data.df, metadata.df) {
     result <- list()
-    result[["data"]] <- data
-    result[["metadata"]] <- jsonlite::toJSON(meta)
+
+    result[["status"]] <- status
+    result[["mode"]] <- mode
+    result[["units"]] <- units
+    result[["data"]] <- data.df
+    result[["metadata"]] <- metadata.df
+
     result
   }
 ))

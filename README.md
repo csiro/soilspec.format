@@ -1,3 +1,3 @@
 # Overview
-soilspec.format is a package for extracting R data frames and JSON metadata 
+soilspec.format is a package for extracting R data frames 
 from soil spectra of various formats.

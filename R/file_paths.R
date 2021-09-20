@@ -16,3 +16,10 @@ nicolet.spa.file.path <- function() {
               package = "soilspec.format")
 }
 
+#' Return the full path to the ASD binary example file
+#' @export
+#' @return full path to the ASD binary example file
+asd.binary.file.path <- function() {
+  system.file("extdata", "ASDBinary", "example.asd",
+              package = "soilspec.format")
+}

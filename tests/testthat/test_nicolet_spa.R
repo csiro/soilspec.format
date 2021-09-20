@@ -1,4 +1,4 @@
-# Nicolet unit tests
+# Nicolet .spa unit tests
 
 test_that("Get Nicolet spa example file path", {
   expected <- system.file("extdata", "NicoletSpa",
@@ -11,9 +11,12 @@ test_that("Get Nicolet spa example file path", {
 
 test_that("Read Nicolet spa example file", {
   nicolet <- soilspec.format::NicoletSpa$new()
-
   path <- soilspec.format::nicolet.spa.file.path()
   result <- nicolet$read(path)
+
+  testthat::expect_equal(object = result$status, expected = 0)
+
+  testthat::expect_equal(object = result$mode, expected = "absorbance")
 
   testthat::expect_equal(object = nrow(result$data),
                          expected = 1971)
@@ -31,14 +34,19 @@ test_that("Read Nicolet spa example file", {
   testthat::expect_equal(object = result$data[last.index,]$intensity,
                          expected = 2.0022, tolerance = 1e-4)
 
-  testthat::expect_equal(object = length(result$metadata),
-                         expected = 1)
-
-  # TODO: test extract metadata; currentlly empty vector; re-implement spa2strings in C
-  # testthat::expect_equal(object =
-  #                          grep(result$metadata,
-  #                               pattern = "Not yet!"),
-  #                        expected = 1)
+  testthat::expect_equal(object = nrow(result$metadata), expected = 0)
+  testthat::expect_equal(object = ncol(result$metadata), expected = 0)
 })
 
-# TODO: need test for file not found (FNF)
+test_that("Read non-existent Nicolet spa file", {
+  nicolet <- soilspec.format::NicoletSpa$new()
+
+  path <- "nothing at all"
+  result <- nicolet$read(path)
+
+  testthat::expect_false(result$status == 0)
+  testthat::expect_null(result$spec.df)
+  testthat::expect_null(result$meta.df)
+  testthat::expect_null(result$mode)
+  testthat::expect_null(result$units)
+})

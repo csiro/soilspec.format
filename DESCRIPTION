@@ -1,5 +1,5 @@
 Package: soilspec.format
-Title: A package for extracting R data frames and JSON metadata from soil spectra of various formats.
+Title: A package for extracting R data frames from soil spectra of various formats.
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "David",
