@@ -12,7 +12,7 @@ BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
 
     read = function(path) {
       spec.df <- NULL
-      meta.df <- NULL
+      meta.list <- NULL
       status <- 1
       mode <- NULL
       units <- NULL
@@ -22,7 +22,7 @@ BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
         mode <- "absorbance" # TODO: obtain from metadata?
         units <- "" # TODO: (e.g. cm^-1)
         spec.df <- data.frame(wavenumber=spec.data$wavenumbers, intensity=unlist(spec.data$spc))
-        meta.df <- as.data.frame(spec.data$metadata)
+        meta.list <- as.list(spec.data$metadata)
         status <- 0
       },
       error=function(cond) {
@@ -32,7 +32,7 @@ BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
       finally={
       })
 
-      super$create.result(status, mode, units, spec.df, meta.df)
+      super$create.result(status, mode, units, spec.df, meta.list)
     }
   )
 )

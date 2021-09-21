@@ -15,17 +15,17 @@ NicoletSpa <- R6::R6Class("NicoletSpa",
 
       if (status == 0) {
         spec.df <- data.frame(wavenumber=result$wavelengths, intensity=result$intensities)
-        meta.df <- as.data.frame(key.value.pairs(path))
-        mode <- stringr::str_to_lower(meta.df[["Final.format"]])
+        meta.list <- key.value.pairs(path)
+        mode <- stringr::str_to_lower(meta.list[["Final format"]])
         units <- "" # TODO! (e.g. cm^-1)
       } else {
         spec.df <- NULL
-        meta.df <- NULL
+        meta.list <- NULL
         mode <- NULL
         units <- NULL
       }
 
-      super$create.result(status, mode, units, spec.df, meta.df)
+      super$create.result(status, mode, units, spec.df, meta.list)
     }
   )
 )

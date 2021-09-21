@@ -6,13 +6,13 @@ ASDBinary <- R6::R6Class("ASDBinary",
   public = list(
     initialize = function() {
       super$initialize(origin = "ASD",
-                       type_name = "NIR",
+                       type_name = "vis-NIR", # TODO: true for all ASD files?
                        suffix = ".asd")
     },
 
     read = function(path) {
       spec.df <- NULL
-      meta.df <- NULL
+      meta.list <- NULL
       status <- 1
       mode <- NULL
       units <- NULL
@@ -29,9 +29,9 @@ ASDBinary <- R6::R6Class("ASDBinary",
                               intensity=as.double(table[,2]))
         rownames(spec.df) <- NULL
 
-        meta.df <- as.data.frame(asdreader::get_metadata(path))
+        meta.list <- asdreader::get_metadata(path)
 
-        mode <- as.character(meta.df$data_type)
+        mode <- as.character(meta.list$data_type)
         units <- "" # TODO!
         status <- 0
       },
@@ -42,7 +42,7 @@ ASDBinary <- R6::R6Class("ASDBinary",
       finally={
       })
 
-      super$create.result(status, mode, units, spec.df, meta.df)
+      super$create.result(status, mode, units, spec.df, meta.list)
     }
   )
 )

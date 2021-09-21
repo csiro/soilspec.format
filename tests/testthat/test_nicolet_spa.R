@@ -34,8 +34,10 @@ test_that("Read Nicolet spa example file", {
   testthat::expect_equal(object = result$data[last.index,]$intensity,
                          expected = 2.0022, tolerance = 1e-4)
 
-  testthat::expect_equal(object = nrow(result$metadata), expected = 1)
-  testthat::expect_equal(object = ncol(result$metadata), expected = 7)
+  testthat::expect_equal(object = length(result$metadata), expected = 7)
+
+  testthat::expect_equal(object = result$metadata[["Bench Serial Number"]],
+                         expected = "AMM0900168")
 })
 
 test_that("Read non-existent Nicolet spa file", {

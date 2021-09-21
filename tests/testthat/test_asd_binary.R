@@ -34,8 +34,7 @@ test_that("Read ASD binary example file", {
   testthat::expect_equal(object = result$data[last.index,]$intensity,
                          expected = 0.303005, tolerance = 1e-4)
 
-  testthat::expect_equal(object = nrow(result$metadata), expected = 1)
-  testthat::expect_equal(object = ncol(result$metadata), expected = 31)
+  testthat::expect_equal(object = length(result$metadata), expected = 31)
 
   testthat::expect_equal(object = as.character(result$metadata$instrument),
                          expected = "FieldSpec FR")
