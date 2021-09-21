@@ -60,34 +60,31 @@ strings.from.spa <- function(path, min.str.len=6, chrs.to.exclude=c("?", ";", "$
   strings <- list()
   index <- 1
   str <- ""
-  last <- 0
+  last <- as.raw(0)
 
-  # yes, I know: for loops in R are slow, but the data size is small;
-  # actually, profiling showed that string trimming was took up most of the time!
-  for (raw.byte in bytes.from.spa(path)) {
+  for (byte in bytes.from.spa(path)) {
     # convert from raw value to integer
-    byte <- as.integer(raw.byte)
+    #byte <- as.integer(raw.byte)
 
     if (byte == 9) {
       # tab => space
-      byte <- 32
+      byte <- as.raw(32)
     } else if (byte == 13) {
       # start of CR LF sequence
       last <- byte
     } else if (last == 13 && byte == 10 && !grepl(str, pattern="^\\s*$")) {
       # CR LF sequence ends string; ignore whitespace strings
-      strings[[index]] <- str #stringr::str_trim(s)
+      strings[[index]] <- str
       index <- index + 1
       str <- ""
       last <- 0
     } else if (byte >= 32 && byte <= 127) {
       # collect a character
-      str <- paste0(str, rawToChar(raw.byte))
-      #str <- remove.formatting.markers(s)
+      str <- paste0(str, rawToChar(byte))
+      #str <- remove.formatting.markers(str)
       last <- byte
     } else {
       # anything else ends string
-      #str <- stringr::str_trim(s)
       if (length(str) >= min.str.len) {
         if (!any(unlist(lapply(chrs.to.exclude,
                                function(partial.str) {
