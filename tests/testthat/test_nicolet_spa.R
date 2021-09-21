@@ -34,8 +34,8 @@ test_that("Read Nicolet spa example file", {
   testthat::expect_equal(object = result$data[last.index,]$intensity,
                          expected = 2.0022, tolerance = 1e-4)
 
-  testthat::expect_equal(object = nrow(result$metadata), expected = 0)
-  testthat::expect_equal(object = ncol(result$metadata), expected = 0)
+  testthat::expect_equal(object = nrow(result$metadata), expected = 1)
+  testthat::expect_equal(object = ncol(result$metadata), expected = 7)
 })
 
 test_that("Read non-existent Nicolet spa file", {
@@ -49,4 +49,16 @@ test_that("Read non-existent Nicolet spa file", {
   testthat::expect_null(result$meta.df)
   testthat::expect_null(result$mode)
   testthat::expect_null(result$units)
+})
+
+test_that("Extract strings from Nicolet spa example file", {
+  path <- soilspec.format::nicolet.spa.file.path()
+  strings <- strings.from.spa(path)
+  testthat::expect_equal(object = length(strings), expected = 13)
+})
+
+test_that("Extract key-value pairs from Nicolet spa example file", {
+  path <- soilspec.format::nicolet.spa.file.path()
+  key2value <- key.value.pairs(path)
+  testthat::expect_equal(object = length(key2value), expected = 7)
 })

@@ -18,7 +18,8 @@ Imports:
     jsonlite (>= 1.7.2),
     R6 (>= 2.5.0),
     Rcpp,
-    simplerspec (>= 0.1.0.9001)
+    simplerspec (>= 0.1.0.9001),
+    stringr (>= 1.4.0)
 Suggests: 
     testthat (>= 3.0.0)
 LinkingTo: 

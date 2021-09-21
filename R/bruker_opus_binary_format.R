@@ -19,8 +19,8 @@ BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
 
       out <- tryCatch({
         spec.data <- simplerspec::read_opus_bin_univ(path)
-        mode <- "absorbance" # TODO! obtin from metadata?
-        units <- "" # TODO! (e.g. cm^-1)
+        mode <- "absorbance" # TODO: obtain from metadata?
+        units <- "" # TODO: (e.g. cm^-1)
         spec.df <- data.frame(wavenumber=spec.data$wavenumbers, intensity=unlist(spec.data$spc))
         meta.df <- as.data.frame(spec.data$metadata)
         status <- 0

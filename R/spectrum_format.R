@@ -1,10 +1,13 @@
 # Spectrum format base class
 # TODO:
 # - do we want to return metadata as lists, data frames?
+#   o data frames make sense for data, lists for metadata
 # - enumeration of units
 # - forward or reversed wavenumbers
 # - missing or less rich metadata in some formats (e.g. Nicolet)
 # - standardising metadata: possible? useful as-is since each different?
+# - add list of suffixes to handlers and a top-level export function that
+#   uses this (if (suffix %in% list), with helper functions that get singleton object by suffix
 
 SpectrumFormat <- R6::R6Class("SpectrumFormat", public = list(
   origin = NULL,
