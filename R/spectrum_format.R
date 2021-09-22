@@ -2,10 +2,8 @@
 
 # TODO:
 # - extraction of units? necessary for standardised transformation?
-# - we have is.descending, but need standardised forward or reversed wavenumbers?
+# - we have is.descending, but standardised forward or reversed wavenumbers needed?
 # - standardised metadata: minimum subset? possible, since each different?
-# - create a list of suffixes to handlers and a top-level export function that
-#   uses this (if (suffix %in% list), with helper functions that get singleton object by suffix
 # - need a pass-through format for BrukerCSV or indeed, any CSV, but with no metadata
 
 SpectrumFormat <- R6::R6Class("SpectrumFormat", public = list(
@@ -23,13 +21,20 @@ SpectrumFormat <- R6::R6Class("SpectrumFormat", public = list(
     self$suffix <- suffix
   },
 
+  # each subclass must implement this
+  read = function() {},
+
   create.result = function(status, mode, units, data.df, meta.list) {
     result <- list()
 
     result[["status"]] <- status
     result[["mode"]] <- mode
     result[["units"]] <- units
-    result[["is.descending"]] <- data.df[1,]$wavenumber > data.df[nrow(data.df),]$wavenumber
+    if (status == 0) {
+      result[["is.descending"]] <- data.df[1,]$wavenumber > data.df[nrow(data.df),]$wavenumber
+    } else {
+      result[["is.descending"]] <- F
+    }
     result[["data"]] <- data.df
     result[["metadata"]] <- meta.list
 

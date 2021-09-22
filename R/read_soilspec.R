@@ -1,0 +1,54 @@
+# Read a soil spectroscopy file
+
+source("R/spectrum_format.R", local=T)
+source("R/nicolet_spa_format.R", local=T)
+source("R/thermo_spc_format.R", local=T)
+source("R/bruker_opus_binary_format.R", local=T)
+source("R/asd_binary_format.R", local=T)
+
+soilspec.handlers <- list()
+soilspec.handlers[[".spa"]] <- NicoletSpa$new()
+soilspec.handlers[[".spc"]] <- ThermoSpc$new()
+soilspec.handlers[[".0"]] <- BrukerOpusBinary$new()
+soilspec.handlers[[".asd"]] <- ASDBinary$new()
+
+#' Read a soil spectroscopy file given a path
+#' @export
+#' @param path Full path to the file
+#' @return A result list containing a file read status, a data.frame of
+#'         wavenumber-intensity pairs, a list of any available metadata,
+#'         instrument mode, units, whether wavenumbers are in descending order;
+#'         status will be non-zero if file does not exist or cannot be read (1),
+#'         is of an unknown format (2) or some other error occurred (4)
+read.soilspec <- function(path) {
+
+  result <- NULL
+  
+  if (!file.exists(path)) {
+    status <- 1
+  } else {
+    fields <- stringr::str_split(path, pattern="\\.")
+    if (length(fields[[1]]) > 1) {
+      suffix <- paste0(".", fields[[1]][length(fields[[1]])])
+      if (suffix %in% names(soilspec.handlers)) {
+        result <- soilspec.handlers[[suffix]]$read(path)
+      } else {
+        status <- 2
+      }
+    } else {
+      status <- 2
+    }
+  }
+
+  if (is.null(result)) {
+    result <- list()
+    result[["status"]] <- status
+    result[["mode"]] <- NULL
+    result[["units"]] <- NULL
+    result[["is.descending"]] <- NULL
+    result[["data"]] <- NULL
+    result[["metadata"]] <- NULL
+  }
+
+  result
+}

@@ -2,7 +2,7 @@
 
 #' Return the full path to the Bruker Opus Binary example file
 #' @export
-#' @return full path to the Bruker Opus Binary example file
+#' @return The full path to the Bruker Opus Binary example file
 bruker.opus.binary.file.path <- function() {
   system.file("extdata", "BrukerOpusBinary", "example.0",
               package = "soilspec.format")
@@ -10,7 +10,7 @@ bruker.opus.binary.file.path <- function() {
 
 #' Return the full path to the Nicolet spa example file
 #' @export
-#' @return full path to the Nicolet spa example file
+#' @return The full path to the Nicolet spa example file
 nicolet.spa.file.path <- function() {
   system.file("extdata", "NicoletSpa", "example.spa",
               package = "soilspec.format")
@@ -18,7 +18,7 @@ nicolet.spa.file.path <- function() {
 
 #' Return the full path to the ASD binary example file
 #' @export
-#' @return full path to the ASD binary example file
+#' @return The full path to the ASD binary example file
 asd.binary.file.path <- function() {
   system.file("extdata", "ASDBinary", "example.asd",
               package = "soilspec.format")
@@ -26,7 +26,7 @@ asd.binary.file.path <- function() {
 
 #' Return the full path to the Thermo spc example file
 #' @export
-#' @return full path to the Thermo spc example file
+#' @return The full path to the Thermo spc example file
 thermo.spc.file.path <- function() {
   system.file("extdata", "ThermoSpc", "example.spc",
               package = "soilspec.format")

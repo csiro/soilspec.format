@@ -3,7 +3,7 @@
 # TODO: optimise, e.g. key.value.pairs loop
 
 NicoletSpa <- R6::R6Class("NicoletSpa",
-  inherit = soilspec.format::SpectrumFormat,
+  inherit = SpectrumFormat,
   public = list(
     initialize = function() {
       super$initialize(origin = "Nicolet",
@@ -21,6 +21,7 @@ NicoletSpa <- R6::R6Class("NicoletSpa",
         mode <- stringr::str_to_lower(meta.list[["Final format"]])
         units <- "?" # TODO! (e.g. cm^-1)
       } else {
+        status <- 4
         spec.df <- NULL
         meta.list <- NULL
         mode <- NULL

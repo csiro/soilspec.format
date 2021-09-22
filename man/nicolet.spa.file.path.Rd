@@ -7,7 +7,7 @@
 nicolet.spa.file.path()
 }
 \value{
-full path to the Nicolet spa example file
+The full path to the Nicolet spa example file
 }
 \description{
 Return the full path to the Nicolet spa example file

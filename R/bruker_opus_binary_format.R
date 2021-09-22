@@ -3,7 +3,7 @@
 # TODO: obtain mode per file
 
 BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
-  inherit = soilspec.format::SpectrumFormat,
+  inherit = SpectrumFormat,
 
   public = list(
     initialize = function() {
@@ -15,7 +15,7 @@ BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
     read = function(path) {
       spec.df <- NULL
       meta.list <- NULL
-      status <- 1
+      status <- 4
       mode <- NULL
       units <- NULL
 

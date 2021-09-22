@@ -1,9 +1,11 @@
 # Thermo galactic spc format
 
-# TODO: obtain mode per file
+# TODO
+# - mode per file
+# - metadata
 
 ThermoSpc <- R6::R6Class("ThermoSpc",
-  inherit = soilspec.format::SpectrumFormat,
+  inherit = SpectrumFormat,
   
   public = list(
     initialize = function() {
@@ -15,7 +17,7 @@ ThermoSpc <- R6::R6Class("ThermoSpc",
     read = function(path) {
       spec.df <- NULL
       meta.list <- NULL
-      status <- 1
+      status <- 4
       mode <- NULL
       units <- NULL
       

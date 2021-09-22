@@ -7,7 +7,7 @@
 bruker.opus.binary.file.path()
 }
 \value{
-full path to the Bruker Opus Binary example file
+The full path to the Bruker Opus Binary example file
 }
 \description{
 Return the full path to the Bruker Opus Binary example file

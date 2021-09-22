@@ -7,7 +7,7 @@
 asd.binary.file.path()
 }
 \value{
-full path to the ASD binary example file
+The full path to the ASD binary example file
 }
 \description{
 Return the full path to the ASD binary example file

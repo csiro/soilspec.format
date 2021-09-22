@@ -1,7 +1,7 @@
 # ASD binary format, e.g. for vis-NIR contact probe
 
 ASDBinary <- R6::R6Class("ASDBinary",
-  inherit = soilspec.format::SpectrumFormat,
+  inherit = SpectrumFormat,
 
   public = list(
     initialize = function() {
@@ -13,7 +13,7 @@ ASDBinary <- R6::R6Class("ASDBinary",
     read = function(path) {
       spec.df <- NULL
       meta.list <- NULL
-      status <- 1
+      status <- 4
       mode <- NULL
       units <- NULL
 
