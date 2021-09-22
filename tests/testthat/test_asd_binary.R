@@ -18,6 +18,10 @@ test_that("Read ASD binary example file", {
 
   testthat::expect_equal(object = result$mode, expected = "reflectance")
 
+  testthat::expect_equal(object = result$units, expected = "?")
+
+  testthat::expect_false(result$is.descending)
+
   testthat::expect_equal(object = nrow(result$data),
                          expected = 2151)
 

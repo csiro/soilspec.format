@@ -1,10 +1,12 @@
 # Nicolet .spa format, from Nicolet MIR
 
+# TODO: optimise, e.g. key.value.pairs loop
+
 NicoletSpa <- R6::R6Class("NicoletSpa",
   inherit = soilspec.format::SpectrumFormat,
   public = list(
     initialize = function() {
-      super$initialize(origin = "Nicolet MIR",
+      super$initialize(origin = "Nicolet",
                        type_name = "MIR",
                        suffix = ".spa")
     },
@@ -17,7 +19,7 @@ NicoletSpa <- R6::R6Class("NicoletSpa",
         spec.df <- data.frame(wavenumber=result$wavelengths, intensity=result$intensities)
         meta.list <- key.value.pairs(path)
         mode <- stringr::str_to_lower(meta.list[["Final format"]])
-        units <- "" # TODO! (e.g. cm^-1)
+        units <- "?" # TODO! (e.g. cm^-1)
       } else {
         spec.df <- NULL
         meta.list <- NULL
@@ -46,8 +48,11 @@ key.value.pairs <- function(path) {
 
     if (!is.null(delimiter)) {
       fields <- stringr::str_split(str, pattern=delimiter)
-      key <- stringr::str_squish(fields[[1]][1])
-      value <- stringr::str_squish(fields[[1]][2])
+      keyval <- fields[[1]]
+      key <- stringr::str_squish(keyval[1])
+      # if there is more than one value, the delimiter must be present in str more than once,
+      # e.g. C:\\a\b\c
+      value <- stringr::str_squish(paste(keyval[2:length(keyval)], collapse=delimiter))
       key2value[[key]] <- value
     }
   }

@@ -6,7 +6,7 @@ ASDBinary <- R6::R6Class("ASDBinary",
   public = list(
     initialize = function() {
       super$initialize(origin = "ASD",
-                       type_name = "vis-NIR", # TODO: true for all ASD files?
+                       type_name = "visNIR", # TODO: true for all ASD files?
                        suffix = ".asd")
     },
 
@@ -18,7 +18,7 @@ ASDBinary <- R6::R6Class("ASDBinary",
       units <- NULL
 
       out <- tryCatch({
-        spec.data <- asdreader::get_spectra(path)
+        spec.data <- asdreader::get_spectra(path, type = "reflectance")
         spec.data <- t(spec.data)
 
         # TODO: could instead use a tidyverse approach here;
@@ -31,8 +31,9 @@ ASDBinary <- R6::R6Class("ASDBinary",
 
         meta.list <- asdreader::get_metadata(path)
 
+        # given type, should be reflectance
         mode <- as.character(meta.list$data_type)
-        units <- "" # TODO!
+        units <- "?" # TODO!
         status <- 0
       },
       error=function(cond) {

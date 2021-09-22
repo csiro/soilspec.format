@@ -1,11 +1,13 @@
 # Bruker Opus binary format, from Bruker MIR
 
+# TODO: obtain mode per file
+
 BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
   inherit = soilspec.format::SpectrumFormat,
 
   public = list(
     initialize = function() {
-      super$initialize(origin = "Bruker MIR",
+      super$initialize(origin = "Bruker",
                        type_name = "MIR",
                        suffix = ".0")
     },
@@ -18,9 +20,9 @@ BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
       units <- NULL
 
       out <- tryCatch({
-        spec.data <- simplerspec::read_opus_bin_univ(path)
-        mode <- "absorbance" # TODO: obtain from metadata?
-        units <- "" # TODO: (e.g. cm^-1)
+        spec.data <- simplerspec::read_opus_bin_univ(path, extract = c("spc"), print_progress = F)
+        mode <- "absorbance" # TODO: always absorbance? see help doc re: extract parameter
+        units <- "?" # TODO: (e.g. cm^-1)
         spec.df <- data.frame(wavenumber=spec.data$wavenumbers, intensity=unlist(spec.data$spc))
         meta.list <- as.list(spec.data$metadata)
         status <- 0

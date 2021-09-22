@@ -1,9 +1,10 @@
 # Spectrum format base class
+
 # TODO:
-# - enumeration of units
-# - forward or reversed wavenumbers or metadata to say which?
-# - standardising metadata: minimum subset? possible? useful as-is since each different?
-# - add list of suffixes to handlers and a top-level export function that
+# - extraction of units? necessary for standardised transformation?
+# - we have is.descending, but need standardised forward or reversed wavenumbers?
+# - standardised metadata: minimum subset? possible, since each different?
+# - create a list of suffixes to handlers and a top-level export function that
 #   uses this (if (suffix %in% list), with helper functions that get singleton object by suffix
 # - need a pass-through format for BrukerCSV or indeed, any CSV, but with no metadata
 
@@ -28,6 +29,7 @@ SpectrumFormat <- R6::R6Class("SpectrumFormat", public = list(
     result[["status"]] <- status
     result[["mode"]] <- mode
     result[["units"]] <- units
+    result[["is.descending"]] <- data.df[1,]$wavenumber > data.df[nrow(data.df),]$wavenumber
     result[["data"]] <- data.df
     result[["metadata"]] <- meta.list
 

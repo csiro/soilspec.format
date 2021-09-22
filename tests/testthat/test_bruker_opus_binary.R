@@ -18,6 +18,10 @@ test_that("Read Bruker Opus Binary example file", {
 
   testthat::expect_equal(object = result$mode, expected = "absorbance")
 
+  testthat::expect_equal(object = result$units, expected = "?")
+
+  testthat::expect_true(result$is.descending)
+
   testthat::expect_equal(object = nrow(result$data),
                          expected = 4827)
 
