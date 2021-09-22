@@ -31,3 +31,12 @@ thermo.spc.file.path <- function() {
   system.file("extdata", "ThermoSpc", "example.spc",
               package = "soilspec.format")
 }
+
+#' Return the full path to the Unknown example file (for testing purposes)
+#' @export
+#' @return The full path to the Unknown example file
+unknown.file.path <- function() {
+  system.file("extdata", "Unknown", "example.xyz",
+              package = "soilspec.format")
+}
+
