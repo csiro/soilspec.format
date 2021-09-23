@@ -98,7 +98,7 @@ read.asd.binary <- function(path) {
   read.soilspec.common(path, ".asd")
 }
 
-#' Read an Thermo spc soil spectroscopy file given a path.
+#' Read a Thermo spc soil spectroscopy file given a path.
 #' A precondition for correct functioning is that the file is of the expected type.
 #' This function should be used when the file does not have the expected ".spc" suffix.
 #' @export

@@ -1,2 +1,4 @@
 ^soilspec\.format\.Rproj$
 ^\.Rproj\.user$
+^doc$
+^Meta$
