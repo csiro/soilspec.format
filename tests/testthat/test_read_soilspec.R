@@ -146,6 +146,7 @@ test_that("Attempt to read Bruker Opus binary file with invalid format using gen
     path <- stringr::str_replace(path, pattern="xyz", replacement = "0")
     result <- soilspec.format::read.soilspec(path)
     testthat::expect_equal(object = result$status, expected = 4)
+
   }
 })
 
