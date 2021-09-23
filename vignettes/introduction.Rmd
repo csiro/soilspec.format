@@ -17,3 +17,53 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(soilspec.format)
 ```
+
+# Read a soil spectroscopy file given only a path
+```
+path <- nicolet.spa.file.path()
+path
+[1] ".../soilspec.format/inst/extdata/NicoletSpa/example.spa"
+
+result <- read.soilspec(path)
+
+names(result)
+[1] "status"        "mode"          "units"         "is.descending" "data"          "metadata"     
+
+result$status
+[1] 0
+
+result$is.descending
+[1] TRUE
+
+result$mode
+[1] "absorbance"
+
+...
+
+$`Final format`
+[1] "Absorbance"
+
+$Resolution
+[1] "8.000 from 401.1211 to 7999.2798"
+
+$`Attenuation screen wheel`
+[1] "Open"
+
+$`Bench Serial Number`
+[1] "AMM0900168"
+
+$`Instrument Status Pass Date Tested`
+[1] "Tue, 15 May 2018"
+
+head(result$data)
+  wavenumber intensity
+1   7999.280 0.3331323
+2   7995.425 0.3335602
+3   7991.570 0.3325496
+4   7987.715 0.3203847
+5   7983.860 0.3120485
+6   7980.005 0.3179339
+
+plot(result$data)
+
+```

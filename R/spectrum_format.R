@@ -5,6 +5,7 @@
 # - we have is.descending, but standardised forward or reversed wavenumbers needed?
 # - standardised metadata: minimum subset? possible, since each different?
 # - need a pass-through format for BrukerCSV or indeed, any CSV, but with no metadata
+# - check metadata in example data files for possible need to de-identify any
 
 SpectrumFormat <- R6::R6Class("SpectrumFormat", public = list(
   origin = NULL, # e.g. manufacturer
