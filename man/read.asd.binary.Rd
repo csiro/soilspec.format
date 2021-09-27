@@ -2,9 +2,9 @@
 % Please edit documentation in R/read_soilspec.R
 \name{read.asd.binary}
 \alias{read.asd.binary}
-\title{Read an ASD Binary soil spectroscopy file given a path.
-A precondition for correct functioning is that the file is of the expected type.
-This function should be used when the file does not have the expected ".asd" suffix.}
+\title{Read an ASD Binary soil spectroscopy file.
+This function should be used when the file does not have the expected ".asd" suffix.
+A precondition for correct functioning is that the file is of the expected type.}
 \usage{
 read.asd.binary(path)
 }
@@ -19,7 +19,7 @@ status will be non-zero if file does not exist or cannot be read (1),
 is of an unknown format (2) or some other error occurred (4).
 }
 \description{
-Read an ASD Binary soil spectroscopy file given a path.
-A precondition for correct functioning is that the file is of the expected type.
+Read an ASD Binary soil spectroscopy file.
 This function should be used when the file does not have the expected ".asd" suffix.
+A precondition for correct functioning is that the file is of the expected type.
 }

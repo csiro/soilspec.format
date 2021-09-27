@@ -3,7 +3,8 @@
 \name{read.soilspec.common}
 \alias{read.soilspec.common}
 \title{Common soil spectroscopy file reader function.
-A precondition for correct functioning is that the file and reader are compatible.}
+This function should be used when the file does not have the expected suffix.
+A precondition for correct functioning is that the file and assumed suffix are compatible.}
 \usage{
 read.soilspec.common(path, assumed.suffix)
 }
@@ -21,5 +22,6 @@ is of an unknown format (2) or some other error occurred (4).
 }
 \description{
 Common soil spectroscopy file reader function.
-A precondition for correct functioning is that the file and reader are compatible.
+This function should be used when the file does not have the expected suffix.
+A precondition for correct functioning is that the file and assumed suffix are compatible.
 }
