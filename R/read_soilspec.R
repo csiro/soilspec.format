@@ -117,7 +117,6 @@ read.thermo.spc <- function(path) {
 #' Common soil spectroscopy file reader function.
 #' This function should be used when the file does not have the expected suffix.
 #' A precondition for correct functioning is that the file and assumed suffix are compatible.
-#' @export
 #' @param path Full path to the file
 #' @param assumed.suffix The assumed suffix for the expected file format
 #' @return A result list containing a file read status, a data.frame of
