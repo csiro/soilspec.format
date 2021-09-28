@@ -22,6 +22,10 @@ test_that("Read Bruker Opus Binary example file", {
 
   testthat::expect_true(result$is.descending)
 
+  testthat::expect_equal(object = result$origin, expected = bruker$origin)
+
+  testthat::expect_equal(object = result$type, expected = bruker$type_name)
+
   testthat::expect_equal(object = nrow(result$data),
                          expected = 4827)
 

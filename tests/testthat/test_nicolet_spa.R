@@ -22,6 +22,10 @@ test_that("Read Nicolet spa example file", {
 
   testthat::expect_true(result$is.descending)
 
+  testthat::expect_equal(object = result$origin, expected = nicolet$origin)
+
+  testthat::expect_equal(object = result$type, expected = nicolet$type_name)
+
   testthat::expect_equal(object = nrow(result$data),
                          expected = 1971)
 

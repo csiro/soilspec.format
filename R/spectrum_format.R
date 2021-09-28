@@ -36,6 +36,8 @@ SpectrumFormat <- R6::R6Class("SpectrumFormat", public = list(
     } else {
       result[["is.descending"]] <- F
     }
+    result[["origin"]] <- self$origin
+    result[["type"]] <- self$type_name
     result[["data"]] <- data.df
     result[["metadata"]] <- meta.list
 

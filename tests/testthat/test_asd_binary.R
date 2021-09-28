@@ -22,6 +22,10 @@ test_that("Read ASD binary example file", {
 
   testthat::expect_false(result$is.descending)
 
+  testthat::expect_equal(object = result$origin, expected = asd.binary$origin)
+
+  testthat::expect_equal(object = result$type, expected = asd.binary$type_name)
+
   testthat::expect_equal(object = nrow(result$data),
                          expected = 2151)
 
