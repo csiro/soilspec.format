@@ -17,7 +17,8 @@ soilspec.readers[[".asd"]] <- ASDBinary$new()
 #' @param path Full path to the file
 #' @return A result list containing a file read status, a data.frame of
 #'         wavenumber-intensity pairs, a list of any available metadata,
-#'         instrument mode, units, whether wavenumbers are in descending order;
+#'         instrument mode, units, whether wavenumbers are in descending order,
+#'         instrument origin, spectrum type;
 #'         status will be non-zero if file does not exist or cannot be read (1),
 #'         is of an unknown format (2) or some other error occurred (4)
 read.soilspec <- function(path) {
@@ -60,12 +61,13 @@ read.soilspec <- function(path) {
 #' @param path Full path to the file
 #' @return A result list containing a file read status, a data.frame of
 #'         wavenumber-intensity pairs, a list of any available metadata,
-#'         instrument mode, units, whether wavenumbers are in descending order;
+#'         instrument mode, units, whether wavenumbers are in descending order,
+#'         instrument origin, spectrum type;
 #'         status will be non-zero if file does not exist or cannot be read (1),
 #'         is of an unknown format (2) or some other error occurred (4).
 read.nicolet.spa <- function(path) {
 
-  read.soilspec.common(path, ".spa")
+  read.soilspec.with.suffix(path, ".spa")
 }
 
 #' Read a Bruker Opus Binary soil spectroscopy file.
@@ -75,12 +77,13 @@ read.nicolet.spa <- function(path) {
 #' @param path Full path to the file
 #' @return A result list containing a file read status, a data.frame of
 #'         wavenumber-intensity pairs, a list of any available metadata,
-#'         instrument mode, units, whether wavenumbers are in descending order;
+#'         instrument mode, units, whether wavenumbers are in descending order,
+#'         instrument origin, spectrum type;
 #'         status will be non-zero if file does not exist or cannot be read (1),
 #'         is of an unknown format (2) or some other error occurred (4).
 read.bruker.opus.binary <- function(path) {
 
-  read.soilspec.common(path, ".0")
+  read.soilspec.with.suffix(path, ".0")
 }
 
 #' Read an ASD Binary soil spectroscopy file.
@@ -90,12 +93,13 @@ read.bruker.opus.binary <- function(path) {
 #' @param path Full path to the file
 #' @return A result list containing a file read status, a data.frame of
 #'         wavenumber-intensity pairs, a list of any available metadata,
-#'         instrument mode, units, whether wavenumbers are in descending order;
+#'         instrument mode, units, whether wavenumbers are in descending order,
+#'         instrument origin, spectrum type;
 #'         status will be non-zero if file does not exist or cannot be read (1),
 #'         is of an unknown format (2) or some other error occurred (4).
 read.asd.binary <- function(path) {
 
-  read.soilspec.common(path, ".asd")
+  read.soilspec.with.suffix(path, ".asd")
 }
 
 #' Read a Thermo spc soil spectroscopy file.
@@ -105,26 +109,28 @@ read.asd.binary <- function(path) {
 #' @param path Full path to the file
 #' @return A result list containing a file read status, a data.frame of
 #'         wavenumber-intensity pairs, a list of any available metadata,
-#'         instrument mode, units, whether wavenumbers are in descending order;
+#'         instrument mode, units, whether wavenumbers are in descending order,
+#'         instrument origin, spectrum type;
 #'         status will be non-zero if file does not exist or cannot be read (1),
 #'         is of an unknown format (2) or some other error occurred (4).
 read.thermo.spc <- function(path) {
 
-  read.soilspec.common(path, ".spc")
+  read.soilspec.with.suffix(path, ".spc")
 }
 
 
-#' Common soil spectroscopy file reader function.
+#' Soil spectroscopy file reader function with assumed suffix explicitly supplied.
 #' This function should be used when the file does not have the expected suffix.
 #' A precondition for correct functioning is that the file and assumed suffix are compatible.
 #' @param path Full path to the file
 #' @param assumed.suffix The assumed suffix for the expected file format
 #' @return A result list containing a file read status, a data.frame of
 #'         wavenumber-intensity pairs, a list of any available metadata,
-#'         instrument mode, units, whether wavenumbers are in descending order;
+#'         instrument mode, units, whether wavenumbers are in descending order,
+#'         instrument origin, spectrum type;
 #'         status will be non-zero if file does not exist or cannot be read (1),
 #'         is of an unknown format (2) or some other error occurred (4).
-read.soilspec.common <- function(path, assumed.suffix) {
+read.soilspec.with.suffix <- function(path, assumed.suffix) {
 
   result <- NULL
 

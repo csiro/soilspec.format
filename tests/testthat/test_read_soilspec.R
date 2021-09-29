@@ -100,7 +100,7 @@ test_that("Attempt to read unreachable path with generic read function", {
 })
 
 test_that("Attempt to read unreachable path with common (internal) read function", {
-  result <- soilspec.format::read.soilspec.common("a/b/c", ".spa")
+  result <- soilspec.format::read.soilspec.with.suffix("a/b/c", ".spa")
   testthat::expect_equal(object = result$status, expected = 1)
 })
 
@@ -112,7 +112,7 @@ test_that("Attempt to read file with unknown file suffix with generic read funct
 
 test_that("Attempt to read file with unknown file suffix with common (internal) read function", {
   path <- soilspec.format::bruker.opus.binary.file.path()
-  result <- soilspec.format::read.soilspec.common(path, ".foo")
+  result <- soilspec.format::read.soilspec.with.suffix(path, ".foo")
   testthat::expect_equal(object = result$status, expected = 2)
 })
 
@@ -125,7 +125,7 @@ test_that("Attempt to read Nicolet spa file with invalid format using generic re
 
 test_that("Attempt to read Nicolet spa file with invalid format using common (internal) read function", {
   path <- soilspec.format::bruker.opus.binary.file.path()
-  result <- soilspec.format::read.soilspec.common(path, ".spa")
+  result <- soilspec.format::read.soilspec.with.suffix(path, ".spa")
   testthat::expect_equal(object = result$status, expected = 4)
 })
 

@@ -1,5 +1,5 @@
 Package: soilspec.format
-Title: A package for extracting R data frames from soil spectra of various formats.
+Title: A package for extracting data frames and metadata from soil spectra of various formats.
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "David",
@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "david.benn@csiro.au",
            comment = c(ORCID = "0000-0003-3839-8643"))
-Description: A package for extracting R data frames and R metadata lists from soil spectra of various formats.
+Description: A package for extracting data frames and metadata from soil spectra of various formats.
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
 Encoding: UTF-8

@@ -14,7 +14,8 @@ read.thermo.spc(path)
 \value{
 A result list containing a file read status, a data.frame of
 wavenumber-intensity pairs, a list of any available metadata,
-instrument mode, units, whether wavenumbers are in descending order;
+instrument mode, units, whether wavenumbers are in descending order,
+instrument origin, spectrum type;
 status will be non-zero if file does not exist or cannot be read (1),
 is of an unknown format (2) or some other error occurred (4).
 }
