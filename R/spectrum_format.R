@@ -12,7 +12,7 @@ SpectrumFormat <- R6::R6Class("SpectrumFormat", public = list(
   type_name = NULL, # e.g. MIR, vis-NIR
   suffix = NULL, # of source spectrum file
 
-  initialize = function(origin, type_name, method, suffix) {
+  initialize = function(origin, type_name, suffix) {
     stopifnot(is.character(origin), length(origin) == 1)
     stopifnot(is.character(type_name), length(type_name) == 1)
     stopifnot(is.character(suffix), length(suffix) == 1)
