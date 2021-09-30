@@ -1,4 +1,4 @@
-# Unit tests for generic and common read functions (read.soilspec, read.soilspec.ommon)
+# Unit tests for generic and common read functions
 
 # Tests for each known type via generic read function
 
