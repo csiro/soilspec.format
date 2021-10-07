@@ -20,10 +20,10 @@ BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
       units <- NULL
 
       out <- tryCatch({
-        spec.data <- simplerspec::read_opus_bin_univ(path, extract = c("spc"), print_progress = F)
+        spec.data <- opusreader::opus_read_raw(readBin(con=path, what="raw", n = file.info(path)$size))
         mode <- "absorbance" # TODO: always absorbance? see help doc re: extract parameter
         units <- "?" # TODO: (e.g. cm^-1)
-        spec.df <- data.frame(wavenumber=spec.data$wavenumbers, intensity=unlist(spec.data$spc))
+        spec.df <- data.frame(wavenumber=spec.data$wavenumbers, intensity=c(spec.data$spec))
         meta.list <- as.list(spec.data$metadata)
         status <- 0
       },

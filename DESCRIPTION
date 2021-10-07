@@ -17,6 +17,7 @@ RoxygenNote: 7.1.1
 Imports:
     hyperSpec (>= 0.99-20201127),
     jsonlite (>= 1.7.2),
+    opusreader (>= 0.4.2),
     R6 (>= 2.5.0),
     Rcpp,
     simplerspec (>= 0.1.0.9001),
