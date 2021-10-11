@@ -1,6 +1,8 @@
-# Bruker Opus binary format, from Bruker MIR
-
-# TODO: obtain mode per file
+# Bruker Opus binary format, from Bruker MIR instrument
+#
+# See:
+# - https://github.com/pierreroudier/opusreader
+# - https://www.bruker.com/en/products-and-solutions/infrared-and-raman/ft-ir-routine-spectrometer/what-is-ft-ir-spectroscopy.html
 
 BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
   inherit = SpectrumFormat,
@@ -21,7 +23,11 @@ BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
 
       out <- tryCatch({
         spec.data <- opusreader::opus_read(path)
-        mode <- "absorbance" # TODO: always absorbance? see help doc re: extract parameter
+        if (spec.data$metadata$result_spc == "AB") {
+          mode <- "absorbance"
+        } else {
+          mode <- "reflectance"
+        }
         units <- "?" # TODO: (e.g. cm^-1)
         spec.df <- data.frame(wavenumber=spec.data$wavenumbers, intensity=c(spec.data$spec))
         meta.list <- as.list(spec.data$metadata)
