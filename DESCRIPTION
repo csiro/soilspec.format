@@ -18,7 +18,7 @@ Imports:
     hyperSpec (>= 0.99-20201127),
     jsonlite (>= 1.7.2),
     knitr,
-    Pandoc,
+    pandoc,
     R6 (>= 2.5.0),
     Rcpp,
     rmarkdown,
