@@ -17,13 +17,13 @@ RoxygenNote: 7.1.1
 Imports:
     hyperSpec (>= 0.99-20201127),
     jsonlite (>= 1.7.2),
-    knitr,
-    pandoc,
     R6 (>= 2.5.0),
     Rcpp,
     rmarkdown,
     stringr (>= 1.4.0)
 Suggests:
+    knitr,
+    pandoc,
     testthat (>= 3.0.0)
 LinkingTo: 
     Rcpp
