@@ -17,12 +17,12 @@ RoxygenNote: 7.1.1
 Imports:
     hyperSpec (>= 0.99-20201127),
     jsonlite (>= 1.7.2),
+    knitr,
     R6 (>= 2.5.0),
     Rcpp,
-    stringr (>= 1.4.0)
-Suggests: 
     rmarkdown,
-    knitr,
+    stringr (>= 1.4.0)
+Suggests:
     testthat (>= 3.0.0)
 LinkingTo: 
     Rcpp
