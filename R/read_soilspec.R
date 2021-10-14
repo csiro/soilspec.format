@@ -31,6 +31,7 @@ read.soilspec <- function(path) {
     fields <- stringr::str_split(path, pattern="\\.")
     if (length(fields[[1]]) > 1) {
       suffix <- paste0(".", fields[[1]][length(fields[[1]])])
+      suffix <- stringr::str_to_lower(suffix)
       if (suffix %in% names(soilspec.readers)) {
         result <- soilspec.readers[[suffix]]$read(path)
       } else {

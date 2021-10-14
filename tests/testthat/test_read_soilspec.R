@@ -14,6 +14,14 @@ test_that("Read ASD binary example file with generic read function", {
                          expected = 2151)
 })
 
+test_that("Read ASD binary example file with generic read function where suffix case is changed", {
+  path <- soilspec.format::asd.binary.file.path()
+  path <- stringr::str_replace(path, ".asd", ".ASD")
+  result <- soilspec.format::read.soilspec(path)
+
+  testthat::expect_equal(object = result$status, expected = 0)
+})
+
 test_that("Read Bruker Opus binary example file with generic read function", {
   path <- soilspec.format::bruker.opus.binary.file.path()
   result <- soilspec.format::read.soilspec(path)
@@ -46,6 +54,14 @@ test_that("Read Nicolet spa example file with generic read function", {
                          expected = 1971)
 })
 
+test_that("Read Nicolet spa example file with generic read function where suffix case is changed", {
+  path <- soilspec.format::nicolet.spa.file.path()
+  path <- stringr::str_replace(path, ".spa", ".SPA")
+  result <- soilspec.format::read.soilspec(path)
+
+  testthat::expect_equal(object = result$status, expected = 0)
+})
+
 test_that("Read Thermo spc example file with generic read function", {
   path <- soilspec.format::thermo.spc.file.path()
   result <- soilspec.format::read.soilspec(path)
@@ -60,6 +76,14 @@ test_that("Read Thermo spc example file with generic read function", {
 
   testthat::expect_equal(object = nrow(result$data),
                          expected = 3676)
+})
+
+test_that("Read Thermo spc example file with generic read function where suffix case is changed", {
+  path <- soilspec.format::thermo.spc.file.path()
+  path <- stringr::str_replace(path, ".spc", ".SPC")
+  result <- soilspec.format::read.soilspec(path)
+
+  testthat::expect_equal(object = result$status, expected = 0)
 })
 
 # Tests for each known type via format specific functions
