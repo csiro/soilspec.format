@@ -86,6 +86,30 @@ test_that("Read Thermo spc example file with generic read function where suffix 
   testthat::expect_equal(object = result$status, expected = 0)
 })
 
+test_that("Read CSV example file with generic read function", {
+  path <- soilspec.format::csv.file.path()
+  result <- soilspec.format::read.soilspec(path)
+
+  testthat::expect_equal(object = result$status, expected = 0)
+
+  testthat::expect_equal(object = result$mode, expected = NULL)
+
+  testthat::expect_equal(object = result$units, expected = "?")
+
+  testthat::expect_true(result$is.descending)
+
+  testthat::expect_equal(object = nrow(result$data),
+                         expected = 4830)
+})
+
+test_that("Read CSV example file with generic read function where suffix case is changed", {
+  path <- soilspec.format::csv.file.path()
+  path <- stringr::str_replace(path, ".csv", ".CSV")
+  result <- soilspec.format::read.soilspec(path)
+
+  testthat::expect_equal(object = result$status, expected = 0)
+})
+
 # Tests for each known type via format specific functions
 
 test_that("Read ASD binary example file with format specific read function", {
@@ -112,6 +136,13 @@ test_that("Read Nicolet spa example file with format specific read function", {
 test_that("Read Thermo spc example file with format specific read function", {
   path <- soilspec.format::thermo.spc.file.path()
   result <- soilspec.format::read.thermo.spc(path)
+
+  testthat::expect_equal(object = result$status, expected = 0)
+})
+
+test_that("Read CSV example file with format specific read function", {
+  path <- soilspec.format::csv.file.path()
+  result <- soilspec.format::read.soilspec.csv(path)
 
   testthat::expect_equal(object = result$status, expected = 0)
 })
@@ -154,10 +185,15 @@ test_that("Attempt to read Nicolet spa file with invalid format using common (in
 })
 
 test_that("Attempt to read Thermo spc file with invalid format using generic read function", {
-  # this test passes but generates noisy warning output;
-  # enable this to check it passes!
   path <- soilspec.format::unknown.file.path()
   path <- stringr::str_replace(path, pattern="xyz", replacement = "spc")
+  result <- soilspec.format::read.soilspec(path)
+  testthat::expect_equal(object = result$status, expected = 4)
+})
+
+test_that("Attempt to read CSV file with invalid format using generic read function", {
+  path <- soilspec.format::unknown.file.path()
+  path <- stringr::str_replace(path, pattern="xyz", replacement = "csv")
   result <- soilspec.format::read.soilspec(path)
   testthat::expect_equal(object = result$status, expected = 4)
 })
@@ -170,7 +206,6 @@ test_that("Attempt to read Bruker Opus binary file with invalid format using gen
     path <- stringr::str_replace(path, pattern="xyz", replacement = "0")
     result <- soilspec.format::read.soilspec(path)
     testthat::expect_equal(object = result$status, expected = 4)
-
   }
 })
 

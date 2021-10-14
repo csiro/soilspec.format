@@ -5,12 +5,14 @@ source("R/nicolet_spa_format.R", local=T)
 source("R/thermo_spc_format.R", local=T)
 source("R/bruker_opus_binary_format.R", local=T)
 source("R/asd_binary_format.R", local=T)
+source("R/csv_format.R", local=T)
 
 soilspec.readers <- list()
 soilspec.readers[[".spa"]] <- NicoletSpa$new()
 soilspec.readers[[".spc"]] <- ThermoSpc$new()
 soilspec.readers[[".0"]] <- BrukerOpusBinary$new()
 soilspec.readers[[".asd"]] <- ASDBinary$new()
+soilspec.readers[[".csv"]] <- CSV$new()
 
 #' Read a soil spectroscopy file given only its path.
 #' @export
@@ -85,6 +87,22 @@ read.nicolet.spa <- function(path) {
 read.bruker.opus.binary <- function(path) {
 
   read.soilspec.with.suffix(path, ".0")
+}
+
+#' Read a CSV soil spectroscopy file.
+#' This function should be used when the file does not have the expected ".csv" suffix.
+#' A precondition for correct functioning is that the file is of the expected type.
+#' @export
+#' @param path Full path to the file
+#' @return A result list containing a file read status, a data.frame of
+#'         wavenumber-intensity pairs, a list of any available metadata,
+#'         instrument mode, units, whether wavenumbers are in descending order,
+#'         instrument origin, spectrum type;
+#'         status will be non-zero if file does not exist or cannot be read (1),
+#'         is of an unknown format (2) or some other error occurred (4).
+read.soilspec.csv <- function(path) {
+
+  read.soilspec.with.suffix(path, ".csv")
 }
 
 #' Read an ASD Binary soil spectroscopy file.

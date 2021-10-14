@@ -8,6 +8,14 @@ bruker.opus.binary.file.path <- function() {
               package = "soilspec.format")
 }
 
+#' Return the full path to the (Bruker) CSV example file
+#' @export
+#' @return The full path to the (Bruker) CSV example file
+csv.file.path <- function() {
+  system.file("extdata", "BrukerCSV", "example.csv",
+              package = "soilspec.format")
+}
+
 #' Return the full path to the Nicolet spa example file
 #' @export
 #' @return The full path to the Nicolet spa example file
