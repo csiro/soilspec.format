@@ -6,10 +6,10 @@ on:
   pull_request:
     branches: [main, master]
 
-name: test
+name: pkg-test
 
 jobs:
-  test-coverage:
+  pkg-test:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -25,6 +25,10 @@ jobs:
         with:
           extra-packages: devtools
 
-      - name: Test
+      - name: pkg-load
+        run: devtools::load_all()
+        shell: Rscript {0}
+
+      - name: pkg-test
         run: devtools::test()
         shell: Rscript {0}
