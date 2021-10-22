@@ -18,7 +18,8 @@ test_that("Read ASD binary example file with generic read function where suffix 
   path <- soilspec.format::asd.binary.file.path()
   path <- stringr::str_replace(path, ".asd", ".ASD")
   result <- soilspec.format::read.soilspec(path)
-
+  print("^^^^")
+  print(result)
   testthat::expect_equal(object = result$status, expected = 0)
 })
 
