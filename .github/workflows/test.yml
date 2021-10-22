@@ -23,8 +23,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v1
         with:
-          extra-packages:
-            - devtools
+          extra-packages: devtools
 
       - name: install-opusreader
         run: devtools::install_github("pierreroudier/opusreader")
