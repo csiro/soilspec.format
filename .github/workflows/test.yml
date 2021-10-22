@@ -23,10 +23,13 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v1
         with:
-          extra-packages: devtools
+          extra-packages:
+            - devtools
+#            - asdreader
+#            - hyperSpec
 
-      - name: pkg-load
-        run: devtools::load_all()
+      - name: install-opusreader
+        run: devtools::install_github("pierreroudier/opusreader")
         shell: Rscript {0}
 
       - name: pkg-test
