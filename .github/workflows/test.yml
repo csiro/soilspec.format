@@ -25,8 +25,6 @@ jobs:
         with:
           extra-packages:
             - devtools
-#            - asdreader
-#            - hyperSpec
 
       - name: install-opusreader
         run: devtools::install_github("pierreroudier/opusreader")
