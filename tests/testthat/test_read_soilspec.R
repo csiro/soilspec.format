@@ -26,7 +26,7 @@ test_that("Read Bruker Opus binary example file with generic read function", {
 
   testthat::expect_equal(object = result$status, expected = 0)
 
-  testthat::expect_equal(object = result$mode, expected = "absorbance")
+  testthat::expect_equal(object = result$mode, expected = "AB")
 
   testthat::expect_true(result$is.descending)
 
@@ -40,7 +40,7 @@ test_that("Read Nicolet spa example file with generic read function", {
 
   testthat::expect_equal(object = result$status, expected = 0)
 
-  testthat::expect_equal(object = result$mode, expected = "absorbance")
+  testthat::expect_equal(object = result$mode, expected = "Absorbance")
 
   testthat::expect_true(result$is.descending)
 

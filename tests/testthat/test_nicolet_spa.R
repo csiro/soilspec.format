@@ -16,7 +16,7 @@ test_that("Read Nicolet spa example file", {
 
   testthat::expect_equal(object = result$status, expected = 0)
 
-  testthat::expect_equal(object = result$mode, expected = "absorbance")
+  testthat::expect_equal(object = result$mode, expected = "Absorbance")
 
   testthat::expect_true(result$is.descending)
 

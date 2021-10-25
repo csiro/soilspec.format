@@ -16,7 +16,7 @@ NicoletSpa <- R6::R6Class("NicoletSpa",
       if (status == 0) {
         spec.df <- data.frame(wavenumber=result$wavelengths, intensity=result$intensities)
         meta.list <- key.value.pairs(path)
-        mode <- stringr::str_to_lower(meta.list[["Final format"]])
+        mode <- meta.list[["Final format"]]
       } else {
         status <- 4
         spec.df <- NULL

@@ -22,11 +22,7 @@ BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
 
       out <- tryCatch({
         spec.data <- opusreader::opus_read(path)
-        if (spec.data$metadata$result_spc == "AB") {
-          mode <- "absorbance"
-        } else {
-          mode <- "reflectance"
-        }
+        mode <- spec.data$metadata$result_spc
         spec.df <- data.frame(wavenumber=spec.data$wavenumbers, intensity=c(spec.data$spec))
         meta.list <- as.list(spec.data$metadata)
         status <- 0

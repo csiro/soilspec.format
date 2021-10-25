@@ -18,7 +18,6 @@ ThermoSpc <- R6::R6Class("ThermoSpc",
 
       out <- tryCatch({
         spec.data <- hyperSpec::read.spc(path)
-        mode <- NULL
         spec.df <- data.frame(wavenumber=as.double(names(spec.data$spc[,])),
                               intensity=as.double(spec.data$spc[,]))
         meta.list <- list()
