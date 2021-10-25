@@ -18,8 +18,6 @@ test_that("Read Bruker Opus Binary example file", {
 
   testthat::expect_equal(object = result$mode, expected = "absorbance")
 
-  testthat::expect_equal(object = result$units, expected = "?")
-
   testthat::expect_true(result$is.descending)
 
   testthat::expect_equal(object = result$origin, expected = bruker$origin)
@@ -58,5 +56,4 @@ test_that("Read non-existent Bruker Opus Binary file", {
   testthat::expect_null(result$spec.df)
   testthat::expect_null(result$meta.df)
   testthat::expect_null(result$mode)
-  testthat::expect_null(result$units)
 })

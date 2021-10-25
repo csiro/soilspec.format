@@ -48,7 +48,6 @@ read.soilspec <- function(path) {
     result <- list()
     result[["status"]] <- status
     result[["mode"]] <- NULL
-    result[["units"]] <- NULL
     result[["is.descending"]] <- NULL
     result[["data"]] <- NULL
     result[["metadata"]] <- NULL
@@ -168,7 +167,6 @@ read.soilspec.with.suffix <- function(path, assumed.suffix) {
     result <- list()
     result[["status"]] <- status
     result[["mode"]] <- NULL
-    result[["units"]] <- NULL
     result[["is.descending"]] <- NULL
     result[["data"]] <- NULL
     result[["metadata"]] <- NULL

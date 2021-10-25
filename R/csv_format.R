@@ -15,7 +15,6 @@ CSV <- R6::R6Class("CSV",
        meta.list <- NULL
        status <- 4
        mode <- NULL
-       units <- NULL
 
        out <- tryCatch({
         spec.df <- read.csv(path, header = F, sep = ",", col.names = c("wavenumber", "intensity"))
@@ -24,7 +23,6 @@ CSV <- R6::R6Class("CSV",
             status <- 2
           } else {
             meta.list <- list()
-            units <- "?" # TODO: make null, as for all
             status <- 0
           }
         }
@@ -36,7 +34,7 @@ CSV <- R6::R6Class("CSV",
        finally={
        })
 
-       super$create.result(status, mode, units, spec.df, meta.list)
+       super$create.result(status, mode, spec.df, meta.list)
      }
    )
 )

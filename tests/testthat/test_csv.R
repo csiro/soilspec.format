@@ -18,8 +18,6 @@ test_that("Read CSV example file", {
 
   testthat::expect_equal(object = result$mode, expected = NULL)
 
-  testthat::expect_equal(object = result$units, expected = "?")
-
   testthat::expect_true(result$is.descending)
 
   testthat::expect_equal(object = result$origin, expected = csv$origin)
@@ -55,5 +53,4 @@ test_that("Read non-existent CSV file", {
   testthat::expect_null(result$spec.df)
   testthat::expect_null(result$meta.df)
   testthat::expect_null(result$mode)
-  testthat::expect_null(result$units)
 })

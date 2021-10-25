@@ -18,8 +18,6 @@ test_that("Read Nicolet spa example file", {
 
   testthat::expect_equal(object = result$mode, expected = "absorbance")
 
-  testthat::expect_equal(object = result$units, expected = "?")
-
   testthat::expect_true(result$is.descending)
 
   testthat::expect_equal(object = result$origin, expected = nicolet$origin)
@@ -58,7 +56,6 @@ test_that("Read non-existent Nicolet spa file", {
   testthat::expect_null(result$spec.df)
   testthat::expect_null(result$meta.df)
   testthat::expect_null(result$mode)
-  testthat::expect_null(result$units)
 })
 
 test_that("Extract strings from Nicolet spa example file", {

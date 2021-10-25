@@ -1,7 +1,5 @@
 # Nicolet .spa format, from Nicolet MIR
 
-# TODO: optimise, e.g. key.value.pairs loop
-
 NicoletSpa <- R6::R6Class("NicoletSpa",
   inherit = SpectrumFormat,
   public = list(
@@ -19,16 +17,14 @@ NicoletSpa <- R6::R6Class("NicoletSpa",
         spec.df <- data.frame(wavenumber=result$wavelengths, intensity=result$intensities)
         meta.list <- key.value.pairs(path)
         mode <- stringr::str_to_lower(meta.list[["Final format"]])
-        units <- "?" # TODO! (e.g. cm^-1)
       } else {
         status <- 4
         spec.df <- NULL
         meta.list <- NULL
         mode <- NULL
-        units <- NULL
       }
 
-      super$create.result(status, mode, units, spec.df, meta.list)
+      super$create.result(status, mode, spec.df, meta.list)
     }
   )
 )

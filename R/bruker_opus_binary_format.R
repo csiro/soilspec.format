@@ -19,7 +19,6 @@ BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
       meta.list <- NULL
       status <- 4
       mode <- NULL
-      units <- NULL
 
       out <- tryCatch({
         spec.data <- opusreader::opus_read(path)
@@ -28,7 +27,6 @@ BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
         } else {
           mode <- "reflectance"
         }
-        units <- "?" # TODO: (e.g. cm^-1)
         spec.df <- data.frame(wavenumber=spec.data$wavenumbers, intensity=c(spec.data$spec))
         meta.list <- as.list(spec.data$metadata)
         status <- 0
@@ -40,7 +38,7 @@ BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
       finally={
       })
 
-      super$create.result(status, mode, units, spec.df, meta.list)
+      super$create.result(status, mode, spec.df, meta.list)
     }
   )
 )

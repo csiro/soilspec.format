@@ -15,15 +15,11 @@ ASDBinary <- R6::R6Class("ASDBinary",
       meta.list <- NULL
       status <- 4
       mode <- NULL
-      units <- NULL
 
       out <- tryCatch({
         spec.data <- asdreader::get_spectra(path, type = "reflectance")
         spec.data <- t(spec.data)
 
-        # TODO: could instead use a tidyverse approach here;
-        #       also: do we want to return data frames or
-        #       data tables?
         table <- cbind(x=rownames(spec.data), y=spec.data[,])
         spec.df <- data.frame(wavenumber=as.double(table[,1]),
                               intensity=as.double(table[,2]))
@@ -33,7 +29,6 @@ ASDBinary <- R6::R6Class("ASDBinary",
 
         # given type, should be reflectance
         mode <- as.character(meta.list$data_type)
-        units <- "?" # TODO!
         status <- 0
       },
       error=function(cond) {
@@ -43,7 +38,7 @@ ASDBinary <- R6::R6Class("ASDBinary",
       finally={
       })
 
-      super$create.result(status, mode, units, spec.df, meta.list)
+      super$create.result(status, mode, spec.df, meta.list)
     }
   )
 )

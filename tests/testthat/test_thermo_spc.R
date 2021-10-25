@@ -16,9 +16,7 @@ test_that("Read Thermo spc example file", {
 
   testthat::expect_equal(object = result$status, expected = 0)
 
-  testthat::expect_equal(object = result$mode, expected = "?")
-
-  testthat::expect_equal(object = result$units, expected = "?")
+  testthat::expect_equal(object = result$mode, expected = NULL)
 
   testthat::expect_true(result$is.descending)
 
@@ -43,9 +41,6 @@ test_that("Read Thermo spc example file", {
                          expected = 1.201563, tolerance = 1e-4)
 
   testthat::expect_equal(object = length(result$metadata), expected = 0)
-
-  # testthat::expect_equal(object = result$metadata$xxx,
-  #                        expected = "yyy")
 })
 
 test_that("Read non-existent Thermo spc file", {
@@ -58,5 +53,4 @@ test_that("Read non-existent Thermo spc file", {
   testthat::expect_null(result$spec.df)
   testthat::expect_null(result$meta.df)
   testthat::expect_null(result$mode)
-  testthat::expect_null(result$units)
 })

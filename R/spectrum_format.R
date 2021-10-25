@@ -15,19 +15,20 @@ SpectrumFormat <- R6::R6Class("SpectrumFormat", public = list(
     self$suffix <- suffix
   },
 
-  # each subclass must implement this
-  read = function() {},
+  # each subclass must implement this to return a list
+  # of the form returned by create.result
+  read = function() { list() },
 
-  create.result = function(status, mode, units, data.df, meta.list) {
+  # create a result list, possibly with some members that are NULL
+  create.result = function(status=NULL, mode=NULL, data.df=NULL, meta.list=NULL) {
     result <- list()
 
     result[["status"]] <- status
     result[["mode"]] <- mode
-    result[["units"]] <- units
     if (status == 0) {
       result[["is.descending"]] <- data.df[1,]$wavenumber > data.df[nrow(data.df),]$wavenumber
     } else {
-      result[["is.descending"]] <- F
+      result[["is.descending"]] <- NULL
     }
     result[["origin"]] <- self$origin
     result[["type"]] <- self$type_name
