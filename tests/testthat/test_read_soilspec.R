@@ -16,10 +16,7 @@ test_that("Read ASD binary example file with generic read function", {
 
 test_that("Read ASD binary example file with generic read function where suffix case is changed", {
   path <- soilspec.format::asd.binary.file.path()
-  path <- stringr::str_replace(path, ".asd", ".ASD")
-  result <- soilspec.format::read.soilspec(path)
-  print("^^^^")
-  print(result)
+  result <- soilspec.format::read.soilspec.with.suffix(path, ".ASD")
   testthat::expect_equal(object = result$status, expected = 0)
 })
 
@@ -57,9 +54,7 @@ test_that("Read Nicolet spa example file with generic read function", {
 
 test_that("Read Nicolet spa example file with generic read function where suffix case is changed", {
   path <- soilspec.format::nicolet.spa.file.path()
-  path <- stringr::str_replace(path, ".spa", ".SPA")
-  result <- soilspec.format::read.soilspec(path)
-
+  result <- soilspec.format::read.soilspec.with.suffix(path, ".SPA")
   testthat::expect_equal(object = result$status, expected = 0)
 })
 
@@ -81,9 +76,7 @@ test_that("Read Thermo spc example file with generic read function", {
 
 test_that("Read Thermo spc example file with generic read function where suffix case is changed", {
   path <- soilspec.format::thermo.spc.file.path()
-  path <- stringr::str_replace(path, ".spc", ".SPC")
-  result <- soilspec.format::read.soilspec(path)
-
+  result <- soilspec.format::read.soilspec.with.suffix(path, ".SPC")
   testthat::expect_equal(object = result$status, expected = 0)
 })
 
@@ -105,9 +98,7 @@ test_that("Read CSV example file with generic read function", {
 
 test_that("Read CSV example file with generic read function where suffix case is changed", {
   path <- soilspec.format::csv.file.path()
-  path <- stringr::str_replace(path, ".csv", ".CSV")
-  result <- soilspec.format::read.soilspec(path)
-
+  result <- soilspec.format::read.soilspec.with.suffix(path, ".CSV")
   testthat::expect_equal(object = result$status, expected = 0)
 })
 

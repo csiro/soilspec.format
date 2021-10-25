@@ -142,7 +142,7 @@ read.thermo.spc <- function(path) {
 #' This function should be used when the file does not have the expected suffix.
 #' A precondition for correct functioning is that the file and assumed suffix are compatible.
 #' @param path Full path to the file
-#' @param assumed.suffix The assumed suffix for the expected file format
+#' @param assumed.suffix The assumed suffix for the expected file format, e.g. .spa, .0
 #' @return A result list containing a file read status, a data.frame of
 #'         wavenumber-intensity pairs, a list of any available metadata,
 #'         instrument mode, units, whether wavenumbers are in descending order,
@@ -156,6 +156,7 @@ read.soilspec.with.suffix <- function(path, assumed.suffix) {
   if (!file.exists(path)) {
     status <- 1
   } else {
+    assumed.suffix <- stringr::str_to_lower(assumed.suffix)
     if (assumed.suffix %in% names(soilspec.readers)) {
       result <- soilspec.readers[[assumed.suffix]]$read(path)
     } else {
