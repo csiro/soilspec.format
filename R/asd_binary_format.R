@@ -17,7 +17,7 @@ ASDBinary <- R6::R6Class("ASDBinary",
       mode <- NULL
 
       out <- tryCatch({
-        spec.data <- asdreader::get_spectra(path, type = "reflectance")
+        spec.data <- asdreader::get_spectra(path)
         spec.data <- t(spec.data)
 
         table <- cbind(x=rownames(spec.data), y=spec.data[,])
@@ -27,7 +27,6 @@ ASDBinary <- R6::R6Class("ASDBinary",
 
         meta.list <- asdreader::get_metadata(path)
 
-        # given type, should be reflectance
         mode <- as.character(meta.list$data_type)
         status <- 0
       },
