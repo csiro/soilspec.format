@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_soilspec.R
 \name{read.bruker.opus.binary}
 \alias{read.bruker.opus.binary}
-\title{Read a Bruker Opus Binary soil spectroscopy file.
+\title{Read a Bruker Opus Binary spectroscopy file.
 This function should be used when the file does not have the expected ".0" suffix.
 A precondition for correct functioning is that the file is of the expected type.}
 \usage{
@@ -20,7 +20,7 @@ status will be non-zero if file does not exist or cannot be read (1),
 is of an unknown format (2) or some other error occurred (4).
 }
 \description{
-Read a Bruker Opus Binary soil spectroscopy file.
+Read a Bruker Opus Binary spectroscopy file.
 This function should be used when the file does not have the expected ".0" suffix.
 A precondition for correct functioning is that the file is of the expected type.
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_soilspec.R
 \name{read.thermo.spc}
 \alias{read.thermo.spc}
-\title{Read a Thermo spc soil spectroscopy file.
+\title{Read a Thermo spc spectroscopy file.
 This function should be used when the file does not have the expected ".spc" suffix.
 A precondition for correct functioning is that the file is of the expected type.}
 \usage{
@@ -20,7 +20,7 @@ status will be non-zero if file does not exist or cannot be read (1),
 is of an unknown format (2) or some other error occurred (4).
 }
 \description{
-Read a Thermo spc soil spectroscopy file.
+Read a Thermo spc spectroscopy file.
 This function should be used when the file does not have the expected ".spc" suffix.
 A precondition for correct functioning is that the file is of the expected type.
 }

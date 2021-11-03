@@ -34,6 +34,18 @@ test_that("Read Bruker Opus binary example file with generic read function", {
                          expected = 4827)
 })
 
+test_that("Read Perkin Elmer PEPE example file with generic read function", {
+  path <- soilspec.format::perkin.elmer.sp.pepe.file.path()
+  result <- soilspec.format::read.soilspec(path)
+
+  testthat::expect_equal(object = result$status, expected = 0)
+
+  testthat::expect_true(result$is.descending)
+
+  testthat::expect_equal(object = nrow(result$data),
+                         expected = 3676)
+})
+
 test_that("Read Nicolet spa example file with generic read function", {
   path <- soilspec.format::nicolet.spa.file.path()
   result <- soilspec.format::read.soilspec(path)
@@ -110,6 +122,13 @@ test_that("Read Bruker Opus binary example file with format specific read functi
   testthat::expect_equal(object = result$status, expected = 0)
 })
 
+test_that("Read Perkin Elmer PEPE example file with format specific read function", {
+  path <- soilspec.format::perkin.elmer.sp.pepe.file.path()
+  result <- soilspec.format::read.perkin.elmer.sp(path)
+
+  testthat::expect_equal(object = result$status, expected = 0)
+})
+
 test_that("Read Nicolet spa example file with format specific read function", {
   path <- soilspec.format::nicolet.spa.file.path()
   result <- soilspec.format::read.nicolet.spa(path)
@@ -143,16 +162,31 @@ test_that("Attempt to read unreachable path with common (internal) read function
   testthat::expect_equal(object = result$status, expected = 1)
 })
 
-test_that("Attempt to read file with unknown file suffix with generic read function", {
+test_that("Attempt to read Bruker file with unknown file suffix with generic read function", {
   path <- soilspec.format::unknown.file.path()
   result <- soilspec.format::read.soilspec(path)
   testthat::expect_equal(object = result$status, expected = 2)
 })
 
-test_that("Attempt to read file with unknown file suffix with common (internal) read function", {
+test_that("Attempt to read Bruker file with unknown file suffix with common (internal) read function", {
   path <- soilspec.format::bruker.opus.binary.file.path()
   result <- soilspec.format::read.soilspec.with.suffix(path, ".foo")
   testthat::expect_equal(object = result$status, expected = 2)
+})
+
+test_that("Attempt to read Perkin Elmer file with invalid format using generic read function", {
+  path <- soilspec.format::unknown.file.path()
+  path <- stringr::str_replace(path, pattern="xyz", replacement = "sp")
+  result <- soilspec.format::read.soilspec(path)
+  testthat::expect_equal(object = result$status, expected = 4)
+})
+
+test_that("Attempt to read Perkin Elmer PEPE file with invalid format using common (internal) read function", {
+  path <- soilspec.format::perkin.elmer.sp.pepe.file.path()
+  result <- soilspec.format::read.soilspec.with.suffix(path, ".spa")
+  # apparently this reader can read PE (!), but the result is invalid,
+  # so check for number of rows instead of status
+  testthat::expect_false(nrow(result$data) == 3676)
 })
 
 test_that("Attempt to read Nicolet spa file with invalid format using generic read function", {

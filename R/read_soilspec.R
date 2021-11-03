@@ -16,7 +16,7 @@ soilspec.readers[[".asd"]] <- ASDBinary$new()
 soilspec.readers[[".sp"]] <- PerkinElmerSP$new()
 soilspec.readers[[".csv"]] <- CSV$new()
 
-#' Read a soil spectroscopy file given only its path.
+#' Read a spectroscopy file given only its path.
 #' @export
 #' @param path Full path to the file
 #' @return A result list containing a file read status, a data.frame of
@@ -58,7 +58,7 @@ read.soilspec <- function(path) {
   result
 }
 
-#' Read a Nicolet spa soil spectroscopy file given a path.
+#' Read a Nicolet spa spectroscopy file given a path.
 #' A precondition for correct functioning is that the file is of the expected type.
 #' This function should be used when the file does not have the expected ".spa" suffix.
 #' @export
@@ -74,7 +74,7 @@ read.nicolet.spa <- function(path) {
   read.soilspec.with.suffix(path, ".spa")
 }
 
-#' Read a Bruker Opus Binary soil spectroscopy file.
+#' Read a Bruker Opus Binary spectroscopy file.
 #' This function should be used when the file does not have the expected ".0" suffix.
 #' A precondition for correct functioning is that the file is of the expected type.
 #' @export
@@ -90,7 +90,23 @@ read.bruker.opus.binary <- function(path) {
   read.soilspec.with.suffix(path, ".0")
 }
 
-#' Read a CSV soil spectroscopy file.
+#' Read a Perkin Elmer spectroscopy file.
+#' This function should be used when the file does not have the expected ".sp" suffix.
+#' A precondition for correct functioning is that the file is of the expected type.
+#' @export
+#' @param path Full path to the file
+#' @return A result list containing a file read status, a data.frame of
+#'         wavenumber-intensity pairs, a list of any available metadata,
+#'         instrument mode, units, whether wavenumbers are in descending order,
+#'         instrument origin, spectrum type;
+#'         status will be non-zero if file does not exist or cannot be read (1),
+#'         is of an unknown format (2) or some other error occurred (4).
+read.perkin.elmer.sp <- function(path) {
+
+  read.soilspec.with.suffix(path, ".sp")
+}
+
+#' Read a CSV spectroscopy file.
 #' This function should be used when the file does not have the expected ".csv" suffix.
 #' A precondition for correct functioning is that the file is of the expected type.
 #' @export
@@ -106,7 +122,7 @@ read.soilspec.csv <- function(path) {
   read.soilspec.with.suffix(path, ".csv")
 }
 
-#' Read an ASD Binary soil spectroscopy file.
+#' Read an ASD Binary spectroscopy file.
 #' This function should be used when the file does not have the expected ".asd" suffix.
 #' A precondition for correct functioning is that the file is of the expected type.
 #' @export
@@ -122,7 +138,7 @@ read.asd.binary <- function(path) {
   read.soilspec.with.suffix(path, ".asd")
 }
 
-#' Read a Thermo spc soil spectroscopy file.
+#' Read a Thermo spc spectroscopy file.
 #' This function should be used when the file does not have the expected ".spc" suffix.
 #' A precondition for correct functioning is that the file is of the expected type.
 #' @export
@@ -139,7 +155,7 @@ read.thermo.spc <- function(path) {
 }
 
 
-#' Soil spectroscopy file reader function with assumed suffix explicitly supplied.
+#' Spectroscopy file reader function with assumed suffix explicitly supplied.
 #' This function should be used when the file does not have the expected suffix.
 #' A precondition for correct functioning is that the file and assumed suffix are compatible.
 #' @param path Full path to the file

@@ -25,14 +25,18 @@ PerkinElmerSP <- R6::R6Class("PerkinElmerSP",
         signature <- read.string(sp.file, 5)
         close(sp.file)
 
-        if (stringr::str_sub(signature, 1, 4) == "PEPE") {
-          result <- read.pepe(path)
-          status <- result$status
-        } else if (stringr::str_sub(signature, 1, 5) == "PE IR") {
-          # TODO
-          status <- 2
+        if (is.na(signature)) {
+          status <- 4
         } else {
-          status <- 2
+          if (stringr::str_sub(signature, 1, 4) == "PEPE") {
+            result <- read.pepe(path)
+            status <- result$status
+          } else if (stringr::str_sub(signature, 1, 5) == "PE IR") {
+            # TODO
+            status <- 2
+          } else {
+            status <- 2
+          }
         }
       }
 
@@ -41,7 +45,6 @@ PerkinElmerSP <- R6::R6Class("PerkinElmerSP",
         meta.list <- result$metadata
         mode <- NULL # appears to be present in the data though
       } else {
-        status <- 4
         spec.df <- NULL
         meta.list <- NULL
         mode <- NULL
@@ -76,7 +79,7 @@ read.double <- function(con, num=1) {
   result
 }
 
-read.string <- function(con, len, num=1) {
+read.string <- function(con, len) {
   result <- readBin(con, "raw", len)
   if (length(result) == 0) {
     result <- NA

@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_soilspec.R
 \name{read.soilspec.with.suffix}
 \alias{read.soilspec.with.suffix}
-\title{Soil spectroscopy file reader function with assumed suffix explicitly supplied.
+\title{Spectroscopy file reader function with assumed suffix explicitly supplied.
 This function should be used when the file does not have the expected suffix.
 A precondition for correct functioning is that the file and assumed suffix are compatible.}
 \usage{
@@ -22,7 +22,7 @@ status will be non-zero if file does not exist or cannot be read (1),
 is of an unknown format (2) or some other error occurred (4).
 }
 \description{
-Soil spectroscopy file reader function with assumed suffix explicitly supplied.
+Spectroscopy file reader function with assumed suffix explicitly supplied.
 This function should be used when the file does not have the expected suffix.
 A precondition for correct functioning is that the file and assumed suffix are compatible.
 }

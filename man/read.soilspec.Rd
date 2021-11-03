@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_soilspec.R
 \name{read.soilspec}
 \alias{read.soilspec}
-\title{Read a soil spectroscopy file given only its path.}
+\title{Read a spectroscopy file given only its path.}
 \usage{
 read.soilspec(path)
 }
@@ -18,5 +18,5 @@ status will be non-zero if file does not exist or cannot be read (1),
 is of an unknown format (2) or some other error occurred (4)
 }
 \description{
-Read a soil spectroscopy file given only its path.
+Read a spectroscopy file given only its path.
 }
