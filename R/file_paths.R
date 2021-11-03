@@ -40,6 +40,22 @@ thermo.spc.file.path <- function() {
               package = "soilspec.format")
 }
 
+#' Return the full path to the Perkin Elmer PEPE example file
+#' @export
+#' @return The full path to the Perkin Elmer PEPE example file
+perkin.elmer.sp.pepe.file.path <- function() {
+  system.file("extdata", "PerkinElmerPEPE", "example.sp",
+              package = "soilspec.format")
+}
+
+#' Return the full path to the Perkin Elmer PE IR example file
+#' @export
+#' @return The full path to the Perkin Elmer PE IR example file
+perkin.elmer.sp.peir.file.path <- function() {
+  system.file("extdata", "PerkinElmerPEIR", "example.sp",
+              package = "soilspec.format")
+}
+
 #' Return the full path to the Unknown example file (for testing purposes)
 #' @export
 #' @return The full path to the Unknown example file
@@ -47,4 +63,3 @@ unknown.file.path <- function() {
   system.file("extdata", "Unknown", "example.xyz",
               package = "soilspec.format")
 }
-

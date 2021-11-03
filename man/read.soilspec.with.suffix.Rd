@@ -11,7 +11,7 @@ read.soilspec.with.suffix(path, assumed.suffix)
 \arguments{
 \item{path}{Full path to the file}
 
-\item{assumed.suffix}{The assumed suffix for the expected file format}
+\item{assumed.suffix}{The assumed suffix for the expected file format, e.g. .spa, .0}
 }
 \value{
 A result list containing a file read status, a data.frame of

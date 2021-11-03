@@ -5,6 +5,7 @@ source("R/nicolet_spa_format.R", local=T)
 source("R/thermo_spc_format.R", local=T)
 source("R/bruker_opus_binary_format.R", local=T)
 source("R/asd_binary_format.R", local=T)
+source("R/perkin_elmer_format.R", local=T)
 source("R/csv_format.R", local=T)
 
 soilspec.readers <- list()
@@ -12,6 +13,7 @@ soilspec.readers[[".spa"]] <- NicoletSpa$new()
 soilspec.readers[[".spc"]] <- ThermoSpc$new()
 soilspec.readers[[".0"]] <- BrukerOpusBinary$new()
 soilspec.readers[[".asd"]] <- ASDBinary$new()
+soilspec.readers[[".sp"]] <- PerkinElmerSP$new()
 soilspec.readers[[".csv"]] <- CSV$new()
 
 #' Read a soil spectroscopy file given only its path.

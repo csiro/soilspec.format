@@ -5,6 +5,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // parse_nicolet_spa
 List parse_nicolet_spa(const char* filename);
 RcppExport SEXP _soilspec_format_parse_nicolet_spa(SEXP filenameSEXP) {
