@@ -44,10 +44,11 @@ test_that("Read Perkin Elmer SP PEPE example file", {
 
   testthat::expect_equal(object = length(result$metadata), expected = 5)
 
-  testthat::expect_equal(object = result$metadata[["xLabel"]],
+  testthat::expect_equal(object = result$metadata$xLabel,
                          expected = "cm-1")
 })
 
+# PEPE / PE IR
 test_that("Read non-existent Perkin Elmer file", {
   pe <- soilspec.format::PerkinElmerSP$new()
 
@@ -62,4 +63,49 @@ test_that("Read non-existent Perkin Elmer file", {
 
 # PE IR
 
-# TODO
+test_that("Get Perkin Elmer SP PE IR example file path", {
+  expected <- system.file("extdata", "PerkinElmerPEIR",
+                          "example.sp", package = "soilspec.format")
+
+  actual <- soilspec.format::perkin.elmer.sp.peir.file.path()
+
+  testthat::expect_equal(object = actual, expected = expected)
+})
+
+test_that("Read Perkin Elmer SP PE IR example file", {
+  pe <- soilspec.format::PerkinElmerSP$new()
+  path <- soilspec.format::perkin.elmer.sp.peir.file.path()
+  result <- pe$read(path)
+
+  testthat::expect_equal(object = result$status, expected = 0)
+
+  testthat::expect_equal(object = result$mode,
+                         expected = "DIFFUSE REFLECTANCE")
+
+  testthat::expect_true(result$is.descending)
+
+  testthat::expect_equal(object = result$origin, expected = pe$origin)
+
+  testthat::expect_equal(object = result$type, expected = pe$type_name)
+
+  testthat::expect_equal(object = nrow(result$data),
+                         expected = 3676)
+
+  testthat::expect_equal(object = result$data[1,]$wavenumber,
+                         expected = 7800, tolerance = 1e-4)
+
+  testthat::expect_equal(object = result$data[1,]$intensity,
+                         expected = 8.086942e-39, tolerance = 1e-4)
+
+  last.index <- nrow(result$data)
+  testthat::expect_equal(object = result$data[last.index,]$wavenumber,
+                         expected = 450, tolerance = 1e-4)
+
+  testthat::expect_equal(object = result$data[last.index,]$intensity,
+                         expected = 2.3159e-38, tolerance = 1e-4)
+
+  testthat::expect_equal(object = length(result$metadata), expected = 7)
+
+  testthat::expect_equal(object = result$metadata$xLabel,
+                         expected = "CM-1")
+})

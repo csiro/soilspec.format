@@ -32,8 +32,8 @@ PerkinElmerSP <- R6::R6Class("PerkinElmerSP",
             result <- read.pepe(path)
             status <- result$status
           } else if (stringr::str_sub(signature, 1, 5) == "PE IR") {
-            # TODO
-            status <- 2
+            result <- read.peir(path)
+            status <- result$status
           } else {
             status <- 2
           }
@@ -43,7 +43,7 @@ PerkinElmerSP <- R6::R6Class("PerkinElmerSP",
       if (status == 0) {
         spec.df <- data.frame(wavenumber=result$x, intensity=result$y)
         meta.list <- result$metadata
-        mode <- NULL # appears to be present in the data though
+        mode <- result$metadata$mode
       } else {
         spec.df <- NULL
         meta.list <- NULL
@@ -73,6 +73,14 @@ read.int32 <- function(con, num=1, signed=T) {
 
 read.double <- function(con, num=1) {
   result <- readBin(con, "double", n = num)
+  if (length(result) == 0) {
+    result <- NA
+  }
+  result
+}
+
+read.single <- function(con, num=1) {
+  result <- readBin(con, "numeric", size = 4, n = num)
   if (length(result) == 0) {
     result <- NA
   }
@@ -183,11 +191,66 @@ read.pepe <- function(path) {
     metadata[["xLabel"]] <- xLabel
     metadata[["yLabel"]] <- yLabel
     metadata[["alias"]] <- alias
+    metadata[["mode"]] <- NULL #TODO
     metadata[["original name"]] <- original.name
     result[["metadata"]] <- metadata
-
-    result[["status"]] <- status
   }
+
+  result[["status"]] <- status
+
+  result
+}
+
+read.peir <- function(path) {
+  # read metadata
+  lines <- readLines(path, n = 56)
+
+  if (length(lines) != 56) {
+    status <- 2
+  } else {
+    description <- stringr::str_trim(lines[1])
+    name <- stringr::str_trim(lines[3])
+    instrument <- stringr::str_trim(lines[21])
+    mode <- stringr::str_trim(lines[33])
+    type <- stringr::str_trim(lines[23])
+    xLabel <- stringr::str_trim(lines[46])
+    yLabel <- stringr::str_trim(lines[47])
+    x0 <- as.integer(lines[50])
+    xEnd <- as.integer(lines[10])
+    xDelta <- as.integer(lines[51])
+    datum.count <- as.integer(lines[52])
+
+    result <- list()
+
+    if (datum.count == 0) {
+      status <- 2
+    } else {
+      status <- 0
+      # read data
+      sp.in <- file(path, "rb")
+      seek(sp.in, 32*15+16, "start")
+      data <- read.single(sp.in, datum.count)
+      close(sp.in)
+
+      # create a sequence from the x-axis specification
+      result[["x"]] <- seq(x0, xEnd, xDelta)
+
+      result[["y"]] <- data
+
+      # return metadata as name-value pairs
+      metadata <- list()
+      metadata[["description"]] <- description
+      metadata[["instrument"]] <- instrument
+      metadata[["xLabel"]] <- xLabel
+      metadata[["yLabel"]] <- yLabel
+      metadata[["mode"]] <- mode
+      metadata[["type"]] <- type
+      metadata[["name"]] <- name
+      result[["metadata"]] <- metadata
+    }
+  }
+
+  result[["status"]] <- status
 
   result
 }
