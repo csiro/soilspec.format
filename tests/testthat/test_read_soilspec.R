@@ -46,6 +46,18 @@ test_that("Read Perkin Elmer PEPE example file with generic read function", {
                          expected = 3676)
 })
 
+test_that("Read Perkin Elmer PE IR example file with generic read function", {
+  path <- soilspec.format::perkin.elmer.sp.peir.file.path()
+  result <- soilspec.format::read.soilspec(path)
+
+  testthat::expect_equal(object = result$status, expected = 0)
+
+  testthat::expect_true(result$is.descending)
+
+  testthat::expect_equal(object = nrow(result$data),
+                         expected = 3676)
+})
+
 test_that("Read Nicolet spa example file with generic read function", {
   path <- soilspec.format::nicolet.spa.file.path()
   result <- soilspec.format::read.soilspec(path)
@@ -129,6 +141,13 @@ test_that("Read Perkin Elmer PEPE example file with format specific read functio
   testthat::expect_equal(object = result$status, expected = 0)
 })
 
+test_that("Read Perkin Elmer PE IR example file with format specific read function", {
+  path <- soilspec.format::perkin.elmer.sp.peir.file.path()
+  result <- soilspec.format::read.perkin.elmer.sp(path)
+
+  testthat::expect_equal(object = result$status, expected = 0)
+})
+
 test_that("Read Nicolet spa example file with format specific read function", {
   path <- soilspec.format::nicolet.spa.file.path()
   result <- soilspec.format::read.nicolet.spa(path)
@@ -184,9 +203,15 @@ test_that("Attempt to read Perkin Elmer file with invalid format using generic r
 test_that("Attempt to read Perkin Elmer PEPE file with invalid format using common (internal) read function", {
   path <- soilspec.format::perkin.elmer.sp.pepe.file.path()
   result <- soilspec.format::read.soilspec.with.suffix(path, ".spa")
-  # apparently this reader can read PE (!), but the result is invalid,
-  # so check for number of rows instead of status
+  # apparently .spa reader can read PE (!), but the result is
+  # invalid, so check for number of rows instead of status
   testthat::expect_false(nrow(result$data) == 3676)
+})
+
+test_that("Attempt to read Perkin Elmer PE IR file with invalid format using common (internal) read function", {
+  path <- soilspec.format::perkin.elmer.sp.peir.file.path()
+  result <- soilspec.format::read.soilspec.with.suffix(path, ".spa")
+  testthat::expect_equal(object = result$status, expected = 4)
 })
 
 test_that("Attempt to read Nicolet spa file with invalid format using generic read function", {
