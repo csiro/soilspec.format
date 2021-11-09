@@ -11,7 +11,7 @@ R metadata lists from soil spectra of various formats, currently:
 
 # Install
 
-	# need `devtools` and `Rcpp` packages
+	# need devtools and Rcpp packages
 	install.packages(c("devtools", "Rcpp"))
 	 
 	# need opusreader package
