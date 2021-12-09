@@ -210,7 +210,7 @@ read.peir <- function(path) {
   } else {
     description <- stringr::str_trim(lines[1])
     name <- stringr::str_trim(lines[3])
-    instrument <- stringr::str_trim(lines[21])
+    software <- stringr::str_trim(lines[21])
     mode <- stringr::str_trim(lines[33])
     type <- stringr::str_trim(lines[23])
     xLabel <- stringr::str_trim(lines[46])
@@ -227,6 +227,9 @@ read.peir <- function(path) {
     } else {
       status <- 0
       # read data
+      # TODO: should seek to byte number after #DATA
+      #       since preceding text length may differ per file!
+      #       (need a format spec)
       sp.in <- file(path, "rb")
       seek(sp.in, 32*15+16, "start")
       data <- read.single(sp.in, datum.count)
@@ -240,7 +243,7 @@ read.peir <- function(path) {
       # return metadata as name-value pairs
       metadata <- list()
       metadata[["description"]] <- description
-      metadata[["instrument"]] <- instrument
+      metadata[["software"]] <- software
       metadata[["xLabel"]] <- xLabel
       metadata[["yLabel"]] <- yLabel
       metadata[["mode"]] <- mode
