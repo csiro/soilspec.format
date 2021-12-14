@@ -22,16 +22,16 @@ R metadata lists from soil spectra of various formats, currently:
 	
 # Example Usage
 
-  > path <- soilspec.format::bruker.opus.binary.file.path()
+  path <- soilspec.format::bruker.opus.binary.file.path()
   
-  > result <- soilspec.format::read.soilspec(path)
+  result <- soilspec.format::read.soilspec(path)
   
-  > names(result)
+  names(result)
   [1] "status"        "mode"          "is.descending" "origin"        "type"          "data"          "metadata"     
-  > result$status
+  result$status
   [1] 0
   
-  > head(result$data)
+  head(result$data)
     wavenumber intensity
   1   7498.200 0.1366372
   2   7496.770 0.1355442
@@ -40,13 +40,13 @@ R metadata lists from soil spectra of various formats, currently:
   5   7492.481 0.1320595
   6   7491.052 0.1344453
   
-  > result$metadata$unique_id
+  result$metadata$unique_id
   [1] "DECCW257_2021-02-05 06:34:20"
   
-  > result$metadata$sample_name
+  result$metadata$sample_name
   [1] "DECCW257;Calibration;13;Ryan;Waite;;SOC_Calibration;Fine ground samples"
   
-  > result$metadata$laser_wn
+  result$metadata$laser_wn
   [1] 11711.2
   
-  > plot(result$data, type="l")
+  plot(result$data, type="l")
