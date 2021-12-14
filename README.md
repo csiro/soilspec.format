@@ -21,13 +21,14 @@ R metadata lists from soil spectra of various formats, currently:
 	devtools::install_github("CSIRO-Soils/soilspec.format", auth_token = "...")
 	
 # Example Usage
-
+  ```
   path <- soilspec.format::bruker.opus.binary.file.path()
   
   result <- soilspec.format::read.soilspec(path)
   
   names(result)
   [1] "status"        "mode"          "is.descending" "origin"        "type"          "data"          "metadata"     
+  
   result$status
   [1] 0
   
@@ -50,3 +51,4 @@ R metadata lists from soil spectra of various formats, currently:
   [1] 11711.2
   
   plot(result$data, type="l")
+  ```
