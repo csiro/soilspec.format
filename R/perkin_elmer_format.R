@@ -191,7 +191,7 @@ read.pepe <- function(path) {
     metadata[["xLabel"]] <- xLabel
     metadata[["yLabel"]] <- yLabel
     metadata[["alias"]] <- alias
-    metadata[["mode"]] <- NULL #TODO
+    metadata[["mode"]] <-  # see issue #25
     metadata[["original name"]] <- original.name
     result[["metadata"]] <- metadata
   }
@@ -227,9 +227,7 @@ read.peir <- function(path) {
     } else {
       status <- 0
       # read data
-      # TODO: should seek to byte number after #DATA
-      #       since preceding text length may differ per file!
-      #       (need a format spec)
+      # see issue #24
       sp.in <- file(path, "rb")
       seek(sp.in, 32*15+16, "start")
       data <- read.single(sp.in, datum.count)

@@ -6,7 +6,7 @@ ASDBinary <- R6::R6Class("ASDBinary",
   public = list(
     initialize = function() {
       super$initialize(origin = "ASD",
-                       type_name = "visNIR", # TODO: true for all ASD files?
+                       type_name = "visNIR", # see issue #26
                        suffix = ".asd")
     },
 
