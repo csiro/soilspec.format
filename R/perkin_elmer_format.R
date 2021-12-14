@@ -191,7 +191,7 @@ read.pepe <- function(path) {
     metadata[["xLabel"]] <- xLabel
     metadata[["yLabel"]] <- yLabel
     metadata[["alias"]] <- alias
-    metadata[["mode"]] <-  # see issue #25
+    metadata[["mode"]] <- NULL # see issue #25
     metadata[["original name"]] <- original.name
     result[["metadata"]] <- metadata
   }
