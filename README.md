@@ -1,4 +1,4 @@
-![example workflow](https://github.com/CSIRO-Soils/soilspec.format/actions/workflows/test.yml/badge.svg)
+![test workflow](https://github.com/CSIRO-Soils/soilspec.format/actions/workflows/test.yml/badge.svg)
 
 # Overview
 soilspec.format is a package for extracting R data frames and
