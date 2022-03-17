@@ -5,6 +5,7 @@ source("R/nicolet_spa_format.R", local=T)
 source("R/thermo_spc_format.R", local=T)
 source("R/bruker_opus_binary_format.R", local=T)
 source("R/asd_binary_format.R", local=T)
+source("R/asd_sco_binary_format.R", local=T)
 source("R/perkin_elmer_format.R", local=T)
 source("R/csv_format.R", local=T)
 
@@ -13,6 +14,7 @@ soilspec.readers[[".spa"]] <- NicoletSpa$new()
 soilspec.readers[[".spc"]] <- ThermoSpc$new()
 soilspec.readers[[".0"]] <- BrukerOpusBinary$new()
 soilspec.readers[[".asd"]] <- ASDBinary$new()
+soilspec.readers[[".sco"]] <- ASDScoBinary$new()
 soilspec.readers[[".sp"]] <- PerkinElmerSP$new()
 soilspec.readers[[".csv"]] <- CSV$new()
 
@@ -136,6 +138,22 @@ read.soilspec.csv <- function(path) {
 read.asd.binary <- function(path) {
 
   read.soilspec.with.suffix(path, ".asd")
+}
+
+#' Read an ASD SCO Binary spectroscopy file.
+#' This function should be used when the file does not have the expected ".sco" suffix.
+#' A precondition for correct functioning is that the file is of the expected type.
+#' @export
+#' @param path Full path to the file
+#' @return A result list containing a file read status, a data.frame of
+#'         wavenumber-intensity pairs, a list of any available metadata,
+#'         instrument mode, units, whether wavenumbers are in descending order,
+#'         instrument origin, spectrum type;
+#'         status will be non-zero if file does not exist or cannot be read (1),
+#'         is of an unknown format (2) or some other error occurred (4).
+read.asd.sco.binary <- function(path) {
+
+  read.soilspec.with.suffix(path, ".sco")
 }
 
 #' Read a Thermo spc spectroscopy file.

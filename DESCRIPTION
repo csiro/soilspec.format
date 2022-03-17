@@ -1,6 +1,6 @@
 Package: soilspec.format
 Title: A package for extracting data frames and metadata from soil spectra of various formats.
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: 
     person(given = "David",
            family = "Benn",
@@ -19,6 +19,7 @@ Imports:
     hyperSpec,
     jsonlite,
     knitr,
+    prospectr,
     R6,
     Rcpp,
     rmarkdown,

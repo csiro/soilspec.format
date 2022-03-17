@@ -20,6 +20,24 @@ test_that("Read ASD binary example file with generic read function where suffix 
   testthat::expect_equal(object = result$status, expected = 0)
 })
 
+test_that("Read ASD SCO binary example file with generic read function", {
+  path <- soilspec.format::asd.sco.binary.file.path()
+  result <- soilspec.format::read.soilspec(path)
+
+  testthat::expect_equal(object = result$status, expected = 0)
+
+  testthat::expect_false(result$is.descending)
+
+  testthat::expect_equal(object = nrow(result$data),
+                         expected = 2151)
+})
+
+test_that("Read ASD SCO binary example file with generic read function where suffix case is changed", {
+  path <- soilspec.format::asd.sco.binary.file.path()
+  result <- soilspec.format::read.soilspec.with.suffix(path, ".SCO")
+  testthat::expect_equal(object = result$status, expected = 0)
+})
+
 test_that("Read Bruker Opus binary example file with generic read function", {
   path <- soilspec.format::bruker.opus.binary.file.path()
   result <- soilspec.format::read.soilspec(path)
@@ -123,6 +141,13 @@ test_that("Read CSV example file with generic read function where suffix case is
 test_that("Read ASD binary example file with format specific read function", {
   path <- soilspec.format::asd.binary.file.path()
   result <- soilspec.format::read.asd.binary(path)
+
+  testthat::expect_equal(object = result$status, expected = 0)
+})
+
+test_that("Read ASD SCO binary example file with format specific read function", {
+  path <- soilspec.format::asd.sco.binary.file.path()
+  result <- soilspec.format::read.asd.sco.binary(path)
 
   testthat::expect_equal(object = result$status, expected = 0)
 })
@@ -261,4 +286,11 @@ test_that("Attempt to read ASD binary file with invalid format using generic rea
     result <- soilspec.format::read.soilspec(path)
     testthat::expect_equal(object = result$status, expected = 4)
   }
+})
+
+test_that("Attempt to read ASD SCO binary file with invalid format using generic read function", {
+  path <- soilspec.format::unknown.file.path()
+  path <- stringr::str_replace(path, pattern="xyz", replacement = "sco")
+  result <- soilspec.format::read.soilspec(path)
+  testthat::expect_equal(object = result$status, expected = 4)
 })

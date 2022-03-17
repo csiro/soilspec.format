@@ -32,6 +32,14 @@ asd.binary.file.path <- function() {
               package = "soilspec.format")
 }
 
+#' Return the full path to the ASD SCO binary example file
+#' @export
+#' @return The full path to the ASD SCO binary example file
+asd.sco.binary.file.path <- function() {
+  system.file("extdata", "ASDScoBinary", "example.asd.sco",
+              package = "soilspec.format")
+}
+
 #' Return the full path to the Thermo spc example file
 #' @export
 #' @return The full path to the Thermo spc example file
