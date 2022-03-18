@@ -201,6 +201,11 @@ read.pepe <- function(path) {
   result
 }
 
+scale.intensity <- function(intensity, min.intensity, max.intensity, range.min, range.max) {
+  # e.g. see https://stackoverflow.com/questions/5294955/how-to-scale-down-a-range-of-numbers-with-a-known-min-and-max-value
+  (range.max - range.min)*(intensity - min.intensity) / (max.intensity - min.intensity) + range.min
+}
+
 read.peir <- function(path) {
   # read metadata
   lines <- readLines(path, n = 56)
@@ -219,6 +224,8 @@ read.peir <- function(path) {
     xEnd <- as.integer(lines[10])
     xDelta <- as.integer(lines[51])
     datum.count <- as.integer(lines[52])
+    range.max <- as.double(lines[54])
+    range.min <- as.double(lines[55])
 
     result <- list()
 
@@ -233,10 +240,12 @@ read.peir <- function(path) {
       data <- read.single(sp.in, datum.count)
       close(sp.in)
 
+      scaled.data <- lapply(data,
+                            function(n) {scale.intensity(n, min(data), max(data), range.min, range.max)})
+
       # create a sequence from the x-axis specification
       result[["x"]] <- seq(x0, xEnd, xDelta)
-
-      result[["y"]] <- data
+      result[["y"]] <- unlist(scaled.data)
 
       # return metadata as name-value pairs
       metadata <- list()

@@ -95,14 +95,14 @@ test_that("Read Perkin Elmer SP PE IR example file", {
                          expected = 7800, tolerance = 1e-4)
 
   testthat::expect_equal(object = result$data[1,]$intensity,
-                         expected = 8.086942e-39, tolerance = 1e-4)
+                         expected = 0.6823456, tolerance = 1e-4)
 
   last.index <- nrow(result$data)
   testthat::expect_equal(object = result$data[last.index,]$wavenumber,
                          expected = 450, tolerance = 1e-4)
 
   testthat::expect_equal(object = result$data[last.index,]$intensity,
-                         expected = 2.3159e-38, tolerance = 1e-4)
+                         expected = 1.726805, tolerance = 1e-4)
 
   testthat::expect_equal(object = length(result$metadata), expected = 7)
 
