@@ -201,9 +201,10 @@ read.pepe <- function(path) {
   result
 }
 
-scale.intensity <- function(intensity, min.intensity, max.intensity, range.min, range.max) {
-  # e.g. see https://stackoverflow.com/questions/5294955/how-to-scale-down-a-range-of-numbers-with-a-known-min-and-max-value
-  (range.max - range.min)*(intensity - min.intensity) / (max.intensity - min.intensity) + range.min
+scale.intensity <- function(intensity, intensity.min, intensity.max, range.min, range.max) {
+  # for one reasonable approach, see:
+  #  https://stackoverflow.com/questions/5294955/how-to-scale-down-a-range-of-numbers-with-a-known-min-and-max-value
+  (range.max - range.min)*(intensity - intensity.min) / (intensity.max - intensity.min) + range.min
 }
 
 read.peir <- function(path) {
