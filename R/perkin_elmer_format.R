@@ -41,7 +41,7 @@ PerkinElmerSP <- R6::R6Class("PerkinElmerSP",
       }
 
       if (status == 0) {
-        spec.df <- data.frame(wavenumber=result$x, intensity=result$y)
+        spec.df <- result$data
         meta.list <- result$metadata
         mode <- result$metadata$mode
       } else {
@@ -180,10 +180,8 @@ read.pepe <- function(path) {
   } else {
     status <- 0
 
-    # create a sequence from the x-axis specification
-    result[["x"]] <- seq(x0, xEnd, xDelta)
-
-    result[["y"]] <- data
+    # data frame with sequence from x-axis specification, and y data
+    result[["data"]] <- data.frame(wavenumber=seq(x0, xEnd, xDelta), intensity=data)
 
     # return metadata as name-value pairs
     metadata <- list()
@@ -244,9 +242,8 @@ read.peir <- function(path) {
       scaled.data <- lapply(data,
                             function(n) {scale.intensity(n, min(data), max(data), range.min, range.max)})
 
-      # create a sequence from the x-axis specification
-      result[["x"]] <- seq(x0, xEnd, xDelta)
-      result[["y"]] <- unlist(scaled.data)
+      # data frame with sequence from x-axis specification, and y data
+      result[["data"]] <- data.frame(wavenumber=seq(x0, xEnd, xDelta), intensity=unlist(scaled.data))
 
       # return metadata as name-value pairs
       metadata <- list()
