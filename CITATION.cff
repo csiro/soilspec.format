@@ -1,0 +1,15 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: soilspec.format
+message: 'If you use this software, please cite it as below.'
+type: software
+authors:
+  - given-names: David
+    family-names: Benn
+    email: david.benn@csiro.au
+    affiliation: >-
+      Commonwealth Scientific and Industrial Research
+      Organisation (CSIRO)
+    orcid: 'https://orcid.org/0000-0003-3839-8643'
