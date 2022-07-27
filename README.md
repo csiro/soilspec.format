@@ -11,7 +11,6 @@ R metadata lists from soil spectra of various formats, currently:
 * ASD SCO (.sco)
 * Perkin Elmer (.sp) [PEPE and PE IR magic numbers]
 
-#
 # Install
 
 	# need devtools and Rcpp packages
