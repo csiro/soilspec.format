@@ -16,9 +16,10 @@ R metadata lists from soil spectra of various formats, currently:
 	# need devtools and Rcpp packages
 	install.packages(c("devtools", "Rcpp"))
 	 
-	# need opusreader package
+	# need opusreader and opusreader2 packages
 	devtools::install_github("pierreroudier/opusreader")
-	 
+	devtools::install_github("spectral-cockpit/opusreader2")
+
 	# install package from GitHub where "..." is a GitHub Personal Access Token
 	devtools::install_github("CSIRO-Soils/soilspec.format", auth_token = "...")
 	
