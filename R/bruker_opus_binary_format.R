@@ -2,6 +2,7 @@
 #
 # See:
 # - https://github.com/pierreroudier/opusreader
+# - https://github.com/spectral-cockpit/opusreader2
 # - https://www.bruker.com/en/products-and-solutions/infrared-and-raman/ft-ir-routine-spectrometer/what-is-ft-ir-spectroscopy.html
 
 BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
@@ -21,10 +22,16 @@ BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
       mode <- NULL
 
       out <- tryCatch({
+        # metadata via opusreader
         spec.data <- opusreader::opus_read(path)
         mode <- spec.data$metadata$result_spc
-        spec.df <- data.frame(wavenumber=spec.data$wavenumbers, intensity=c(spec.data$spec))
         meta.list <- as.list(spec.data$metadata)
+
+        # data via opusreader2
+        spec2.data <- opusreader2::read_opus_file(path)
+        spec.df <- data.frame(wavenumber=spec2.data$spec$wavenumbers,
+                              intensity=spec2.data$spec$data[1:ncol(spec2.data$spec$data)])
+
         status <- 0
       },
       error=function(cond) {

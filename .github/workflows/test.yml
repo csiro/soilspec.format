@@ -30,6 +30,10 @@ jobs:
         run: devtools::install_github("pierreroudier/opusreader")
         shell: Rscript {0}
 
+      - name: install-opusreader2
+        run: devtools::install_github("spectral-cockpit/opusreader2")
+        shell: Rscript {0}
+
       - name: pkg-test
         run: devtools::test(stop_on_failure = T)
         shell: Rscript {0}
