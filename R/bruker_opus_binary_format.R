@@ -23,9 +23,9 @@ BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
 
       out <- tryCatch({
         # metadata via opusreader
-        spec.data <- opusreader::opus_read(path)
-        mode <- spec.data$metadata$result_spc
-        meta.list <- as.list(spec.data$metadata)
+        # spec.data <- opusreader::opus_read(path)
+        # mode <- spec.data$metadata$result_spc
+        # meta.list <- as.list(spec.data$metadata)
 
         # data via opusreader2
         # spec2.data <- opusreader2::read_opus_file(path)
@@ -40,6 +40,26 @@ BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
         #
         # status <- 0
 
+        # opus2 <- opusreader2::read_opus(path)
+        # fname <- names(opus2)[1]
+        # sc_sample <- opus2[[fname]][["sc_sample"]]
+        # spc <- sc_sample[["data"]]
+        # wavelength_a <- sc_sample[["wavenumbers"]]
+        # spec.df <- data.frame(wavenumber=wavelength_a, intensity=unlist(as.list(spc)))
+        #
+        # status <- 0
+      },
+      error=function(cond) {
+      },
+      warning=function(cond) {
+      },
+      finally={
+        # metadata via opusreader
+        spec.data <- opusreader::opus_read(path)
+        mode <- spec.data$metadata$result_spc
+        meta.list <- as.list(spec.data$metadata)
+
+        # data via opusreader2
         opus2 <- opusreader2::read_opus(path)
         fname <- names(opus2)[1]
         sc_sample <- opus2[[fname]][["sc_sample"]]
@@ -48,12 +68,6 @@ BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
         spec.df <- data.frame(wavenumber=wavelength_a, intensity=unlist(as.list(spc)))
 
         status <- 0
-      },
-      error=function(cond) {
-      },
-      warning=function(cond) {
-      },
-      finally={
       })
 
       super$create.result(status, mode, spec.df, meta.list)
