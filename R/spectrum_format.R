@@ -15,11 +15,13 @@ SpectrumFormat <- R6::R6Class("SpectrumFormat", public = list(
     self$suffix <- suffix
   },
 
-  # return status according to whether the file exists
-  # (1 = does not exist, 0 = does exist)
-  file_existence_status = function(path) {
+  # return status according to whether the file exists or has non-zero size
+  # (1 = does not exist, 4 = zero length, 0 = OK)
+  file_status = function(path) {
     if (!file.exists(path)) {
       1
+    } else if (file.info(path)$size == 0) {
+      4
     } else {
       0
     }

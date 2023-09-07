@@ -15,7 +15,7 @@ ASDBinary <- R6::R6Class("ASDBinary",
       meta.list <- NULL
       mode <- NULL
 
-      status <- super$file_existence_status(path)
+      status <- super$file_status(path)
 
       if (status == 0) {
         status <- 4

@@ -16,11 +16,11 @@ ThermoSpc <- R6::R6Class("ThermoSpc",
       status <- 4
       mode <- NULL
 
-      if (!file.exists(path)) {
-        status <- 1
-      } else if (file.info(path)$size == 0) {
-        # use defaults
-      } else {
+      status <- super$file_status(path)
+
+      if (status == 0) {
+        status <- 4
+
         out <- tryCatch({
         },
         error=function(cond) {

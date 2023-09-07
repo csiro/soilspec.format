@@ -11,15 +11,15 @@ ASDScoBinary <- R6::R6Class("ASDScoBinary",
    },
 
    read = function(path) {
-     spec.data <- NULL
      spec.df <- NULL
      meta.list <- NULL
-     status <- 4
      mode <- NULL
 
-     if (!file.exists(path)) {
-       status <- 1
-     } else if (file.info(path)$size != 0) {
+     status <- super$file_status(path)
+
+     if (status == 0) {
+       status <- 4
+
        out <- tryCatch({
        },
        error=function(cond) {

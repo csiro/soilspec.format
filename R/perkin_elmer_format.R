@@ -18,9 +18,10 @@ PerkinElmerSP <- R6::R6Class("PerkinElmerSP",
     },
 
     read = function(path) {
-      if (!file.exists(path)) {
-        status <- 1
-      } else {
+      status <- super$file_status(path)
+
+      if (status == 0) {
+        # which Perkin Elmer format is it?
         sp.file <- file(path, "rb")
         signature <- read.string(sp.file, 5)
         close(sp.file)
