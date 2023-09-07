@@ -15,9 +15,19 @@ SpectrumFormat <- R6::R6Class("SpectrumFormat", public = list(
     self$suffix <- suffix
   },
 
+  # return status according to whether the file exists
+  # (1 = does not exist, 0 = does exist)
+  file_existence_status = function(path) {
+    if (!file.exists(path)) {
+      1
+    } else {
+      0
+    }
+  },
+
   # each subclass must implement this to return a list
   # of the form returned by create.result
-  read = function() { list() },
+  read = function(path) { list() },
 
   # create a result list, possibly with some members that are NULL
   create.result = function(status=NULL, mode=NULL, data.df=NULL, meta.list=NULL) {

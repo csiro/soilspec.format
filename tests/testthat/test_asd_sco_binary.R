@@ -12,7 +12,10 @@ test_that("Get ASD SCO binary example file path", {
 test_that("Read ASD SCO binary example file", {
   asd.sco.binary <- soilspec.format::ASDScoBinary$new()
   path <- soilspec.format::asd.sco.binary.file.path()
-  result <- asd.sco.binary$read(path)
+
+  suppressWarnings({
+      result <- asd.sco.binary$read(path)
+  })
 
   testthat::expect_equal(object = result$status, expected = 0)
 

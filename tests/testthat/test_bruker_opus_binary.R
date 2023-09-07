@@ -12,7 +12,10 @@ test_that("Get Bruker Opus Binary example file path", {
 test_that("Read Bruker Opus Binary example file", {
   bruker <- soilspec.format::BrukerOpusBinary$new()
   path <- soilspec.format::bruker.opus.binary.file.path()
-  result <- bruker$read(path)
+
+  suppressWarnings({
+    result <- bruker$read(path)
+  })
 
   testthat::expect_equal(object = result$status, expected = 0)
 

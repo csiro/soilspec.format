@@ -12,7 +12,10 @@ test_that("Get Thermo spc example file path", {
 test_that("Read Thermo spc example file", {
   spc <- soilspec.format::ThermoSpc$new()
   path <- soilspec.format::thermo.spc.file.path()
-  result <- spc$read(path)
+
+  suppressWarnings({
+    result <- spc$read(path)
+  })
 
   testthat::expect_equal(object = result$status, expected = 0)
 

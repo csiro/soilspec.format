@@ -22,7 +22,10 @@ test_that("Read ASD binary example file with generic read function where suffix 
 
 test_that("Read ASD SCO binary example file with generic read function", {
   path <- soilspec.format::asd.sco.binary.file.path()
-  result <- soilspec.format::read.soilspec(path)
+
+  suppressWarnings({
+    result <- soilspec.format::read.soilspec(path)
+  })
 
   testthat::expect_equal(object = result$status, expected = 0)
 
@@ -34,13 +37,18 @@ test_that("Read ASD SCO binary example file with generic read function", {
 
 test_that("Read ASD SCO binary example file with generic read function where suffix case is changed", {
   path <- soilspec.format::asd.sco.binary.file.path()
-  result <- soilspec.format::read.soilspec.with.suffix(path, ".SCO")
+  suppressWarnings({
+    result <- soilspec.format::read.soilspec.with.suffix(path, ".SCO")
+  })
   testthat::expect_equal(object = result$status, expected = 0)
 })
 
 test_that("Read Bruker Opus binary example file with generic read function", {
   path <- soilspec.format::bruker.opus.binary.file.path()
-  result <- soilspec.format::read.soilspec(path)
+
+  suppressWarnings({
+    result <- soilspec.format::read.soilspec(path)
+  })
 
   testthat::expect_equal(object = result$status, expected = 0)
 
@@ -98,7 +106,10 @@ test_that("Read Nicolet spa example file with generic read function where suffix
 
 test_that("Read Thermo spc example file with generic read function", {
   path <- soilspec.format::thermo.spc.file.path()
-  result <- soilspec.format::read.soilspec(path)
+
+  suppressWarnings({
+    result <- soilspec.format::read.soilspec(path)
+  })
 
   testthat::expect_equal(object = result$status, expected = 0)
 
@@ -112,7 +123,11 @@ test_that("Read Thermo spc example file with generic read function", {
 
 test_that("Read Thermo spc example file with generic read function where suffix case is changed", {
   path <- soilspec.format::thermo.spc.file.path()
-  result <- soilspec.format::read.soilspec.with.suffix(path, ".SPC")
+
+  suppressWarnings({
+    result <- soilspec.format::read.soilspec.with.suffix(path, ".SPC")
+  })
+
   testthat::expect_equal(object = result$status, expected = 0)
 })
 
@@ -147,14 +162,20 @@ test_that("Read ASD binary example file with format specific read function", {
 
 test_that("Read ASD SCO binary example file with format specific read function", {
   path <- soilspec.format::asd.sco.binary.file.path()
-  result <- soilspec.format::read.asd.sco.binary(path)
+
+  suppressWarnings({
+    result <- soilspec.format::read.asd.sco.binary(path)
+  })
 
   testthat::expect_equal(object = result$status, expected = 0)
 })
 
 test_that("Read Bruker Opus binary example file with format specific read function", {
   path <- soilspec.format::bruker.opus.binary.file.path()
-  result <- soilspec.format::read.bruker.opus.binary(path)
+
+  suppressWarnings({
+    result <- soilspec.format::read.bruker.opus.binary(path)
+  })
 
   testthat::expect_equal(object = result$status, expected = 0)
 })
@@ -182,7 +203,10 @@ test_that("Read Nicolet spa example file with format specific read function", {
 
 test_that("Read Thermo spc example file with format specific read function", {
   path <- soilspec.format::thermo.spc.file.path()
-  result <- soilspec.format::read.thermo.spc(path)
+
+  suppressWarnings({
+    result <- soilspec.format::read.thermo.spc(path)
+  })
 
   testthat::expect_equal(object = result$status, expected = 0)
 })
