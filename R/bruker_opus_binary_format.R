@@ -40,10 +40,10 @@ BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
           # data via opusreader2
           opus2 <- opusreader2::read_opus(path)
           fname <- names(opus2)[1]
-          sc_sample <- opus2[[fname]][["sc_sample"]]
-          spc <- sc_sample[["data"]]
-          wavelength_a <- sc_sample[["wavenumbers"]]
-          spec.df <- data.frame(wavenumber=wavelength_a, intensity=unlist(as.list(spc)))
+          ab_no_atm_comp <- opus2[[fname]][["ab_no_atm_comp"]]
+          intensities <- ab_no_atm_comp[["data"]]
+          wavenumbers <- ab_no_atm_comp[["wavenumbers"]]
+          spec.df <- data.frame(wavenumber=wavenumbers, intensity=unlist(as.list(intensities)))
 
           status <- 0
         })
