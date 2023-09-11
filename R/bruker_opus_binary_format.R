@@ -34,7 +34,6 @@ BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
         finally={
           # metadata via opusreader
           spec.data <- opusreader::opus_read(path)
-          mode <- spec.data$metadata$result_spc
           meta.list <- as.list(spec.data$metadata)
 
           # data via opusreader2
@@ -44,6 +43,9 @@ BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
           intensities <- ab_no_atm_comp[["data"]]
           wavenumbers <- ab_no_atm_comp[["wavenumbers"]]
           spec.df <- data.frame(wavenumber=wavenumbers, intensity=unlist(as.list(intensities)))
+
+          # mode via opusreader2
+          mode <- opus2[[fname]]$acquisition$parameters$PLF$parameter_value
 
           status <- 0
         })
