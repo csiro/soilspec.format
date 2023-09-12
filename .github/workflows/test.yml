@@ -23,7 +23,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          r-version: '4.2.2'
+          r-version: '4.2.1'
           extra-packages: devtools
 
       - name: install-opusreader
