@@ -1,5 +1,14 @@
 # Example file path access functions
 
+
+
+#' Return the full path to the Hone Lab Red example file
+#' @export
+#' @return The full path to the Hone Lab Red example file
+hone.lab.red.file.path <- function() {
+  system.file("extdata", "HoneLabRed", "example.hlr", package = "soilspec.format")
+}
+
 #' Return the full path to the Bruker Opus Binary example file
 #' @export
 #' @return The full path to the Bruker Opus Binary example file
