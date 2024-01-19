@@ -9,6 +9,43 @@
 library(stringr)
 
 
+makeStandardMetaData_HoneLabRed <- function(meta.list, filepath){
+
+    md <- createStandardMetadataContainer()
+
+    md[['Sample_ID']] <- meta.list$Sample.ID
+    md[['Spectra_ID']] <- meta.list$SpectrumId
+    md[['spectra_source_file_name']] <- basename(filepath)
+
+    rawDate <- meta.list$Date.Time
+    bits <- stringr::str_split(rawDate, '_')
+    dt <- sapply(bits, function (x) x[1])
+    tm <- sapply(bits, function (x) x[2])
+    d1 <- as.POSIXct(paste0(stringr::str_sub(dt, 1,4), '-', stringr::str_sub(dt, 5,6), '-', stringr::str_sub(dt, 7,8), ' ',
+                            stringr::str_sub(tm, 1,2), ':', stringr::str_sub(tm, 3,4), ':', stringr::str_sub(tm, 5,6)),
+                            tz = Sys.timezone())
+    md[['DateTime']] <- format(d1, format = '%d-%m-%Y %H:%M:%S')
+
+    # # DB Fields
+
+
+    md[['instrument_technology_type']] <- 'NIR'
+    md[['instrument_manufacturer']] <- 'HoneAg'
+    md[['instrument_model']] <- meta.list$HlrType
+    md[['instrument_serial_number']] <- meta.list$SerialName
+    md[['instrument_resolution']] <- '16-20 nm'
+    md[['instrument_min_wavelength']] <- '1350'
+    md[['instrument_max_wavelength']] <- '2550'
+    md[['instrument_units']] <- 'nm'
+
+    md[['spectra_temperature']] <- meta.list$NeoTemperaturePost
+    md[['spectra_humidity']] <- ''
+
+  return(md)
+
+}
+
+
 HoneLabRed <- R6::R6Class("HoneLabRed",
                    inherit = SpectrumFormat,
 
@@ -24,7 +61,7 @@ HoneLabRed <- R6::R6Class("HoneLabRed",
                        spec.df <- NULL
                        meta.list <- NULL
                        mode <- NULL
-
+                       stdmeta <- NULL
                        status <- super$file_status(path)
 
                        if (status == 0) {
@@ -55,6 +92,8 @@ HoneLabRed <- R6::R6Class("HoneLabRed",
                            ml <- as.list(b[[1]])
                            names(ml) <- rownames(b)
                            meta.list <- ml[1:39]
+                           stdmeta <- makeStandardMetaData_HoneLabRed(meta.list, path)
+
                            status <- 0
 
                          },
@@ -66,7 +105,9 @@ HoneLabRed <- R6::R6Class("HoneLabRed",
                          })
                        }
 
-                       super$create.result(status=status, mode=mode, spec.df, meta.list)
+
+
+                       super$create.result(status=status, mode=mode, data.df=spec.df, meta.list=meta.list, std_meta=stdmeta)
                      }
                    )
 )

@@ -2,6 +2,17 @@ library(stringr)
 library(soilspec.format)
 
 
+path <- hone.lab.red.file.path()
+path <- asd.binary.file.path()
+path <-  asd.sco.binary.file.path ()
+
+path <-  bruker.opus.binary.file.path()
+spec <- read.soilspec(path)
+
+hone <- read.soilspec(path)
+
+
+
 adf <- read.csv('C:/Projects/Spectra/Hone - ACIAR Pacific Soils_20231121_083528__001.csv')
 colnames(adf)
 
@@ -24,8 +35,8 @@ pths <- c(hone.lab.red.file.path(),
 outDir <- 'C:/Temp/SpectraMeta'
 for (i in 1:length(pths)) {
 
-  p <- pths[i]
-  spec <- read.soilspec(p)
+  path <- pths[i]
+  spec <- read.soilspec(path)
   str(spec)
   #ext <- strsplit(basename(p), split="\\.")[[1]][2]
   #fname <- str_remove(basename(p), paste0('.', ext))
@@ -38,7 +49,7 @@ for (i in 1:length(pths)) {
 library(opusreader2)
 asd <- read.soilspec(asd.binary.file.path())
 bruckerBinary <- read.soilspec(bruker.opus.binary.file.path())
-hone <- read.soilspec(hone.lab.red.file.path())
+
 
 path <- 'C:/Projects/Spectra/Hone_Test_1.csv'
 path <- 'C:/Users/sea084/AppData/Local/R/win-library/4.3/soilspec.format/extdata/HoneLabRed/example.hlr'

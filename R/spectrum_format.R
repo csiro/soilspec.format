@@ -32,10 +32,11 @@ SpectrumFormat <- R6::R6Class("SpectrumFormat", public = list(
   read = function(path) { list() },
 
   # create a result list, possibly with some members that are NULL
-  create.result = function(status=NULL, mode=NULL, data.df=NULL, meta.list=NULL) {
+  create.result = function(status=NULL, mode=NULL, data.df=NULL, meta.list=NULL, std_meta=NULL) {
     result <- list()
 
-
+print('#############################################################')
+print(std_meta)
     result[["status"]] <- status
     result[["mode"]] <- mode
     if (status == 0) {
@@ -46,8 +47,12 @@ SpectrumFormat <- R6::R6Class("SpectrumFormat", public = list(
     result[["origin"]] <- self$origin
     result[["type"]] <- self$type_name
     result[["data"]] <- data.df
-    result[["metadata"]] <- meta.list
+    result[["standardisedMetadata"]] <- std_meta
+    result[["allInstrumentMetadata"]] <- meta.list
 
     result
   }
+
 ))
+
+

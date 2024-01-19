@@ -1,5 +1,20 @@
 # ASD SCO binary format, e.g. for vis-NIR contact probe
 
+
+
+makeStandardMetaData_ASD_SCO <- function(meta.list, filepath){
+
+  md <- createStandardMetadataContainer()
+  md[['spectra_source_file_name']] <- meta.list$name
+
+  return(md)
+}
+
+
+
+
+
+
 ASDScoBinary <- R6::R6Class("ASDScoBinary",
   inherit = SpectrumFormat,
 
@@ -14,6 +29,7 @@ ASDScoBinary <- R6::R6Class("ASDScoBinary",
      spec.df <- NULL
      meta.list <- NULL
      mode <- NULL
+     stdmeta <- NULL
 
      status <- super$file_status(path)
 
@@ -35,11 +51,12 @@ ASDScoBinary <- R6::R6Class("ASDScoBinary",
 
          meta.list <- list()
          meta.list[["name"]] <- colnames(spec.data)
+         stdmeta <- makeStandardMetaData_ASD_SCO(meta.list, path)
          status <- 0
        })
      }
 
-     super$create.result(status, mode, spec.df, meta.list)
+     super$create.result(status, mode, spec.df, meta.list, stdmeta )
   }
   )
 )
