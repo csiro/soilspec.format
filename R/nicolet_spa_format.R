@@ -1,5 +1,23 @@
 # Nicolet .spa format, from Nicolet MIR
 
+library(stringr)
+
+
+makeStandardMetaData_NicoletSpa <- function(meta.list, filepath){
+
+  md <- createStandardMetadataContainer()
+  md[['spectra_source_file_name']] <- basename(filepath)
+  resLine <- meta.list$Resolution
+  bits <- stringr::str_split(resLine, ' ')
+  print(bits)
+  md[['instrument_resolution']] <- bits[[1]][1]
+  md[['instrument_min_wavelength']] <- bits[[1]][3]
+  md[['instrument_max_wavelength']] <- bits[[1]][5]
+
+  return(md)
+}
+
+
 NicoletSpa <- R6::R6Class("NicoletSpa",
   inherit = SpectrumFormat,
   public = list(
@@ -13,18 +31,24 @@ NicoletSpa <- R6::R6Class("NicoletSpa",
       result <- parse_nicolet_spa(path)
       status <- as.integer(result$status)
 
+      stdmeta <- NULL
+
       if (status == 0) {
         spec.df <- data.frame(wavenumber=result$wavelengths, intensity=result$intensities)
         meta.list <- key.value.pairs(path)
         mode <- meta.list[["Final format"]]
+       # print(meta.list)
+        stdmeta <- makeStandardMetaData_NicoletSpa(meta.list, path)
+
       } else {
         status <- 4
         spec.df <- NULL
         meta.list <- NULL
+        stdmeta <- NULL
         mode <- NULL
       }
 
-      super$create.result(status, mode, spec.df, meta.list)
+      super$create.result(status, mode, spec.df, meta.list, std_meta=stdmeta)
     }
   )
 )
@@ -51,10 +75,11 @@ key.value.pairs <- function(path) {
       # e.g. C:\\a\b\c
       value <- stringr::str_squish(paste(keyval[2:length(keyval)], collapse=delimiter))
       key2value[[key]] <- value
+
     }
   }
+return(key2value)
 
-  key2value
 }
 
 # Return list of strings of minimum length with specified characters excluded
@@ -94,6 +119,7 @@ strings.from.spa <- function(path, min.str.len=6, chrs.to.exclude=c("?", ";", "$
                                })))) {
           # no exclusion chars exist in string, so retain it
           strings[[index]] <- str
+
           index <- index + 1
         }
       }
@@ -101,8 +127,8 @@ strings.from.spa <- function(path, min.str.len=6, chrs.to.exclude=c("?", ";", "$
       last <- 0
     }
   }
-
   strings
+
 }
 
 remove.formatting.markers <- function(str) {

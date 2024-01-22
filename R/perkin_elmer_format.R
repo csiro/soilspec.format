@@ -20,6 +20,9 @@ PerkinElmerSP <- R6::R6Class("PerkinElmerSP",
     read = function(path) {
       status <- super$file_status(path)
 
+      stdmeta <- createStandardMetadataContainer()  ### raw spec file does not contain any metadata so just
+      #   returning and empty standard metadata object for consistency
+
       if (status == 0) {
         # which Perkin Elmer format is it?
         sp.file <- file(path, "rb")
@@ -44,6 +47,8 @@ PerkinElmerSP <- R6::R6Class("PerkinElmerSP",
       if (status == 0) {
         spec.df <- result$data
         meta.list <- result$metadata
+
+
         mode <- result$metadata$mode
       } else {
         spec.df <- NULL
@@ -51,7 +56,7 @@ PerkinElmerSP <- R6::R6Class("PerkinElmerSP",
         mode <- NULL
       }
 
-      super$create.result(status, mode, spec.df, meta.list)
+      super$create.result(status, mode, spec.df, meta.list, std_meta=stdmeta)
     }
   )
 )

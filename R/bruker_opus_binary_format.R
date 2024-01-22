@@ -16,9 +16,7 @@ makeStandardMetaData_BrukerOpusBinary <- function(meta.list, opus2, filepath){
   md[['spectra_source_file_name']] <- basename(filepath)
   md[['DateTime']] <- opus2$example.0$basic_metadata$local_datetime
 
-
   # # DB Fields
-
   md[['instrument_technology_type']] <- 'MIR'
   md[['instrument_manufacturer']] <- 'Bruker'
   md[['instrument_model']] <- meta.list$instr_name_range
@@ -27,16 +25,12 @@ makeStandardMetaData_BrukerOpusBinary <- function(meta.list, opus2, filepath){
   waveNums <- opus2$example$ab_no_atm_comp$wavenumbers
   md[['instrument_min_wavelength']] <- min(waveNums)
   md[['instrument_max_wavelength']] <- max(waveNums)
-
   md[['spectra_temperature']] <- meta.list$temp_scanner_sm
   md[['spectra_humidity']] <- meta.list$hum_abs_sm
 
   return(md)
 
 }
-
-# library(listviewer)
-# jsonedit( opus2 )
 
 
 

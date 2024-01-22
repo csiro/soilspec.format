@@ -77,6 +77,6 @@ perkin.elmer.sp.peir.file.path <- function() {
 #' @export
 #' @return The full path to the Unknown example file
 unknown.file.path <- function() {
-  system.file("extdata", "Unknown", "example.xyz",
+  system.file("extdata", "Unknown", "example.csv",
               package = "soilspec.format")
 }

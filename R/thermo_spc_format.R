@@ -32,11 +32,13 @@ ThermoSpc <- R6::R6Class("ThermoSpc",
           spec.df <- data.frame(wavenumber=as.double(names(spec.data$spc[,])),
                                 intensity=as.double(spec.data$spc[,]))
           meta.list <- list()
+          stdmeta <- createStandardMetadataContainer()  ### raw spec file does not contain any metadata so just
+                                                                #   returning and empty standard metadata object for consistency
           status <- 0
         })
       }
 
-      super$create.result(status, mode, spec.df, meta.list)
+      super$create.result(status, mode, spec.df, meta.list, std_meta=stdmeta)
     }
   )
 )

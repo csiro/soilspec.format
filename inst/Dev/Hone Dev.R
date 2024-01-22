@@ -5,8 +5,12 @@ library(soilspec.format)
 path <- hone.lab.red.file.path()
 path <- asd.binary.file.path()
 path <-  asd.sco.binary.file.path ()
-
 path <-  bruker.opus.binary.file.path()
+path <- nicolet.spa.file.path()
+path <- thermo.spc.file.path()
+path <- perkin.elmer.sp.pepe.file.path()
+
+path <- unknown.file.path()
 spec <- read.soilspec(path)
 
 hone <- read.soilspec(path)

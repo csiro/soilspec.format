@@ -14,7 +14,8 @@ CSV <- R6::R6Class("CSV",
        spec.df <- NULL
        meta.list <- NULL
        mode <- NULL
-
+       stdmeta <- createStandardMetadataContainer()  ### raw spec file does not contain any metadata so just
+                                                     #   returning and empty standard metadata object for consistency
        status <- super$file_status(path)
 
        if (status == 0) {
@@ -39,7 +40,7 @@ CSV <- R6::R6Class("CSV",
          })
        }
 
-       super$create.result(status, mode, spec.df, meta.list)
+       super$create.result(status, mode, spec.df, meta.list, std_meta=stdmeta)
      }
    )
 )
