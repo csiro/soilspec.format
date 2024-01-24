@@ -7,11 +7,14 @@
 getTransformationInfo(type = NULL)
 }
 \arguments{
-\item{type}{Transformation types to return}
+\item{type}{Transformation types to return  c('Preprocessing', 'Harmonisation')}
 }
 \value{
 A dataframe of spectral transformation information
 }
 \description{
 Return information about the available spectral transformations.
+}
+\examples{
+getTransformationInfo('Preprocessing')
 }

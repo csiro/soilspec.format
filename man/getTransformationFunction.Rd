@@ -15,3 +15,6 @@ A spectra transformation function
 \description{
 Return a transformation function.
 }
+\examples{
+getTransformationFunction('transformationName')
+}

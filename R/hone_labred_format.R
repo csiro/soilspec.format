@@ -6,7 +6,6 @@
 #####       Comments :  wavelength range is 1350 - 2550      #####
 ##################################################################
 
-library(stringr)
 
 
 makeStandardMetaData_HoneLabRed <- function(meta.list, filepath){

@@ -3,7 +3,7 @@ library(soilspec.format)
 library(tidyverse)
 library(signal)
 
-
+data('australia')
 class(australia)
 big.head(australia)
 summary(australia)
@@ -39,6 +39,7 @@ big.head(ts)
 pre_proc_nir <- function(spc,n=11,p=2,m=0){
 
   spc_abs <- data.frame(log(1/spc)) #absorbance
+
 
   spectra(spc_abs) <- ~350:2500
 

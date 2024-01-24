@@ -1,13 +1,19 @@
 Package: soilspec.format
-Title: A package for extracting data frames and metadata from soil spectra of various formats.
-Version: 0.0.0.9001
+Title: A package for extracting data frames and metadata from soil spectra of various formats and applying standardised transformations
+Version: 0.0.0.9002
 Authors@R: 
-    person(given = "David",
+   c( person(given = "David",
            family = "Benn",
            role = c("aut", "cre"),
            email = "david.benn@csiro.au",
-           comment = c(ORCID = "0000-0003-3839-8643"))
-Description: A package for extracting data frames and metadata from soil spectra of various formats.
+           comment = c(ORCID = "0000-0003-3839-8643")),
+    person(given = "Ross",
+           family = "Searle",
+           role = c("aut"),
+           email = "ross.searle@csiro.au",
+           comment = c(ORCID = "0000-0003-0256-1496"))
+           )
+Description: A package for extracting data frames and metadata from soil spectra of various formats and applying standardised transformations.
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
 Encoding: UTF-8
