@@ -34,9 +34,10 @@ transform_PCA <- function(){
 }
 
 ### A named list of the available transformations
-transformationFunctions <-  c(
-  pre_proc_nir=transform_Pre_proc_NIR,
-  pca=transform_PCA
+transformationFunctions <-
+  c(
+      pre_proc_nir = transform_Pre_proc_NIR,
+      pca = transform_PCA
 )
 
 
