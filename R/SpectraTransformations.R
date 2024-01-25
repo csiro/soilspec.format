@@ -9,6 +9,7 @@
 #### Currently this is just dev code supplied by James Moloney for dev purposes
 transform_Pre_proc_NIR <- function(spec, args){
 
+  args <- str_replace_all(args, 'eq', '=')
   parsed <- parse(text = args)
   typeof(parsed)
   eval(parsed)

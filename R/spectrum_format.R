@@ -35,7 +35,7 @@ SpectrumFormat <- R6::R6Class("SpectrumFormat", public = list(
   create.result = function(status=NULL, mode=NULL, data.df=NULL, meta.list=NULL, std_meta=NULL) {
     result <- list()
 
-#print(std_meta)
+print(std_meta)
 
     result[["status"]] <- status
     result[["mode"]] <- mode
