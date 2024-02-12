@@ -13,12 +13,16 @@ path <- perkin.elmer.sp.pepe.file.path()
 path <- unknown.file.path()
 spec <- read.soilspec(path)
 
-hone <- read.soilspec(path)
+spec <- read.soilspec(path)
+str(spec)
 
 
-
-adf <- read.csv('C:/Projects/Spectra/Hone - ACIAR Pacific Soils_20231121_083528__001.csv')
+path <- 'C:/Projects/Spectra/Hone - ACIAR Pacific Soils_20231121_083528__001.csv'
+adf <- read.csv(path)
 colnames(adf)
+head(adf[1:6, 1:10])
+parseHoneLabRed(path = path, outDirectory = 'C:/Temp/hp2')
+
 
 
 remotes::install_github("pierreroudier/opusreader")

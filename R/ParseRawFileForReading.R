@@ -10,7 +10,7 @@
 ########################################################################
 
 
-parseHoneLabRed <- function(path = path, outDirectory = outDirectory)
+#parseHoneLabRed <- function(path = path, outDirectory = outDirectory)
 #' @title Parse a raw Hone Lab Red spectra file containing multiple spectra
 #' @description  Parses a raw Hone Lab Red spectra file containing multiple spectra into individual files containing a single spectra for reading in read.soilspec() function
 #' @export
@@ -49,5 +49,9 @@ if(!dir.exists(outDirectory)){dir.create(outDirectory)}
 
       }
   }
-
 }
+
+
+
+
+

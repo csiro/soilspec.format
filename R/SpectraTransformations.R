@@ -2,26 +2,54 @@
 #####       Author : Ross Searle                                 #####
 #####       Date :  Tue Jan 23 15:15:54 2024                     #####
 #####       Purpose : Standard spectra transformation functions  #####
-#####       Comments :                                           #####
+#####       Comments : These transformation Functions are used   #####
+#####                  in the CSIRO Soil Spectral Selection      #####
+#####                  platform.                                 #####
 ######################################################################
 
 
-#### Currently this is just dev code supplied by James Moloney for dev purposes
+#### Currently this is just dev code supplied by James Moloney for dev
+
+
+
+
+
+
+##################################################################
+#####       Author : Ross Searle                             #####
+#####       Date :  Mon Jan 29 06:57:07 2024                 #####
+#####       Name :  pre_proc_nir                             #####
+#####       Type :  Preprocessing                            #####
+#####       Purpose : Converts a Hone Spectra from           #####
+#####                 Reflactance to Absorbance and applies  #####
+#####                 a smoothing function.                  #####
+#####       Comments : This is totally fake for demo puposes #####
+#####                  only. Do not use in the real world.    #####
+#####                                                        #####
+##################################################################
+
+
+
+
+
+
+
 transform_Pre_proc_NIR <- function(spec, args){
 
-  args <- str_replace_all(args, 'eq', '=')
+  args <- stringr::str_replace_all(args, 'eq', '=')
   parsed <- parse(text = args)
   typeof(parsed)
   eval(parsed)
 
 spec <- apply_spectra(spec, function(x) log(1/x))#### change to absorbance
-  ###spc_abs <- data.frame(log(1/spec)) #absorbance
+
+spec <- spectacles::cut(spec, wl=450:2450)
 
 
  # spectra(spc_abs) <- ~350:2500
   nir_p <- spec %>%
     spectacles::cut(wl =450:2450) %>%
-  spectacles::apply_spectra(sgolayfilt, n=n, p=p, m=m) %>%
+  spectacles::apply_spectra(signal::sgolayfilt, n=n, p=p, m=m) %>%
   spectacles::apply_spectra(snv)
   return(nir_p)
 

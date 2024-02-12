@@ -4,7 +4,7 @@
 \alias{parseHoneLabRed}
 \title{Parse a raw Hone Lab Red spectra file containing multiple spectra}
 \usage{
-parseHoneLabRed(path = path, outDirectory = outDirectory)
+parseHoneLabRed(path, outDirectory)
 }
 \arguments{
 \item{path}{Full path to the raw Hone Lab Red spectra file}
