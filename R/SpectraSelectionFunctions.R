@@ -8,7 +8,8 @@
 #####       Comments :                                                  #####
 #############################################################################
 
-
+library(geometry)
+library(clhs)
 
 
 
@@ -32,10 +33,87 @@ grow_polygon_along_centroid <- function(vertices, scale_factor) {
 }
 
 
+
+SAPI_ChullNew <- function(Local_Spectra, PcaPopulation, npoints=100, bufferFraction = 0.2) {
+  # Read data frames from RDS files
+  #this section should parse a collection of selected spectra from json,
+  #at the moment, im just sourcing a .rds file in the materials folder
+  #
+  # LocalSpec <- as.data.frame(readRDS(Local_Spectra_path))[1:200,]
+  # numeric_col_names <- grep("^\\d+$", names(LocalSpec), value = TRUE)
+  #
+  # for(i in 2:ncol(LocalSpec)) {
+  #   LocalSpec[,i] <- as.numeric(LocalSpec[,i])
+  # }
+  #
+  #
+  #
+  # #insert metadata or condition check here to identify which ""AR"" dataset and projection to source. this is probably passed to the api as an argument.
+  # Projection <- readRDS(projectionsPath)
+  #
+  #
+  # Scaled_Loc <- scale(LocalSpec[,numeric_col_names], center = Projection$Center, scale = Projection$Scale)
+
+  #grab projected national data, and the indexed specIDs
+
+  PCAsample <- prcomp(Local_Spectra, center = T, scale. = T)
+
+
+  #specIDs <- readRDS(nationalSpecLibPath)[,2]
+  specIDs <- PcaPopulation$SpecID
+
+  # dfA <- readRDS(projectedNatPath)
+  # dfB <- as.data.frame(as.matrix(Scaled_Loc)%*%Projection$Rotations)
+  # Extract coordinates
+
+  dfA <- PcaPopulation[, -c(1:3)]
+
+  dfB <- PCAsample
+
+  coordinatesA <- dfA[, 1:3]
+  coordinatesB <- dfB$x[, 1:3]
+
+  # Calculate the convex hull of DataFrame B
+  convexHullB <- convhulln(coordinatesB)
+
+  # Buffer out the convex hull by 1/5th of its magnitude
+  hullVertices <- coordinatesB[convexHullB, ]
+
+  bufferedHullVertices <- grow_polygon_along_centroid(hullVertices,1+bufferFraction)
+
+
+  # Buffer out the hull by 1+x th of its magnitude in each dimension. this is not currently doing this, its just increasing the magnitude, need to grow along normals.
+  # bufferedHullVertices <- hullVertices + (1+bufferFraction) * hullVertices
+
+
+  # Use convex hull computation for n dimensions from the geometry package
+
+  # Calculate the convex hull of the buffered vertices
+  bufferedConvexHullB <- convhulln(bufferedHullVertices)
+  #str(bufferedConvexHullB)
+
+  #the convex hull is described as a series of points within the original dataset, to make the overlay work, we need to add the vertexes referenced to the top of the projected national set.
+  Comb_coords <- rbind(bufferedHullVertices,coordinatesA)
+
+  point_inside_hull <- which(inhulln(bufferedConvexHullB,p = as.matrix(Comb_coords)))
+  point_inside_hull <- which(point_inside_hull>nrow(bufferedHullVertices))
+
+  Selected <- clhs::clhs(dfA,size = npoints,use.cpp = T,iter=50)  #### reduced iter by a lot to get it to run quicker
+
+
+  return(specIDs[Selected])
+}
+
+
+
+
+
+
+
 SAPI_Chull <- function(Local_Spectra_path, npoints=100, bufferFraction = 0.2) {
   # Read data frames from RDS files
   #this section should parse a collection of selected spectra from json,
-  #at the moment, im just sorcing a .rds file in the materials folder
+  #at the moment, im just sourcing a .rds file in the materials folder
   #
   LocalSpec <- as.data.frame(readRDS(Local_Spectra_path))[1:200,]
   numeric_col_names <- grep("^\\d+$", names(LocalSpec), value = TRUE)
