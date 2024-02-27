@@ -5,6 +5,7 @@ library(spectacles)
 library(tidyverse)
 library(signal)
 library(soilspec.format)
+library(jsonview)
 
 
 
@@ -14,6 +15,8 @@ doQuery <- function(con, sql){
   dbClearResult(res)
   return(rows)
 }
+
+
 
 pre_proc_nir <- function(spc,n,p,m){
   spc_abs <- data.frame(log(1/spc)) #absorbance
@@ -76,6 +79,8 @@ saveRDS(rawDBSpec, 'C:/Projects/Spectra/workflowTesting/DBDumpofSpectraTable.rds
 rawDBSpec <- readRDS('C:/Projects/Spectra/workflowTesting/DBDumpofSpectraTable.rds')
 
 MIR <- rawDBSpec[rawDBSpec$spectra_type=='MIR',]
+
+specIDS <- sample(MIR$spectra_id, 20)
 
 ###.................................... ####
 

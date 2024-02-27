@@ -39,43 +39,47 @@ tcon <- DBI::dbConnect(odbc::odbc(),
 
 
 
-###### Now we need to select out spectra with required chem data  #####
-
-oPCA <- readRDS( 'C:/Projects/Spectra/workflowTesting/NIR_PCA_1_to_10.rds')
-
+nToReturn=100
+bufferFraction = 0.2
 att <- '4A1'
-SpecType <- 'visNIR'
-
-sql <- paste0("SELECT o.agency_code, o.proj_code, o.s_id, o.o_id, lr.h_no, lr.samp_no, lr.labr_no, lr.labm_code, o.o_latitude_GDA94, o.o_longitude_GDA94, s.samp_lower_depth, s.samp_upper_depth, o.o_date_desc, lm.LABM_NAME, lr.labr_value, sp.spectra_id, sp.spectra_type, sp.method_id,
-             sp.spectra_source_file_name, sp.spectra_mode, sp.spectra_wavesignature_units
-FROM   dbo.OBSERVATIONS AS o INNER JOIN
-             dbo.SAMPLES AS s ON s.agency_code = o.agency_code AND s.proj_code = o.proj_code AND s.s_id = o.s_id AND s.o_id = o.o_id INNER JOIN
-             dbo.LAB_RESULTS AS lr ON lr.agency_code = s.agency_code AND lr.proj_code = s.proj_code AND lr.s_id = s.s_id AND lr.o_id = s.o_id AND lr.h_no = s.h_no AND lr.samp_no = s.samp_no INNER JOIN
-             dbo.LAB_METHODS AS lm ON lm.LABM_CODE = lr.labm_code INNER JOIN
-             dbo.SPECTRA AS sp ON sp.agency_code = s.agency_code AND sp.proj_code = s.proj_code AND sp.s_id = s.s_id AND sp.o_id = s.o_id AND sp.h_no = s.h_no AND sp.samp_no = s.samp_no
-WHERE (lr.labm_code = N'", att, "') and (sp.spectra_type = '", SpecType, "')")
+specType <- 'visNIR'
+correctionID = 1
+reductionID = 1
+nDim=4
 
 
-phSpec <- doQuery(tcon, sql)
+####### Get a subsample fro spectra table hopefully contiguous
 
-specIds <- phSpec$spectra_id
-head(specIds)
-length(specIds)
+ids <- c('83427;82843;83177;83200;83254;83481;82812;83341;83674;83060;83628;83094;82772;83144;82984;83199;82990;83035;82992;83070')
 
-idxs <- which(oPCA$SpecID %in% specIds)
-selectPop <- oPCA[idxs,]
+rawDBSpec <- getSpectraFromDB(ids)
 
-mySpecPath <- 'C:/Projects/Spectra/Selection/Materials/Test_Set_B.RDS'
-sampleSpec <- readRDS(mySpecPath)
-mySpec <- as.data.frame(sampleSpec[1:20,])
-mySpec[1:10, 1:10]
-### Some weird stuff going on with data types
-y <- mySpec[, c(-1)]
-x <- data.frame(sapply(y, function(x) as.numeric(as.character(x))))
 
-sapply(x, class)
+###.................................... ####
 
-SAPI_ChullNew(Local_Spectra=x, PcaPopulation=selectPop, npoints=100, bufferFraction = 0.2)
+####### Start The NIR Processing workflow  #####
+NIR <- rawDBSpec[rawDBSpec$spectra_mode=='VisNIR',]
 
+
+outDir <- 'c:/temp/specDFSamples'
+if(!dir.exists(outDir)){dir.create(outDir)}
+
+
+#####  Transform the individual spectra into a combined dataframe  ####
+res <- vector("list", length = nrow(NIR))
+
+for (i in 1:nrow(NIR)) {
+  print(paste0(i, ' of ', nrow(NIR)))
+  rawSpecFile <- fromJSON(NIR$spectra_json_obj[[i]])
+  vals <- t(rawSpecFile$values)
+  colnames(vals) <- t(rawSpecFile$wavesignatures)
+
+  df <- data.frame(SpecID=NIR$spectra_id[i], vals, check.names = F)
+  res[[i]] <- df
+}
+
+specDF = as.data.frame(data.table::rbindlist(res, fill=T))
+
+saveRDS(specDF, paste0(outDir,'/NIRSpectraAsDF2.rds'))
 
 

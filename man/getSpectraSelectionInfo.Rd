@@ -2,7 +2,7 @@
 % Please edit documentation in R/SpectraSelectionFunctions.R
 \name{getSpectraSelectionInfo}
 \alias{getSpectraSelectionInfo}
-\title{Return information about the available spectral transformations.}
+\title{Return information about the available spectral selection functions.}
 \usage{
 getSpectraSelectionInfo()
 }
@@ -10,11 +10,11 @@ getSpectraSelectionInfo()
 \item{type}{Transformation types to return  c('Preprocessing', 'Harmonisation')}
 }
 \value{
-A dataframe of spectral transformation information
+A dataframe of spectral selection information
 }
 \description{
-Return information about the available spectral transformations.
+Return information about the available spectral selection functions.
 }
 \examples{
-getTransformationInfo('Preprocessing')
+getSpectraSelectionInfo()
 }
