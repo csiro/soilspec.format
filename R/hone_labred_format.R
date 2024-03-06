@@ -36,6 +36,7 @@ makeStandardMetaData_HoneLabRed <- function(meta.list, filepath){
     md[['instrument_min_wavelength']] <- '1350'
     md[['instrument_max_wavelength']] <- '2550'
     md[['instrument_units']] <- 'nm'
+    md[['spectra_wavesignature_units']] <- 'nm'
 
     md[['spectra_temperature']] <- meta.list$NeoTemperaturePost
     md[['spectra_humidity']] <- ''

@@ -10,6 +10,7 @@ makeStandardMetaData_ASD <- function(meta.list, filepath){
   md[['spectra_source_file_name']] <- basename(filepath)
   md[['Response']] <- meta.list$data_type
   md[['DateTime']] <- meta.list$dc_time
+  md[['spectra_wavesignature_units']] <- 'nm'
 
    # DB Fields
 

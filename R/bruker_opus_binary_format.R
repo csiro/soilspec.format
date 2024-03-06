@@ -21,6 +21,7 @@ makeStandardMetaData_BrukerOpusBinary <- function(meta.list, opus2, filepath){
   md[['instrument_manufacturer']] <- 'Bruker'
   md[['instrument_model']] <- meta.list$instr_name_range
   md[['instrument_serial_number']] <- meta.list$SerialName
+  md[['spectra_wavesignature_units']] <- 'wn'
 
   waveNums <- opus2$example$ab_no_atm_comp$wavenumbers
   md[['instrument_min_wavelength']] <- min(waveNums)

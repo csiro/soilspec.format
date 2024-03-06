@@ -22,6 +22,7 @@ PerkinElmerSP <- R6::R6Class("PerkinElmerSP",
 
       stdmeta <- createStandardMetadataContainer()  ### raw spec file does not contain any metadata so just
       #   returning and empty standard metadata object for consistency
+      stdmeta[['spectra_wavesignature_units']] <- 'wn'
 
       if (status == 0) {
         # which Perkin Elmer format is it?
