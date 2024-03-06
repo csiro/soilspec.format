@@ -53,6 +53,9 @@ ASDBinary <- R6::R6Class("ASDBinary",
         status <- 4
 
         out <- tryCatch({
+
+          meta.list <- asdreader::get_metadata(path)
+
           spec.data <- asdreader::get_spectra(path)
           spec.data <- t(spec.data)
 
@@ -61,7 +64,12 @@ ASDBinary <- R6::R6Class("ASDBinary",
                                 intensity=as.double(table[,2]))
           rownames(spec.df) <- NULL
 
-          meta.list <- asdreader::get_metadata(path)
+          #Insert splice correction
+          spec.df$intensity <- prospectr::spliceCorrection(X=spec.df$intensity,
+                                                           wav=spec.df$wavenumber,
+                                                           splice = c(meta.list$splice1_wavelength,
+                                                           meta.list$splice2_wavelength))
+
           stdmeta <- makeStandardMetaData_ASD(meta.list, path)
 
           mode <- as.character(meta.list$data_type)
