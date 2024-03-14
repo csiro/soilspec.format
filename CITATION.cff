@@ -13,4 +13,11 @@ authors:
       Commonwealth Scientific and Industrial Research
       Organisation (CSIRO)
     orcid: 'https://orcid.org/0000-0003-3839-8643'
-version: 0.0.1
+  - given-names: Ross
+    family-names: Searle
+    email: ross.searle@csiro.au
+    affiliation: >-
+      Commonwealth Scientific and Industrial Research
+      Organisation (CSIRO)
+    orcid: 'https://orcid.org/0000-0003-0256-1496'
+version: 0.0.2
