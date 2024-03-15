@@ -23,7 +23,7 @@ makeStandardMetaData_BrukerOpusBinary <- function(meta.list, opus2, filepath){
   md[['instrument_serial_number']] <- meta.list$SerialName
   md[['spectra_wavesignature_units']] <- 'wn'
 
-  waveNums <- opus2$example$ab_no_atm_comp$wavenumbers
+  waveNums <- opus2$example$no_atm_comp$wavenumbers
   md[['instrument_min_wavelength']] <- min(waveNums)
   md[['instrument_max_wavelength']] <- max(waveNums)
   md[['spectra_temperature']] <- meta.list$temp_scanner_sm
@@ -68,18 +68,23 @@ BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
           spec.data <- opusreader::opus_read(path)
           meta.list <- as.list(spec.data$metadata)
 
-
-          # data via opusreader2
+          # data and standard metadata via opusreader2
           opus2 <- opusreader2::read_opus(path)
-          stdmeta <- makeStandardMetaData_BrukerOpusBinary(meta.list, opus2, path)
-          fname <- names(opus2)[1]
-          ab_no_atm_comp <- opus2[[fname]][["ab_no_atm_comp"]]
-          intensities <- ab_no_atm_comp[["data"]]
-          wavenumbers <- ab_no_atm_comp[["wavenumbers"]]
-          spec.df <- data.frame(wavenumber=wavenumbers, intensity=unlist(as.list(intensities)))
 
-          # mode via opusreader2
+          fname <- names(opus2)[1]
+
           mode <- opus2[[fname]]$acquisition$parameters$PLF$parameter_value
+          stdmeta <- makeStandardMetaData_BrukerOpusBinary(meta.list, opus2, path)
+
+          if (mode == "AB") {
+            no_atm_comp <- opus2[[fname]][["ab_no_atm_comp"]]
+          } else {
+            no_atm_comp <- opus2[[fname]][["refl_no_atm_comp"]]
+          }
+
+          intensities <- no_atm_comp[["data"]]
+          wavenumbers <- no_atm_comp[["wavenumbers"]]
+          spec.df <- data.frame(wavenumber=wavenumbers, intensity=unlist(as.list(intensities)))
 
           status <- 0
         })
