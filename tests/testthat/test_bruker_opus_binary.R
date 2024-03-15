@@ -43,9 +43,9 @@ test_that("Read Bruker Opus Binary example file", {
   testthat::expect_equal(object = result$data[last.index,]$intensity,
                          expected = 1.656751, tolerance = 1e-4)
 
-  testthat::expect_equal(object = length(result$metadata), expected = 18)
+  testthat::expect_equal(object = length(result$allInstrumentMetadata), expected = 18)
 
-  testthat::expect_equal(object = stringr::str_to_lower(result$metadata$instr_name_range),
+  testthat::expect_equal(object = stringr::str_to_lower(result$allInstrumentMetadata$instr_name_range),
                          expected = "invenio-s-mir")
 })
 
