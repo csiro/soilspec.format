@@ -23,7 +23,7 @@ makeStandardMetaData_BrukerOpusBinary <- function(meta.list, opus2, filepath){
   md[['instrument_serial_number']] <- meta.list$SerialName
   md[['spectra_wavesignature_units']] <- 'wn'
 
-  waveNums <- opus2$example$no_atm_comp$wavenumbers
+  waveNums <- opus2$example$ab_no_atm_comp$wavenumbers
   md[['instrument_min_wavelength']] <- min(waveNums)
   md[['instrument_max_wavelength']] <- max(waveNums)
   md[['spectra_temperature']] <- meta.list$temp_scanner_sm
