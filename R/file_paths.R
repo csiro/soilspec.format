@@ -1,6 +1,4 @@
-# Example file path access functions
-
-
+# Example and test file path access functions
 
 #' Return the full path to the Hone Lab Red example file
 #' @export
@@ -14,6 +12,22 @@ hone.lab.red.file.path <- function() {
 #' @return The full path to the Bruker Opus Binary example file
 bruker.opus.binary.file.path <- function() {
   system.file("extdata", "BrukerOpusBinary", "example.0",
+              package = "soilspec.format")
+}
+
+#' Return the full path to the Bruker Opus Binary reflection test file
+#' @export
+#' @return The full path to the Bruker Opus Binary reflection test file
+bruker.opus.binary.test.refl.file.path <- function() {
+  system.file("extdata", "BrukerOpusBinary", "test_refl.0",
+              package = "soilspec.format")
+}
+
+#' Return the full path to the Bruker Opus Binary absorption test file
+#' @export
+#' @return The full path to the Bruker Opus Binary absorption test file
+bruker.opus.binary.test.abs.file.path <- function() {
+  system.file("extdata", "BrukerOpusBinary", "test_abs.0",
               package = "soilspec.format")
 }
 
