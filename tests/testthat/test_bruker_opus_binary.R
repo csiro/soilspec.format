@@ -1,17 +1,17 @@
 # Bruker Opus Binary unit tests
 
-test_that("Get Bruker Opus Binary example file path", {
+test_that("Get Bruker Opus Binary absorbance file path", {
   expected <- system.file("extdata", "BrukerOpusBinary",
-                          "example.0", package = "soilspec.format")
+                          "test_abs.0", package = "soilspec.format")
 
-  actual <- soilspec.format::bruker.opus.binary.file.path()
+  actual <- soilspec.format::bruker.opus.binary.test.abs.file.path()
 
   testthat::expect_equal(object = actual, expected = expected)
 })
 
-test_that("Read Bruker Opus Binary example file", {
+test_that("Read Bruker Opus Binary absorbance file", {
   bruker <- soilspec.format::BrukerOpusBinary$new()
-  path <- soilspec.format::bruker.opus.binary.file.path()
+  path <- soilspec.format::bruker.opus.binary.test.abs.file.path()
 
   suppressWarnings({
     result <- bruker$read(path)
@@ -43,10 +43,59 @@ test_that("Read Bruker Opus Binary example file", {
   testthat::expect_equal(object = result$data[last.index,]$intensity,
                          expected = 1.656751, tolerance = 1e-4)
 
-  testthat::expect_equal(object = length(result$metadata), expected = 18)
+  testthat::expect_equal(object = length(result$allInstrumentMetadata), expected = 18)
 
-  testthat::expect_equal(object = stringr::str_to_lower(result$metadata$instr_name_range),
+  testthat::expect_equal(object = stringr::str_to_lower(result$allInstrumentMetadata$instr_name_range),
                          expected = "invenio-s-mir")
+})
+
+test_that("Get Bruker Opus Binary reflectance file path", {
+  expected <- system.file("extdata", "BrukerOpusBinary",
+                          "test_refl.0", package = "soilspec.format")
+
+  actual <- soilspec.format::bruker.opus.binary.test.refl.file.path()
+
+  testthat::expect_equal(object = actual, expected = expected)
+})
+
+test_that("Read Bruker Opus Binary reflectance file", {
+  bruker <- soilspec.format::BrukerOpusBinary$new()
+  path <- soilspec.format::bruker.opus.binary.test.refl.file.path()
+
+  suppressWarnings({
+    result <- bruker$read(path)
+  })
+
+  testthat::expect_equal(object = result$status, expected = 0)
+
+  testthat::expect_equal(object = result$mode, expected = "RFL")
+
+  testthat::expect_true(result$is.descending)
+
+  testthat::expect_equal(object = result$origin, expected = bruker$origin)
+
+  testthat::expect_equal(object = result$type, expected = bruker$type_name)
+
+  testthat::expect_equal(object = nrow(result$data),
+                         expected = 1708)
+
+  testthat::expect_equal(object = result$data[1,]$wavenumber,
+                         expected = 3997.597, tolerance = 1e-4)
+
+  testthat::expect_equal(object = result$data[1,]$intensity,
+                         expected = 0.09282638, tolerance = 1e-4)
+
+  last.index <- nrow(result$data)
+  testthat::expect_equal(object = result$data[last.index,]$wavenumber,
+                         expected = 498.1621, tolerance = 1e-4)
+
+  testthat::expect_equal(object = result$data[last.index,]$intensity,
+                         expected = 0.02004875, tolerance = 1e-6)
+
+  testthat::expect_equal(object = length(result$allInstrumentMetadata), expected = 18)
+
+  testthat::expect_equal(object = stringr::str_to_lower(result$allInstrumentMetadata$instr_name_range),
+                         expected = "alpha ii-mir")
 })
 
 test_that("Read non-existent Bruker Opus Binary file", {
