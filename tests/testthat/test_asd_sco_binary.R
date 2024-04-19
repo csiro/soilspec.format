@@ -43,7 +43,7 @@ test_that("Read ASD SCO binary example file", {
   testthat::expect_equal(object = result$data[last.index,]$intensity,
                          expected = 0.5238607, tolerance = 1e-4)
 
-  testthat::expect_equal(object = length(result$metadata), expected = 1)
+  testthat::expect_equal(object = length(result$allInstrumentMetadata), expected = 1)
 })
 
 test_that("Read non-existent ASD SCO binary file", {

@@ -42,9 +42,9 @@ test_that("Read Perkin Elmer SP PEPE example file", {
   testthat::expect_equal(object = result$data[last.index,]$intensity,
                          expected = 1.911237, tolerance = 1e-4)
 
-  testthat::expect_equal(object = length(result$metadata), expected = 5)
+  testthat::expect_equal(object = length(result$allInstrumentMetadata), expected = 5)
 
-  testthat::expect_equal(object = result$metadata$xLabel,
+  testthat::expect_equal(object = result$allInstrumentMetadata$xLabel,
                          expected = "cm-1")
 })
 
@@ -104,8 +104,8 @@ test_that("Read Perkin Elmer SP PE IR example file", {
   testthat::expect_equal(object = result$data[last.index,]$intensity,
                          expected = 1.726805, tolerance = 1e-4)
 
-  testthat::expect_equal(object = length(result$metadata), expected = 7)
+  testthat::expect_equal(object = length(result$allInstrumentMetadata), expected = 7)
 
-  testthat::expect_equal(object = result$metadata$xLabel,
+  testthat::expect_equal(object = result$allInstrumentMetadata$xLabel,
                          expected = "CM-1")
 })

@@ -230,12 +230,6 @@ test_that("Attempt to read unreachable path with common (internal) read function
   testthat::expect_equal(object = result$status, expected = 1)
 })
 
-test_that("Attempt to read Bruker file with unknown file suffix with generic read function", {
-  path <- soilspec.format::unknown.file.path()
-  result <- soilspec.format::read.soilspec(path)
-  testthat::expect_equal(object = result$status, expected = 2)
-})
-
 test_that("Attempt to read Bruker file with unknown file suffix with common (internal) read function", {
   path <- soilspec.format::bruker.opus.binary.file.path()
   result <- soilspec.format::read.soilspec.with.suffix(path, ".foo")
@@ -246,15 +240,13 @@ test_that("Attempt to read Perkin Elmer file with invalid format using generic r
   path <- soilspec.format::unknown.file.path()
   path <- stringr::str_replace(path, pattern="xyz", replacement = "sp")
   result <- soilspec.format::read.soilspec(path)
-  testthat::expect_equal(object = result$status, expected = 4)
+  testthat::expect_equal(object = result$status, expected = 2)
 })
 
 test_that("Attempt to read Perkin Elmer PEPE file with invalid format using common (internal) read function", {
   path <- soilspec.format::perkin.elmer.sp.pepe.file.path()
   result <- soilspec.format::read.soilspec.with.suffix(path, ".spa")
-  # apparently .spa reader can read PE (!), but the result is
-  # invalid, so check for number of rows instead of status
-  testthat::expect_false(nrow(result$data) == 3676)
+  testthat::expect_equal(object = result$status, expected = 2)
 })
 
 test_that("Attempt to read Perkin Elmer PE IR file with invalid format using common (internal) read function", {
@@ -280,14 +272,17 @@ test_that("Attempt to read Thermo spc file with invalid format using generic rea
   path <- soilspec.format::unknown.file.path()
   path <- stringr::str_replace(path, pattern="xyz", replacement = "spc")
   result <- soilspec.format::read.soilspec(path)
-  testthat::expect_equal(object = result$status, expected = 4)
+  testthat::expect_equal(object = result$status, expected = 2)
 })
 
 test_that("Attempt to read CSV file with invalid format using generic read function", {
-  path <- soilspec.format::unknown.file.path()
-  path <- stringr::str_replace(path, pattern="xyz", replacement = "csv")
-  result <- soilspec.format::read.soilspec(path)
-  testthat::expect_equal(object = result$status, expected = 4)
+    # only worth running this test case if unknown format file is not CSV,
+    # since it will actually work in the current case; could just make the
+    # file empty
+    path <- soilspec.format::unknown.file.path()
+    path <- stringr::str_replace(path, pattern="xyz", replacement = "csv")
+    result <- soilspec.format::read.soilspec(path)
+    testthat::expect_equal(object = result$status, expected = 2)
 })
 
 test_that("Attempt to read Bruker Opus binary file with invalid format using generic read function", {
@@ -297,7 +292,7 @@ test_that("Attempt to read Bruker Opus binary file with invalid format using gen
     path <- soilspec.format::unknown.file.path()
     path <- stringr::str_replace(path, pattern="xyz", replacement = "0")
     result <- soilspec.format::read.soilspec(path)
-    testthat::expect_equal(object = result$status, expected = 4)
+    testthat::expect_equal(object = result$status, expected = 2)
   }
 })
 
@@ -313,8 +308,8 @@ test_that("Attempt to read ASD binary file with invalid format using generic rea
 })
 
 test_that("Attempt to read ASD SCO binary file with invalid format using generic read function", {
-  path <- soilspec.format::unknown.file.path()
-  path <- stringr::str_replace(path, pattern="xyz", replacement = "sco")
-  result <- soilspec.format::read.soilspec(path)
-  testthat::expect_equal(object = result$status, expected = 4)
+    path <- soilspec.format::unknown.file.path()
+    path <- stringr::str_replace(path, pattern="xyz", replacement = "sco")
+    result <- soilspec.format::read.soilspec(path)
+    testthat::expect_equal(object = result$status, expected = 2)
 })

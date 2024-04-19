@@ -18,26 +18,31 @@ ThermoSpc <- R6::R6Class("ThermoSpc",
 
       status <- super$file_status(path)
 
+      ### raw spec file does not contain any metadata so just
+      #   returning and empty standard metadata object for consistency
+      stdmeta <- createStandardMetadataContainer()
+      stdmeta[['spectra_wavesignature_units']] <- 'nm'
+
       if (status == 0) {
         status <- 4
 
         out <- tryCatch({
-        },
-        error=function(cond) {
-        },
-        warning=function(cond) {
-        },
-        finally={
-          spec.data <- hyperSpec::read.spc(path, log.txt = F)
+          spec.data <- hyperSpec::read.spc(path, log.txt = F, )
           spec.df <- data.frame(wavenumber=as.double(names(spec.data$spc[,])),
                                 intensity=as.double(spec.data$spc[,]))
-          meta.list <- list()
-          stdmeta <- createStandardMetadataContainer()  ### raw spec file does not contain any metadata so just
-                                                                #   returning and empty standard metadata object for consistency
-
-          stdmeta[['spectra_wavesignature_units']] <- 'nm'
-
           status <- 0
+        },
+        error=function(cond) {
+          status <- 2
+        },
+        warning=function(cond) {
+          status <- 2
+        },
+        finally={
+          # spec.data <- hyperSpec::read.spc(path, log.txt = F, )
+          # spec.df <- data.frame(wavenumber=as.double(names(spec.data$spc[,])),
+          #                       intensity=as.double(spec.data$spc[,]))
+          # status <- 0
         })
       }
 

@@ -9,11 +9,13 @@ makeStandardMetaData_NicoletSpa <- function(meta.list, filepath){
   md[['spectra_source_file_name']] <- basename(filepath)
   resLine <- meta.list$Resolution
   bits <- stringr::str_split(resLine, ' ')
-  print(bits)
-  md[['instrument_resolution']] <- bits[[1]][1]
-  md[['instrument_min_wavelength']] <- bits[[1]][3]
-  md[['instrument_max_wavelength']] <- bits[[1]][5]
-  md[['spectra_wavesignature_units']] <- 'wn'
+  #print(bits)
+  if (length(bits)) {
+    md[['instrument_resolution']] <- bits[[1]][1]
+    md[['instrument_min_wavelength']] <- bits[[1]][3]
+    md[['instrument_max_wavelength']] <- bits[[1]][5]
+    md[['spectra_wavesignature_units']] <- 'wn'
+  }
 
   return(md)
 }
@@ -40,7 +42,9 @@ NicoletSpa <- R6::R6Class("NicoletSpa",
         mode <- meta.list[["Final format"]]
        # print(meta.list)
         stdmeta <- makeStandardMetaData_NicoletSpa(meta.list, path)
-
+        if (stdmeta[['spectra_wavesignature_units']] != 'wn') {
+          status <- 2
+        }
       } else {
         status <- 4
         spec.df <- NULL
