@@ -10,7 +10,7 @@ makeStandardMetaData_NicoletSpa <- function(meta.list, filepath){
   resLine <- meta.list$Resolution
   bits <- stringr::str_split(resLine, ' ')
   #print(bits)
-  if (length(bits)) {
+  if (length(bits) != 0) {
     md[['instrument_resolution']] <- bits[[1]][1]
     md[['instrument_min_wavelength']] <- bits[[1]][3]
     md[['instrument_max_wavelength']] <- bits[[1]][5]
