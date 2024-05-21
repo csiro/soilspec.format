@@ -54,4 +54,42 @@ if(!dir.exists(outDirectory)){dir.create(outDirectory)}
 
 
 
+########################################################################
+#####       Author : Ross Searle                                   #####
+#####       Date :  Wed Jan 17 14:46:34 2024                       #####
+#####       Purpose : Parses a raw spectra file from the Hone      #####
+#####                 Lab Red NIR instrument to seperate out       #####
+#####                 into individual files containing individual  #####
+#####                 SAMPLE and BACKGROUND records for formating  #####
+#####                 in the read.soilspec() function              #####
+#####                                                              #####
+########################################################################
+
+
+#parseSCANS <- function(path = path, outDirectory = outDirectory)
+#' @title Parse a raw SCANS spectra file containing multiple spectra
+#' @description  Parses a raw SCANS spectra file containing multiple spectra into individual files containing a single spectra for reading in read.soilspec() function
+#' @export
+#' @param path Full path to the raw SCANS spectra file
+#' @param outDirectory Full path to the output directory
+#' @return A list of file names each containing 1 sample and 1 background record
+
+parseSCANS<- function(path, outDirectory) {
+
+  if(!dir.exists(outDirectory)){dir.create(outDirectory)}
+
+  indf <- read.csv(path, header = T, check.names=F)
+
+  for(i in 1:nrow(indf)){
+    rec <- indf[i,]
+    print(paste0('Processing Spectra ', i, ' of ', nrow(indf)))
+    specid <- paste0( rec$core.label, '_',  rec$core_position)
+    odf <- rec
+    fname <- specid
+    write.csv(odf, paste0(outDirectory, '/', fname, '.scan'), row.names = F)
+  }
+}
+
+
+
 

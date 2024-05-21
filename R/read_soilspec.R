@@ -9,6 +9,7 @@ source("R/asd_sco_binary_format.R", local=T)
 source("R/perkin_elmer_format.R", local=T)
 source("R/csv_format.R", local=T)
 source("R/hone_labred_format.R", local=T)
+source("R/SCANS_format.R", local=T)
 
 soilspec.readers <- list()
 soilspec.readers[[".spa"]] <- NicoletSpa$new()
@@ -19,6 +20,7 @@ soilspec.readers[[".sco"]] <- ASDScoBinary$new()
 soilspec.readers[[".sp"]] <- PerkinElmerSP$new()
 soilspec.readers[[".csv"]] <- CSV$new()
 soilspec.readers[[".hlr"]] <- HoneLabRed$new()
+soilspec.readers[[".scan"]] <- SCANS$new()
 
 #' Read a spectroscopy file given only its path.
 #' @export

@@ -140,6 +140,13 @@ negs
 specDF<- specDF[-negs,]
 
 ##### Preprocess the NIR Spectra and do PCA ####
+
+
+specRecs <- getAllSpectraFromDB()
+specDF <- makeSpectaDFfromDBRecords(dbRecords=specRecs)
+
+
+
 preNIR <- pre_proc_nir(specDF[,-c(1)],11,2,0)
 PCA <- prcomp(preNIR, center = T, scale. = T)
 
