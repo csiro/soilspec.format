@@ -11,6 +11,7 @@ R metadata lists from soil spectra of various formats, currently:
 * ASD SCO (.sco)
 * Perkin Elmer (.sp) [PEPE and PE IR magic numbers]
 * Hone Lab Red (.hlr)
+* CSIRO SCANS (.scan)
   
 
 # Install
