@@ -34,21 +34,38 @@ if(!dir.exists(outDirectory)){dir.create(outDirectory)}
 
     #####  Need to ask the experts what to do when there is more than one background record
     idxB <- which(specdf$Type=='BACKGROUND')
-    bkgDF <- specdf[idxB,]
+    bkgDF <- specdf[max(idxB),]
 
     idxS <-  which(specdf$Type=='SAMPLE')
     sampDF <- specdf[idxS,]
 
     for (j in 1:nrow(sampDF)) {
       srec = sampDF[j,]
-      brec = specdf[1,]
+      #brec = specdf[1,]
 
       fname = paste0(srec$'Sample ID', '_', srec$SampleSpectrumSetId, '_', srec$SpectrumId)
-      odf <- rbind(brec, srec)
+      odf <- rbind(bkgDF, srec)
       write.csv(odf, paste0(outDirectory, '/', fname, '.hlr'), row.names = F)
 
-      }
+    }
+
+
   }
+
+  idxs <- which(indf$Type=='BACKGROUND')
+  indf <- indf[-idxs,]
+
+  bits <- stringr::str_split(indf$`Date Time`, '_')
+  rdts <- sapply(bits, function(x) paste0(x[1]))
+  d <- stringr::str_sub(rdts, 7,8)
+  m <- stringr::str_sub(rdts, 5,6)
+  y <- stringr::str_sub(rdts, 1,4)
+
+  sites <- sapply(bits, function(x) paste0(x[1], "_", x[2]))
+  odfm <- data.frame(Sname=indf$`Sample ID`,	Upper=NA,	Lower=NA,	Lat=NA,	Lon=NA,	Datum='GDA94',
+                     Filename=paste0(indf$'Sample ID', '_', indf$SampleSpectrumSetId, '_', indf$SpectrumId, '.hlr'),	Date=paste0(d, '/', m, '/',y))
+  print(paste0(paste0(outDirectory, '/submit.meta')))
+  write.csv(odfm,  paste0(outDirectory, '/submit.meta'), row.names = F)
 }
 
 
@@ -84,10 +101,18 @@ parseSCANS<- function(path, outDirectory) {
     rec <- indf[i,]
     print(paste0('Processing Spectra ', i, ' of ', nrow(indf)))
     specid <- paste0( rec$core.label, '_',  rec$core_position)
-    odf <- rec
-    fname <- specid
-    write.csv(odf, paste0(outDirectory, '/', fname, '.scan'), row.names = F)
+    fname <- paste0(specid, '.scan')
+    odf<-rec
+    write.csv(odf, paste0(outDirectory, '/', fname), row.names = F)
   }
+
+  bits <- stringr::str_split(indf$core.label, '_')
+  sites <- sapply(bits, function(x) paste0(x[1], "_", x[2]))
+
+  dts <- format(Sys.Date(), "%d/%m/%Y")
+  odfm <- data.frame(Sname=sites,	Upper=indf$core_position,	Lower=indf$core_position+1,	Lat=NA,	Lon=NA,	Datum='GDA94',
+                     Filename= paste0( indf$core.label, '_',  indf$core_position, '.scan'),	Date=NA)
+  write.csv(odfm,  paste0(outDirectory, '/submit.meta'), row.names = F)
 }
 
 

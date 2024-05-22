@@ -2,9 +2,14 @@
 
 
 
-makeStandardMetaData_ASD_SCO <- function(meta.list, filepath){
+makeStandardMetaData_SCANS <- function(meta.list, spec.data){
 
   md <- createStandardMetadataContainer()
+
+  bits <- stringr::str_split(spec.data$core.label, '_')
+
+  md[['Sample_ID']] <- paste0(bits[[1]][1], '_', bits[[1]][2])
+  md[['Spectra_ID']] <- stringr::str_remove(meta.list$name, '.scan')
   md[['spectra_source_file_name']] <- meta.list$name
   md[['spectra_wavesignature_units']] <- 'nm'
 
@@ -44,15 +49,19 @@ SCANS <- R6::R6Class("SCANS",
        warning=function(cond) {
        },
        finally={
-         spec.data <- t(prospectr::readASD(path))
+         spec.data <- read.csv(path)
 
+        cidxs <- which(stringr::str_starts(colnames(spec.data), 'R'))
+        wvs <- as.integer(stringr::str_remove(colnames(spec.data)[cidxs], 'R'))
+        vls <- as.numeric(spec.data[1,cidxs])
          spec.df <-
-            data.frame(wavenumber=as.integer(rownames(spec.data)),
-                       intensity=spec.data[1:length(spec.data)])
+            data.frame(wavenumber=wvs,
+                       intensity=vls
+                       )
 
          meta.list <- list()
-         meta.list[["name"]] <- colnames(spec.data)
-         stdmeta <- makeStandardMetaData_ASD_SCO(meta.list, path)
+         meta.list[["name"]] <- basename(path)
+         stdmeta <- makeStandardMetaData_SCANS(meta.list, spec.data)
          status <- 0
        })
      }
