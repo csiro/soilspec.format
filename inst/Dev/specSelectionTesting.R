@@ -37,7 +37,11 @@ tcon <- DBI::dbConnect(odbc::odbc(),
                        PWD = 'Cl@ncy0ffTh3Overfl0w'
 )
 
+dbListTables(tcon)
 
+
+res <- dbSendQuery(tcon, 'select * from CODES')
+dbFetch(res)
 
 nToReturn=100
 bufferFraction = 0.2

@@ -59,9 +59,18 @@ SCANS <- R6::R6Class("SCANS",
                        intensity=vls
                        )
 
+
          meta.list <- list()
          meta.list[["name"]] <- basename(path)
          stdmeta <- makeStandardMetaData_SCANS(meta.list, spec.data)
+
+         #Insert splice correction
+         spec.df$intensity <- prospectr::spliceCorrection(X=spec.df$intensity,
+                                                          wav=spec.df$wavenumber,
+                                                          splice = c(1000,1830))
+
+
+
          status <- 0
        })
      }
