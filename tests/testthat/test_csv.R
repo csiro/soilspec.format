@@ -40,7 +40,7 @@ test_that("Read CSV example file", {
   testthat::expect_equal(object = result$data[last.index,]$intensity,
                          expected = 0.03152, tolerance = 1e-4)
 
-  testthat::expect_equal(object = length(result$metadata), expected = 0)
+  testthat::expect_equal(object = length(result$allInstrumentMetadata), expected = 0)
 })
 
 test_that("Read non-existent CSV file", {

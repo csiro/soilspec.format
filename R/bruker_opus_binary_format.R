@@ -66,27 +66,30 @@ BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
         finally={
           # metadata via opusreader
           spec.data <- opusreader::opus_read(path)
-          meta.list <- as.list(spec.data$metadata)
+          if (!is.null(names(spec.data)) && length(names(spec.data)) != 0) {
+            meta.list <- as.list(spec.data$metadata)
 
-          # data and standard metadata via opusreader2
-          opus2 <- opusreader2::read_opus(path)
+            # data and standard metadata via opusreader2
+            opus2 <- opusreader2::read_opus(path)
+            fname <- names(opus2)[1]
 
-          fname <- names(opus2)[1]
+            mode <- opus2[[fname]]$acquisition$parameters$PLF$parameter_value
+            stdmeta <- makeStandardMetaData_BrukerOpusBinary(meta.list, opus2, path)
 
-          mode <- opus2[[fname]]$acquisition$parameters$PLF$parameter_value
-          stdmeta <- makeStandardMetaData_BrukerOpusBinary(meta.list, opus2, path)
+            if (mode == "AB") {
+              no_atm_comp <- opus2[[fname]][["ab_no_atm_comp"]]
+            } else {
+              no_atm_comp <- opus2[[fname]][["refl_no_atm_comp"]]
+            }
 
-          if (mode == "AB") {
-            no_atm_comp <- opus2[[fname]][["ab_no_atm_comp"]]
+            intensities <- no_atm_comp[["data"]]
+            wavenumbers <- no_atm_comp[["wavenumbers"]]
+            spec.df <- data.frame(wavenumber=wavenumbers, intensity=unlist(as.list(intensities)))
+
+            status <- 0
           } else {
-            no_atm_comp <- opus2[[fname]][["refl_no_atm_comp"]]
+            status <- 2
           }
-
-          intensities <- no_atm_comp[["data"]]
-          wavenumbers <- no_atm_comp[["wavenumbers"]]
-          spec.df <- data.frame(wavenumber=wavenumbers, intensity=unlist(as.list(intensities)))
-
-          status <- 0
         })
       }
 

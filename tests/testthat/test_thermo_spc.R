@@ -43,7 +43,7 @@ test_that("Read Thermo spc example file", {
   testthat::expect_equal(object = result$data[last.index,]$intensity,
                          expected = 1.201563, tolerance = 1e-4)
 
-  testthat::expect_equal(object = length(result$metadata), expected = 0)
+  testthat::expect_equal(object = length(result$allInstrumentMetadata), expected = 0)
 })
 
 test_that("Read non-existent Thermo spc file", {

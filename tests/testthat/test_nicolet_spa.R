@@ -40,9 +40,9 @@ test_that("Read Nicolet spa example file", {
   testthat::expect_equal(object = result$data[last.index,]$intensity,
                          expected = 2.0022, tolerance = 1e-4)
 
-  testthat::expect_equal(object = length(result$metadata), expected = 7)
+  testthat::expect_equal(object = length(result$allInstrumentMetadata), expected = 7)
 
-  testthat::expect_equal(object = result$metadata[["Bench Serial Number"]],
+  testthat::expect_equal(object = result$allInstrumentMetadata[["Bench Serial Number"]],
                          expected = "AMM0900168")
 })
 
