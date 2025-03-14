@@ -16,12 +16,12 @@ SpectrumFormat <- R6::R6Class("SpectrumFormat", public = list(
   },
 
   # return status according to whether the file exists or has non-zero size
-  # (1 = does not exist, 4 = zero length, 0 = OK)
+  # (1 = does not exist, 2 = zero length (so, no suitable format), 0 = OK)
   file_status = function(path) {
     if (!file.exists(path)) {
       1
     } else if (file.info(path)$size == 0) {
-      4
+      2
     } else {
       0
     }
