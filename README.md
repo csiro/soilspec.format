@@ -25,6 +25,10 @@ R metadata lists from soil spectra of various formats, currently:
 
 	# install package from GitHub where "..." is a GitHub Personal Access Token
 	devtools::install_github("CSIRO-Soils/soilspec.format", auth_token = "...")
+
+  Under Windows, you will also need to install [Rtools](https://cran.r-project.org/bin/windows/Rtools)
+  to match your R version.
+  
 	
 # Example Usage
   ```
@@ -58,3 +62,13 @@ R metadata lists from soil spectra of various formats, currently:
   
   plot(result$data, type="l")
   ```
+  
+# Developers
+Instead of using `devtools::install_github()` to install `soilspec.format` for
+development purposes, use this command to install the package:
+
+  devtools::install()
+  
+To run unit tests use this command:
+
+  devtools::test()
