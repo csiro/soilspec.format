@@ -66,9 +66,9 @@ R metadata lists from soil spectra of various formats, currently:
 # Developers
 Instead of using `devtools::install_github()` to install `soilspec.format` for
 development purposes, use this command to install the package:
-
-  devtools::install()
+  
+  `devtools::install()`
 
 To run unit tests use this command:
 
-  devtools::test()
+  `devtools::test()`
