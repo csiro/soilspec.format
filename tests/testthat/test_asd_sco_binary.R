@@ -20,6 +20,9 @@ test_that("Read ASD SCO binary example file", {
   testthat::expect_equal(object = result$status, expected = 0)
 
   testthat::expect_equal(object = result$mode, expected = NULL)
+  testthat::expect_equal(object = result$is.absorbance, expected = FALSE)
+  testthat::expect_equal(object = result$is.reflectance, expected = FALSE)
+  testthat::expect_equal(object = result$is.transmittance, expected = FALSE)
 
   testthat::expect_false(result$is.descending)
 

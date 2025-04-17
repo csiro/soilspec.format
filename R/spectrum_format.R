@@ -31,13 +31,57 @@ SpectrumFormat <- R6::R6Class("SpectrumFormat", public = list(
   # of the form returned by create.result
   read = function(path) { list() },
 
+  determine.mode = function(mode) {
+    mode.bool <- list()
+
+    mode.bool[["is.absorbance"]] <- FALSE
+    mode.bool[["is.reflectance"]] <- FALSE
+    mode.bool[["is.transmittance"]] <- FALSE
+
+    if (length(mode) != 0) {
+      mode.lower <- str_to_lower(mode)
+
+      if (str_detect(mode.lower, "ab")) {
+        mode <- "absorbance"
+        mode.bool[["is.absorbance"]] <- TRUE
+      } else if (str_detect(mode.lower, "rfl")) {
+        mode <- "reflectance"
+        mode.bool[["is.reflectance"]] <- TRUE
+      } else if (str_detect(mode.lower, "refl")) {
+        mode <- "reflectance"
+        mode.bool[["is.reflectance"]] <- TRUE
+      } else if (str_detect(mode.lower, "tran")) {
+        mode <- "transmittance"
+        mode.bool[["is.transmittance"]] <- TRUE
+      }
+    }
+
+    # at most one mode Boolean can be true!
+    all.false <- all(!mode.bool[["is.absorbance"]],
+                     !mode.bool[["is.reflectance"]],
+                     !mode.bool[["is.transmittance"]])
+
+    one.true <- xor(mode.bool[["is.absorbance"]],
+                    xor(mode.bool[["is.reflectance"]],
+                        mode.bool[["is.transmittance"]]))
+
+    stopifnot(all.false || one.true)
+
+    mode.bool
+  },
+
   # create a result list, possibly with some members that are NULL
   create.result = function(status=NULL, mode=NULL, data.df=NULL, meta.list=NULL, std_meta=NULL) {
     result <- list()
 
-
     result[["status"]] <- status
+
     result[["mode"]] <- mode
+    mode.vec <- self$determine.mode(mode)
+    result[["is.absorbance"]] <- mode.vec[["is.absorbance"]]
+    result[["is.reflectance"]] <- mode.vec[["is.reflectance"]]
+    result[["is.transmittance"]] <- mode.vec[["is.transmittance"]]
+
     if (status == 0) {
       result[["is.descending"]] <- data.df[1,]$wavenumber > data.df[nrow(data.df),]$wavenumber
     } else {
@@ -51,7 +95,6 @@ SpectrumFormat <- R6::R6Class("SpectrumFormat", public = list(
 
     result
   }
-
 ))
 
 

@@ -20,6 +20,10 @@ test_that("Read Perkin Elmer SP PEPE example file", {
 
   testthat::expect_equal(object = result$mode, expected = NULL)
 
+  testthat::expect_equal(object = result$is.absorbance, expected = FALSE)
+  testthat::expect_equal(object = result$is.reflectance, expected = FALSE)
+  testthat::expect_equal(object = result$is.transmittance, expected = FALSE)
+
   testthat::expect_true(result$is.descending)
 
   testthat::expect_equal(object = result$origin, expected = pe$origin)
@@ -81,6 +85,10 @@ test_that("Read Perkin Elmer SP PE IR example file", {
 
   testthat::expect_equal(object = result$mode,
                          expected = "DIFFUSE REFLECTANCE")
+
+  testthat::expect_true(result$is.reflectance)
+  testthat::expect_equal(object = result$is.absorbance, expected = FALSE)
+  testthat::expect_equal(object = result$is.transmittance, expected = FALSE)
 
   testthat::expect_true(result$is.descending)
 

@@ -92,6 +92,8 @@ test_that("Read Nicolet spa example file with generic read function", {
 
   testthat::expect_equal(object = result$mode, expected = "Absorbance")
 
+  testthat::expect_true(result$is.absorbance)
+
   testthat::expect_true(result$is.descending)
 
   testthat::expect_equal(object = nrow(result$data),
