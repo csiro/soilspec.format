@@ -51,6 +51,7 @@ SpectrumFormat <- R6::R6Class("SpectrumFormat", public = list(
         mode <- "reflectance"
         mode.bool[["is.reflectance"]] <- TRUE
       } else if (str_detect(mode.lower, "tran")) {
+        # Note: we will need example transmittance files to test this
         mode <- "transmittance"
         mode.bool[["is.transmittance"]] <- TRUE
       }
