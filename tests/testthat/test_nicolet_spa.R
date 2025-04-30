@@ -18,7 +18,7 @@ test_that("Read Nicolet spa example file", {
 
   testthat::expect_equal(object = result$mode, expected = "Absorbance")
 
-  testthat::expect_true(result$is.absorbance)
+  testthat::expect_equal(object = result$is.absorbance, expected = TRUE)
   testthat::expect_equal(object = result$is.reflectance, expected = FALSE)
   testthat::expect_equal(object = result$is.transmittance, expected = FALSE)
 

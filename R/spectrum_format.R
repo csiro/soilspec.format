@@ -42,17 +42,13 @@ SpectrumFormat <- R6::R6Class("SpectrumFormat", public = list(
       mode.lower <- str_to_lower(mode)
 
       if (str_detect(mode.lower, "ab")) {
-        mode <- "absorbance"
         mode.bool[["is.absorbance"]] <- TRUE
       } else if (str_detect(mode.lower, "rfl")) {
-        mode <- "reflectance"
         mode.bool[["is.reflectance"]] <- TRUE
       } else if (str_detect(mode.lower, "refl")) {
-        mode <- "reflectance"
         mode.bool[["is.reflectance"]] <- TRUE
       } else if (str_detect(mode.lower, "tran")) {
         # Note: we will need example transmittance files to test this
-        mode <- "transmittance"
         mode.bool[["is.transmittance"]] <- TRUE
       }
     }

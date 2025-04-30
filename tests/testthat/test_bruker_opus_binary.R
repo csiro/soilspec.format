@@ -21,7 +21,7 @@ test_that("Read Bruker Opus Binary absorbance file", {
 
   testthat::expect_equal(object = result$mode, expected = "AB")
 
-  testthat::expect_true(result$is.absorbance)
+  testthat::expect_equal(object = result$is.absorbance, expected = TRUE)
   testthat::expect_equal(object = result$is.reflectance, expected = FALSE)
   testthat::expect_equal(object = result$is.transmittance, expected = FALSE)
 
@@ -74,7 +74,7 @@ test_that("Read Bruker Opus Binary reflectance file", {
 
   testthat::expect_equal(object = result$mode, expected = "RFL")
 
-  testthat::expect_true(result$is.reflectance)
+  testthat::expect_equal(object = result$is.reflectance, expected = TRUE)
   testthat::expect_equal(object = result$is.absorbance, expected = FALSE)
   testthat::expect_equal(object = result$is.transmittance, expected = FALSE)
 
