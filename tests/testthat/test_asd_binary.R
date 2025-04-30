@@ -21,6 +21,10 @@ test_that("Read ASD binary example file", {
 
   testthat::expect_equal(object = result$mode, expected = "reflectance")
 
+  testthat::expect_equal(object = result$is.reflectance, expected = TRUE)
+  testthat::expect_equal(object = result$is.absorbance, expected = FALSE)
+  testthat::expect_equal(object = result$is.transmittance, expected = FALSE)
+
   testthat::expect_false(result$is.descending)
 
   testthat::expect_equal(object = result$origin, expected = asd.binary$origin)

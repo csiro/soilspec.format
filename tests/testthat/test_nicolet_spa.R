@@ -18,6 +18,10 @@ test_that("Read Nicolet spa example file", {
 
   testthat::expect_equal(object = result$mode, expected = "Absorbance")
 
+  testthat::expect_equal(object = result$is.absorbance, expected = TRUE)
+  testthat::expect_equal(object = result$is.reflectance, expected = FALSE)
+  testthat::expect_equal(object = result$is.transmittance, expected = FALSE)
+
   testthat::expect_true(result$is.descending)
 
   testthat::expect_equal(object = result$origin, expected = nicolet$origin)

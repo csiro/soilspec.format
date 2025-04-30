@@ -21,6 +21,10 @@ test_that("Read Thermo spc example file", {
 
   testthat::expect_equal(object = result$mode, expected = NULL)
 
+  testthat::expect_equal(object = result$is.absorbance, expected = FALSE)
+  testthat::expect_equal(object = result$is.reflectance, expected = FALSE)
+  testthat::expect_equal(object = result$is.transmittance, expected = FALSE)
+
   testthat::expect_true(result$is.descending)
 
   testthat::expect_equal(object = result$origin, expected = spc$origin)
