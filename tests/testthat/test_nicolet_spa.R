@@ -1,5 +1,7 @@
 # Nicolet .spa unit tests
 
+source("common_test.R")
+
 test_that("Get Nicolet spa example file path", {
   expected <- system.file("extdata", "NicoletSpa",
                           "example.spa", package = "soilspec.format")
@@ -10,41 +12,14 @@ test_that("Get Nicolet spa example file path", {
 })
 
 test_that("Read Nicolet spa example file", {
-  nicolet <- soilspec.format::NicoletSpa$new()
-  path <- soilspec.format::nicolet.spa.file.path()
-  result <- nicolet$read(path)
-
-  testthat::expect_equal(object = result$status, expected = 0)
-
-  testthat::expect_equal(object = result$mode, expected = "Absorbance")
-
-  testthat::expect_equal(object = result$is.absorbance, expected = TRUE)
-  testthat::expect_equal(object = result$is.reflectance, expected = FALSE)
-  testthat::expect_equal(object = result$is.transmittance, expected = FALSE)
-
-  testthat::expect_true(result$is.descending)
-
-  testthat::expect_equal(object = result$origin, expected = nicolet$origin)
-
-  testthat::expect_equal(object = result$type, expected = nicolet$type_name)
-
-  testthat::expect_equal(object = nrow(result$data),
-                         expected = 1971)
-
-  testthat::expect_equal(object = result$data[1,]$wavenumber,
-                         expected = 7999.28, tolerance = 1e-4)
-
-  testthat::expect_equal(object = result$data[1,]$intensity,
-                         expected = 0.333132, tolerance = 1e-4)
-
-  last.index <- nrow(result$data)
-  testthat::expect_equal(object = result$data[last.index,]$wavenumber,
-                         expected = 404.976, tolerance = 1e-4)
-
-  testthat::expect_equal(object = result$data[last.index,]$intensity,
-                         expected = 2.0022, tolerance = 1e-4)
-
-  testthat::expect_equal(object = length(result$allInstrumentMetadata), expected = 7)
+  result <- common_test(soil.format.obj = soilspec.format::NicoletSpa$new(),
+                        test_file_path = soilspec.format::nicolet.spa.file.path(),
+                        status=0, mode = "Absorbance",
+                        is.absorbance = T, is.reflectance = F, is.transmittance = F,
+                        is.descending = T, num.data.rows = 1971,
+                        wavenumbers = c(7999.28, 404.976),
+                        intensities = c(0.333132, 2.0022),
+                        metadata.length = 7)
 
   testthat::expect_equal(object = result$allInstrumentMetadata[["Bench Serial Number"]],
                          expected = "AMM0900168")
