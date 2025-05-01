@@ -1,6 +1,6 @@
 # Nicolet .spa unit tests
 
-source("common_test.R")
+source("common_test.R", local = T)
 
 test_that("Get Nicolet spa example file path", {
   expected <- system.file("extdata", "NicoletSpa",

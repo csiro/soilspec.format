@@ -1,5 +1,7 @@
 # Thermo spc unit tests
 
+source("common_test.R", local = T)
+
 test_that("Get Thermo spc example file path", {
   expected <- system.file("extdata", "ThermoSpc",
                           "example.spc", package = "soilspec.format")

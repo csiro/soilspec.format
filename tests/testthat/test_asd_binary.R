@@ -1,6 +1,6 @@
 # ASD binary unit tests
 
-source("common_test.R")
+source("common_test.R", local = T)
 
 test_that("Get ASD binary example file path", {
   expected <- system.file("extdata", "ASDBinary",
