@@ -1,5 +1,7 @@
 # CSV unit tests
 
+source("common_test.R", local = T)
+
 test_that("Get CSV example file path", {
   expected <- system.file("extdata", "BrukerCSV",
                           "example.csv", package = "soilspec.format")
@@ -10,41 +12,14 @@ test_that("Get CSV example file path", {
 })
 
 test_that("Read CSV example file", {
-  csv <- soilspec.format::CSV$new()
-  path <- soilspec.format::csv.file.path()
-  result <- csv$read(path)
-
-  testthat::expect_equal(object = result$status, expected = 0)
-
-  testthat::expect_equal(object = result$mode, expected = NULL)
-
-  testthat::expect_equal(object = result$is.absorbance, expected = FALSE)
-  testthat::expect_equal(object = result$is.reflectance, expected = FALSE)
-  testthat::expect_equal(object = result$is.transmittance, expected = FALSE)
-
-  testthat::expect_true(result$is.descending)
-
-  testthat::expect_equal(object = result$origin, expected = csv$origin)
-
-  testthat::expect_equal(object = result$type, expected = csv$type_name)
-
-  testthat::expect_equal(object = nrow(result$data),
-                         expected = 4830)
-
-  testthat::expect_equal(object = result$data[1,]$wavenumber,
-                         expected = 7497.58131, tolerance = 1e-4)
-
-  testthat::expect_equal(object = result$data[1,]$intensity,
-                         expected = 0.92693, tolerance = 1e-4)
-
-  last.index <- nrow(result$data)
-  testthat::expect_equal(object = result$data[last.index,]$wavenumber,
-                         expected = 598.60643, tolerance = 1e-4)
-
-  testthat::expect_equal(object = result$data[last.index,]$intensity,
-                         expected = 0.03152, tolerance = 1e-4)
-
-  testthat::expect_equal(object = length(result$allInstrumentMetadata), expected = 0)
+  result <- common_test(soil.format.obj = soilspec.format::CSV$new(),
+                        test_file_path = soilspec.format::csv.file.path(),
+                        status = 0, mode = NULL,
+                        is.absorbance = F, is.reflectance = F, is.transmittance = F,
+                        is.descending = T, num.data.rows = 4830,
+                        wavenumbers = c(7497.58131, 598.60643),
+                        intensities = c(0.92693, 0.03152),
+                        metadata.length = 0)
 })
 
 test_that("Read non-existent CSV file", {

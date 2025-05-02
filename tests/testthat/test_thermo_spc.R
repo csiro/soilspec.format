@@ -1,5 +1,7 @@
 # Thermo spc unit tests
 
+source("common_test.R", local = T)
+
 test_that("Get Thermo spc example file path", {
   expected <- system.file("extdata", "ThermoSpc",
                           "example.spc", package = "soilspec.format")
@@ -10,44 +12,16 @@ test_that("Get Thermo spc example file path", {
 })
 
 test_that("Read Thermo spc example file", {
-  spc <- soilspec.format::ThermoSpc$new()
-  path <- soilspec.format::thermo.spc.file.path()
-
   suppressWarnings({
-    result <- spc$read(path)
+    result <- common_test(soil.format.obj = soilspec.format::ThermoSpc$new(),
+                          test_file_path = soilspec.format::thermo.spc.file.path(),
+                          status = 0, mode = NULL,
+                          is.absorbance = F, is.reflectance = F, is.transmittance = F,
+                          is.descending = T, num.data.rows = 3676,
+                          wavenumbers = c(7800, 450),
+                          intensities = c(0.615247, 1.201563),
+                          metadata.length = 0)
   })
-
-  testthat::expect_equal(object = result$status, expected = 0)
-
-  testthat::expect_equal(object = result$mode, expected = NULL)
-
-  testthat::expect_equal(object = result$is.absorbance, expected = FALSE)
-  testthat::expect_equal(object = result$is.reflectance, expected = FALSE)
-  testthat::expect_equal(object = result$is.transmittance, expected = FALSE)
-
-  testthat::expect_true(result$is.descending)
-
-  testthat::expect_equal(object = result$origin, expected = spc$origin)
-
-  testthat::expect_equal(object = result$type, expected = spc$type_name)
-
-  testthat::expect_equal(object = nrow(result$data),
-                         expected = 3676)
-
-  testthat::expect_equal(object = result$data[1,]$wavenumber,
-                         expected = 7800, tolerance = 1e-4)
-
-  testthat::expect_equal(object = result$data[1,]$intensity,
-                         expected = 0.615247, tolerance = 1e-4)
-
-  last.index <- nrow(result$data)
-  testthat::expect_equal(object = result$data[last.index,]$wavenumber,
-                         expected = 450, tolerance = 1e-4)
-
-  testthat::expect_equal(object = result$data[last.index,]$intensity,
-                         expected = 1.201563, tolerance = 1e-4)
-
-  testthat::expect_equal(object = length(result$allInstrumentMetadata), expected = 0)
 })
 
 test_that("Read non-existent Thermo spc file", {

@@ -1,5 +1,7 @@
 # ASD binary unit tests
 
+source("common_test.R", local = T)
+
 test_that("Get ASD binary example file path", {
   expected <- system.file("extdata", "ASDBinary",
                           "example.asd", package = "soilspec.format")
@@ -10,51 +12,19 @@ test_that("Get ASD binary example file path", {
 })
 
 test_that("Read ASD binary example file", {
-  asd.binary <- soilspec.format::ASDBinary$new()
-  path <- soilspec.format::asd.binary.file.path()
-
   suppressWarnings({
-    result <- asd.binary$read(path)
+    result <- common_test(soil.format.obj = soilspec.format::ASDBinary$new(),
+                        test_file_path = soilspec.format::asd.binary.file.path(),
+                        status = 0, mode = "reflectance",
+                        is.absorbance = F, is.reflectance = T, is.transmittance = F,
+                        is.descending = F, num.data.rows = 2151,
+                        wavenumbers = c(350, 2500),
+                        intensities = c(0.05269, 0.3073),
+                        metadata.length = 31)
+
+    testthat::expect_equal(object = as.character(result$allInstrumentMetadata$instrument),
+                           expected = "FieldSpec FR")
   })
-
-  testthat::expect_equal(object = result$status, expected = 0)
-
-  testthat::expect_equal(object = result$mode, expected = "reflectance")
-
-  testthat::expect_equal(object = result$is.reflectance, expected = TRUE)
-  testthat::expect_equal(object = result$is.absorbance, expected = FALSE)
-  testthat::expect_equal(object = result$is.transmittance, expected = FALSE)
-
-  testthat::expect_false(result$is.descending)
-
-  testthat::expect_equal(object = result$origin, expected = asd.binary$origin)
-
-  testthat::expect_equal(object = result$type, expected = asd.binary$type_name)
-
-  testthat::expect_equal(object = nrow(result$data),
-                         expected = 2151)
-
-  testthat::expect_equal(object = result$data[1,]$wavenumber,
-                         expected = 350, tolerance = 1e-4)
-
-  if (F) {
-    testthat::expect_equal(object = result$data[1,]$intensity,
-                           expected = 0.0543292, tolerance = 1e-4)
-  }
-
-  last.index <- nrow(result$data)
-  testthat::expect_equal(object = result$data[last.index,]$wavenumber,
-                         expected = 2500, tolerance = 1e-4)
-
-  if (F) {
-    testthat::expect_equal(object = result$data[last.index,]$intensity,
-                           expected = 0.303005, tolerance = 1e-4)
-  }
-
-  testthat::expect_equal(object = length(result$allInstrumentMetadata), expected = 31)
-
-  testthat::expect_equal(object = as.character(result$allInstrumentMetadata$instrument),
-                         expected = "FieldSpec FR")
 })
 
 test_that("Read non-existent ASD binary file", {

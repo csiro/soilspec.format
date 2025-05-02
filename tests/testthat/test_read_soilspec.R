@@ -220,7 +220,7 @@ test_that("Read CSV example file with format specific read function", {
   testthat::expect_equal(object = result$status, expected = 0)
 })
 
-# Tests for unreachable path, unknown file suffix, invalid/unknown file format
+# Tests for unreachable path
 
 test_that("Attempt to read unreachable path with generic read function", {
   result <- soilspec.format::read.soilspec("a/b/c")
@@ -232,11 +232,15 @@ test_that("Attempt to read unreachable path with common (internal) read function
   testthat::expect_equal(object = result$status, expected = 1)
 })
 
+# Tests for unknown file suffix
+
 test_that("Attempt to read Bruker file with unknown file suffix with common (internal) read function", {
   path <- soilspec.format::bruker.opus.binary.file.path()
   result <- soilspec.format::read.soilspec.with.suffix(path, ".foo")
   testthat::expect_equal(object = result$status, expected = 2)
 })
+
+# Tests for invalid/unknown file format
 
 test_that("Attempt to read Perkin Elmer file with invalid format using generic read function", {
   path <- soilspec.format::unknown.file.path()
