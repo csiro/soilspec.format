@@ -1,5 +1,7 @@
 # Perkin Elmer .sp unit tests
 
+source("common_test.R", local = T)
+
 # PEPE
 
 test_that("Get Perkin Elmer SP PEPE example file path", {
@@ -12,41 +14,14 @@ test_that("Get Perkin Elmer SP PEPE example file path", {
 })
 
 test_that("Read Perkin Elmer SP PEPE example file", {
-  pe <- soilspec.format::PerkinElmerSP$new()
-  path <- soilspec.format::perkin.elmer.sp.pepe.file.path()
-  result <- pe$read(path)
-
-  testthat::expect_equal(object = result$status, expected = 0)
-
-  testthat::expect_equal(object = result$mode, expected = NULL)
-
-  testthat::expect_equal(object = result$is.absorbance, expected = FALSE)
-  testthat::expect_equal(object = result$is.reflectance, expected = FALSE)
-  testthat::expect_equal(object = result$is.transmittance, expected = FALSE)
-
-  testthat::expect_true(result$is.descending)
-
-  testthat::expect_equal(object = result$origin, expected = pe$origin)
-
-  testthat::expect_equal(object = result$type, expected = pe$type_name)
-
-  testthat::expect_equal(object = nrow(result$data),
-                         expected = 3676)
-
-  testthat::expect_equal(object = result$data[1,]$wavenumber,
-                         expected = 7800, tolerance = 1e-4)
-
-  testthat::expect_equal(object = result$data[1,]$intensity,
-                         expected = 0.8553731, tolerance = 1e-4)
-
-  last.index <- nrow(result$data)
-  testthat::expect_equal(object = result$data[last.index,]$wavenumber,
-                         expected = 450, tolerance = 1e-4)
-
-  testthat::expect_equal(object = result$data[last.index,]$intensity,
-                         expected = 1.911237, tolerance = 1e-4)
-
-  testthat::expect_equal(object = length(result$allInstrumentMetadata), expected = 5)
+  result <- common_test(soil.format.obj = soilspec.format::PerkinElmerSP$new(),
+                        test_file_path = soilspec.format::perkin.elmer.sp.pepe.file.path(),
+                        status = 0, mode = NULL,
+                        is.absorbance = F, is.reflectance = F, is.transmittance = F,
+                        is.descending = T, num.data.rows = 3676,
+                        wavenumbers = c(7800, 450),
+                        intensities = c(0.8553731, 1.911237),
+                        metadata.length = 5)
 
   testthat::expect_equal(object = result$allInstrumentMetadata$xLabel,
                          expected = "cm-1")
@@ -77,42 +52,14 @@ test_that("Get Perkin Elmer SP PE IR example file path", {
 })
 
 test_that("Read Perkin Elmer SP PE IR example file", {
-  pe <- soilspec.format::PerkinElmerSP$new()
-  path <- soilspec.format::perkin.elmer.sp.peir.file.path()
-  result <- pe$read(path)
-
-  testthat::expect_equal(object = result$status, expected = 0)
-
-  testthat::expect_equal(object = result$mode,
-                         expected = "DIFFUSE REFLECTANCE")
-
-  testthat::expect_equal(object = result$is.reflectance, expected = TRUE)
-  testthat::expect_equal(object = result$is.absorbance, expected = FALSE)
-  testthat::expect_equal(object = result$is.transmittance, expected = FALSE)
-
-  testthat::expect_true(result$is.descending)
-
-  testthat::expect_equal(object = result$origin, expected = pe$origin)
-
-  testthat::expect_equal(object = result$type, expected = pe$type_name)
-
-  testthat::expect_equal(object = nrow(result$data),
-                         expected = 3676)
-
-  testthat::expect_equal(object = result$data[1,]$wavenumber,
-                         expected = 7800, tolerance = 1e-4)
-
-  testthat::expect_equal(object = result$data[1,]$intensity,
-                         expected = 0.6823456, tolerance = 1e-4)
-
-  last.index <- nrow(result$data)
-  testthat::expect_equal(object = result$data[last.index,]$wavenumber,
-                         expected = 450, tolerance = 1e-4)
-
-  testthat::expect_equal(object = result$data[last.index,]$intensity,
-                         expected = 1.726805, tolerance = 1e-4)
-
-  testthat::expect_equal(object = length(result$allInstrumentMetadata), expected = 7)
+  result <- common_test(soil.format.obj = soilspec.format::PerkinElmerSP$new(),
+                        test_file_path = soilspec.format::perkin.elmer.sp.peir.file.path(),
+                        status = 0, mode = "DIFFUSE REFLECTANCE",
+                        is.absorbance = F, is.reflectance = T, is.transmittance = F,
+                        is.descending = T, num.data.rows = 3676,
+                        wavenumbers = c(7800, 450),
+                        intensities = c(0.6823456, 1.726805),
+                        metadata.length = 7)
 
   testthat::expect_equal(object = result$allInstrumentMetadata$xLabel,
                          expected = "CM-1")
