@@ -220,6 +220,13 @@ test_that("Read CSV example file with format specific read function", {
   testthat::expect_equal(object = result$status, expected = 0)
 })
 
+test_that("Read Hone Lab Red example file with format specific read function", {
+  path <- soilspec.format::hone.lab.red.file.path()
+  result <- soilspec.format::read.hone.lab.red(path)
+
+  testthat::expect_equal(object = result$status, expected = 0)
+})
+
 # Tests for unreachable path
 
 test_that("Attempt to read unreachable path with generic read function", {
@@ -318,4 +325,11 @@ test_that("Attempt to read ASD SCO binary file with invalid format using generic
     path <- stringr::str_replace(path, pattern="xyz", replacement = "sco")
     result <- soilspec.format::read.soilspec(path)
     testthat::expect_equal(object = result$status, expected = 2)
+})
+
+test_that("Attempt to read Hone Lab Red binary file with invalid format using generic read function", {
+  path <- soilspec.format::unknown.file.path()
+  path <- stringr::str_replace(path, pattern="xyz", replacement = "hlr")
+  result <- soilspec.format::read.soilspec(path)
+  testthat::expect_equal(object = result$status, expected = 2)
 })
