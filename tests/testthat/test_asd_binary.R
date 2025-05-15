@@ -1,4 +1,4 @@
-# ASD binary unit tests
+# ASD binary format unit tests
 
 source("common_test.R", local = T)
 

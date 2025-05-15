@@ -1,4 +1,4 @@
-# Bruker Opus Binary unit tests
+# Bruker Opus Binary format unit tests
 
 source("common_test.R", local = T)
 

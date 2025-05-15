@@ -1,4 +1,4 @@
-# ASD SCO binary unit tests
+# ASD SCO binary format unit tests
 
 source("common_test.R", local = T)
 

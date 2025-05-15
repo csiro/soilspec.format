@@ -1,4 +1,4 @@
-# Nicolet .spa unit tests
+# Nicolet .spa format unit tests
 
 source("common_test.R", local = T)
 

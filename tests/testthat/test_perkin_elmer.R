@@ -1,4 +1,4 @@
-# Perkin Elmer .sp unit tests
+# Perkin Elmer format unit tests
 
 source("common_test.R", local = T)
 
