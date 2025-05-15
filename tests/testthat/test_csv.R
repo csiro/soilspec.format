@@ -1,4 +1,4 @@
-# CSV unit tests
+# CSV format unit tests
 
 source("common_test.R", local = T)
 

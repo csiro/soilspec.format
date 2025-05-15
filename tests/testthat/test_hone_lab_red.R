@@ -1,4 +1,4 @@
-# Hone Lab Red unit tests
+# Hone Lab Red format unit tests
 
 source("common_test.R", local = T)
 

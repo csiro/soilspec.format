@@ -1,6 +1,4 @@
-# ASD SCO binary format, e.g. for vis-NIR contact probe
-
-
+# CSIRO SCANS format
 
 makeStandardMetaData_SCANS <- function(meta.list, spec.data){
 
@@ -15,10 +13,6 @@ makeStandardMetaData_SCANS <- function(meta.list, spec.data){
 
   return(md)
 }
-
-
-
-
 
 
 SCANS <- R6::R6Class("SCANS",

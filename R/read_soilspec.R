@@ -65,6 +65,23 @@ read.soilspec <- function(path) {
 }
 
 
+#' Read a CSIRO SCANS spectroscopy file given a path.
+#' A precondition for correct functioning is that the file is of the expected type.
+#' This function should be used when the file does not have the expected ".scan" suffix.
+#' @export
+#' @param path Full path to the file
+#' @return A result list containing a file read status, a data.frame of
+#'         wavenumber-intensity pairs, a list of any available metadata,
+#'         instrument mode, units, whether wavenumbers are in descending order,
+#'         instrument origin, spectrum type;
+#'         status will be non-zero if file does not exist or cannot be read (1),
+#'         is of an unknown format (2) or some other error occurred (4).
+read.csiro.scans <- function(path) {
+
+  read.soilspec.with.suffix(path, ".scan")
+}
+
+
 #' Read a Hone Lab Red spectroscopy file given a path.
 #' A precondition for correct functioning is that the file is of the expected type.
 #' This function should be used when the file does not have the expected ".hlr" suffix.
