@@ -2,20 +2,24 @@
 
 source("common_test.R", local = T)
 
+soil.format.obj <- soilspec.format::PerkinElmerSP$new()
+
 # PEPE
+
+test.file.path <- soilspec.format::perkin.elmer.sp.pepe.file.path()
 
 test_that("Get Perkin Elmer SP PEPE example file path", {
   expected <- system.file("extdata", "PerkinElmerPEPE",
                           "example.sp", package = "soilspec.format")
 
-  actual <- soilspec.format::perkin.elmer.sp.pepe.file.path()
+  actual <- test.file.path
 
   testthat::expect_equal(object = actual, expected = expected)
 })
 
 test_that("Read Perkin Elmer SP PEPE example file", {
-  result <- common_test(soil.format.obj = soilspec.format::PerkinElmerSP$new(),
-                        test_file_path = soilspec.format::perkin.elmer.sp.pepe.file.path(),
+  result <- common_test(soil.format.obj = soil.format.obj,
+                        test.file.path = test.file.path,
                         status = 0, mode = NULL,
                         is.absorbance = F, is.reflectance = F, is.transmittance = F,
                         is.descending = T, num.data.rows = 3676,
@@ -29,10 +33,8 @@ test_that("Read Perkin Elmer SP PEPE example file", {
 
 # PEPE / PE IR
 test_that("Read non-existent Perkin Elmer file", {
-  pe <- soilspec.format::PerkinElmerSP$new()
-
   path <- "nothing at all"
-  result <- pe$read(path)
+  result <- soil.format.obj$read(path)
 
   testthat::expect_false(result$status == 0)
   testthat::expect_null(result$spec.df)
@@ -42,18 +44,20 @@ test_that("Read non-existent Perkin Elmer file", {
 
 # PE IR
 
+test.file.path <- soilspec.format::perkin.elmer.sp.peir.file.path()
+
 test_that("Get Perkin Elmer SP PE IR example file path", {
   expected <- system.file("extdata", "PerkinElmerPEIR",
                           "example.sp", package = "soilspec.format")
 
-  actual <- soilspec.format::perkin.elmer.sp.peir.file.path()
+  actual <- test.file.path
 
   testthat::expect_equal(object = actual, expected = expected)
 })
 
 test_that("Read Perkin Elmer SP PE IR example file", {
-  result <- common_test(soil.format.obj = soilspec.format::PerkinElmerSP$new(),
-                        test_file_path = soilspec.format::perkin.elmer.sp.peir.file.path(),
+  result <- common_test(soil.format.obj = soil.format.obj,
+                        test.file.path = test.file.path,
                         status = 0, mode = "DIFFUSE REFLECTANCE",
                         is.absorbance = F, is.reflectance = T, is.transmittance = F,
                         is.descending = T, num.data.rows = 3676,

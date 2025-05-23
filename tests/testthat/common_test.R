@@ -3,14 +3,14 @@
 # This function takes parameters relating to the values under common test,
 # asserts their equality with respect to actual results, and returns the
 # results object.
-common_test <- function(soil.format.obj, test_file_path,
+common_test <- function(soil.format.obj, test.file.path,
                         status, mode,
                         is.absorbance, is.reflectance, is.transmittance,
                         is.descending, num.data.rows,
                         wavenumbers, intensities,
                         metadata.length) {
 
-  result <- soil.format.obj$read(test_file_path)
+  result <- soil.format.obj$read(test.file.path)
 
   testthat::expect_equal(object = result$status, expected = status)
 

@@ -2,19 +2,22 @@
 
 source("common_test.R", local = T)
 
+soil.format.obj <- soilspec.format::HoneLabRed$new()
+test.file.path <- soilspec.format::hone.lab.red.file.path()
+
 test_that("Get Hone Lab Red example file path", {
   expected <- system.file("extdata", "HoneLabRed",
                           "example.hlr", package = "soilspec.format")
 
-  actual <- soilspec.format::hone.lab.red.file.path()
+  actual <- test.file.path
 
   testthat::expect_equal(object = actual, expected = expected)
 })
 
 test_that("Read Hone Lab Red example file", {
   suppressWarnings({
-    result <- common_test(soil.format.obj = soilspec.format::HoneLabRed$new(),
-                          test_file_path = soilspec.format::hone.lab.red.file.path(),
+    result <- common_test(soil.format.obj = soil.format.obj,
+                          test.file.path = test.file.path,
                           status = 0, mode = NULL,
                           is.absorbance = F, is.reflectance = F, is.transmittance = F,
                           is.descending = F, num.data.rows = 513,
@@ -25,10 +28,8 @@ test_that("Read Hone Lab Red example file", {
 })
 
 test_that("Read non-existent Hone Lab Red file", {
-  hone.lab.red <- soilspec.format::HoneLabRed$new()
-
   path <- "nothing at all"
-  result <- hone.lab.red$read(path)
+  result <- soil.format.obj$read(path)
 
   testthat::expect_false(result$status == 0)
   testthat::expect_null(result$spec.df)

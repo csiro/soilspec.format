@@ -2,18 +2,21 @@
 
 source("common_test.R", local = T)
 
+soil.format.obj <- soilspec.format::SCANS$new()
+test.file.path <- soilspec.format::csiro.scans.file.path()
+
 test_that("Get CSIRO SCANS example file path", {
   expected <- system.file("extdata", "CSIROSCANS",
                           "example.scan", package = "soilspec.format")
 
-  actual <- soilspec.format::csiro.scans.file.path()
+  actual <- test.file.path
 
   testthat::expect_equal(object = actual, expected = expected)
 })
 
 test_that("Read CSIRO SCANS example file", {
-  result <- common_test(soil.format.obj = soilspec.format::SCANS$new(),
-                        test_file_path = soilspec.format::csiro.scans.file.path(),
+  result <- common_test(soil.format.obj = soil.format.obj,
+                        test.file.path = test.file.path,
                         status = 0, mode = NULL,
                         is.absorbance = F, is.reflectance = F, is.transmittance = F,
                         is.descending = F, num.data.rows = 2151,
@@ -26,10 +29,8 @@ test_that("Read CSIRO SCANS example file", {
 })
 
 test_that("Read non-existent CSIRO SCANS file", {
-  scans <- soilspec.format::SCANS$new()
-
   path <- "nothing at all"
-  result <- scans$read(path)
+  result <- soil.format.obj$read(path)
 
   testthat::expect_false(result$status == 0)
   testthat::expect_null(result$spec.df)
