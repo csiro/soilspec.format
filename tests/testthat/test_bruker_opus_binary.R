@@ -13,7 +13,7 @@ test_that("Get Bruker Opus Binary absorbance file path", {
 
 test_that("Read Bruker Opus Binary absorbance file", {
   suppressWarnings({
-    result <- common_test(soil.format.obj = soilspec.format::BrukerOpusBinary$new(),
+    result <- common_soil_format_object_test(soil.format.obj = soilspec.format::BrukerOpusBinary$new(),
                           test.file.path = soilspec.format::bruker.opus.binary.test.abs.file.path(),
                           status = 0, mode = "AB",
                           is.absorbance = T, is.reflectance = F, is.transmittance = F,
@@ -42,7 +42,7 @@ test_that("Read Bruker Opus Binary reflectance file", {
 
   suppressWarnings({
     suppressWarnings({
-      result <- common_test(soil.format.obj = soilspec.format::BrukerOpusBinary$new(),
+      result <- common_soil_format_object_test(soil.format.obj = soilspec.format::BrukerOpusBinary$new(),
                             test.file.path = soilspec.format::bruker.opus.binary.test.refl.file.path(),
                             status = 0, mode = "RFL",
                             is.absorbance = F, is.reflectance = T, is.transmittance = F,

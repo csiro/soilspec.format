@@ -16,7 +16,7 @@ test_that("Get ASD binary example file path", {
 
 test_that("Read ASD binary example file", {
   suppressWarnings({
-    result <- common_test(soil.format.obj = soil.format.obj,
+    result <- common_soil_format_object_test(soil.format.obj = soil.format.obj,
                           test.file.path = test.file.path,
                           status = 0, mode = "reflectance",
                           is.absorbance = F, is.reflectance = T, is.transmittance = F,

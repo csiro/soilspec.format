@@ -16,7 +16,7 @@ test_that("Get Hone Lab Red example file path", {
 
 test_that("Read Hone Lab Red example file", {
   suppressWarnings({
-    result <- common_test(soil.format.obj = soil.format.obj,
+    result <- common_soil_format_object_test(soil.format.obj = soil.format.obj,
                           test.file.path = test.file.path,
                           status = 0, mode = NULL,
                           is.absorbance = F, is.reflectance = F, is.transmittance = F,

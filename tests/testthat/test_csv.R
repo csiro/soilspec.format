@@ -15,7 +15,7 @@ test_that("Get CSV example file path", {
 })
 
 test_that("Read CSV example file", {
-  result <- common_test(soil.format.obj = soil.format.obj,
+  result <- common_soil_format_object_test(soil.format.obj = soil.format.obj,
                         test.file.path = test.file.path,
                         status = 0, mode = NULL,
                         is.absorbance = F, is.reflectance = F, is.transmittance = F,

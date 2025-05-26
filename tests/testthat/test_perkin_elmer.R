@@ -18,7 +18,7 @@ test_that("Get Perkin Elmer SP PEPE example file path", {
 })
 
 test_that("Read Perkin Elmer SP PEPE example file", {
-  result <- common_test(soil.format.obj = soil.format.obj,
+  result <- common_soil_format_object_test(soil.format.obj = soil.format.obj,
                         test.file.path = test.file.path,
                         status = 0, mode = NULL,
                         is.absorbance = F, is.reflectance = F, is.transmittance = F,
@@ -56,7 +56,7 @@ test_that("Get Perkin Elmer SP PE IR example file path", {
 })
 
 test_that("Read Perkin Elmer SP PE IR example file", {
-  result <- common_test(soil.format.obj = soil.format.obj,
+  result <- common_soil_format_object_test(soil.format.obj = soil.format.obj,
                         test.file.path = test.file.path,
                         status = 0, mode = "DIFFUSE REFLECTANCE",
                         is.absorbance = F, is.reflectance = T, is.transmittance = F,

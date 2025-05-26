@@ -15,7 +15,7 @@ test_that("Get Nicolet spa example file path", {
 })
 
 test_that("Read Nicolet spa example file", {
-  result <- common_test(soil.format.obj = soil.format.obj,
+  result <- common_soil_format_object_test(soil.format.obj = soil.format.obj,
                         test.file.path = test.file.path,
                         status = 0, mode = "Absorbance",
                         is.absorbance = T, is.reflectance = F, is.transmittance = F,
