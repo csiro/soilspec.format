@@ -102,7 +102,7 @@ To run unit tests use this command:
      # Add tests for new formats above ^^^ #
      #######################################
 ~~~
-  See examples for other formats that call `common_read_test`.
+  * See examples for other formats that call `common_read_test`.
 
 * Under `tests/testthat`, add a unit test for the sub-class of `SpectrumFormat`
   in a new file under `tests/testthat`. Look at other format-specific test files
