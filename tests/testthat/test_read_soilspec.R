@@ -62,11 +62,23 @@ test_that("Read CSV example file with generic read function", {
     suffix = ".csv", is.descending = T, num.rows = 4830)
 })
 
-# TODO: add Hone, SCANS
+test_that("Read Hone Lab Red example file with generic read function", {
+  common_read_test(
+    path = soilspec.format::hone.lab.red.file.path(),
+    read.function = soilspec.format::read.hone.lab.red,
+    suffix = ".hlr", is.descending = F, num.rows = 513)
+})
 
-##################################
-# Add tests for new formats here #
-##################################
+test_that("Read CSIRO SCANS example file with generic read function", {
+  common_read_test(
+    path = soilspec.format::csiro.scans.file.path(),
+    read.function = soilspec.format::read.csiro.scans,
+    suffix = ".scan", is.descending = F, num.rows = 2151)
+})
+
+######################################
+# Add tests for new formats above ^^^ #
+######################################
 
 # * Special case tests *
 
