@@ -86,12 +86,12 @@ To run unit tests use this command:
   `soilspec.readers[[".asd"]] <- ASDBinary$new()`
 
 * Create a format-specific reader function in `R/read_soilspec.R` by starting
-  with an example, e.g. `read.bruker.opus.binary`.
+  with an example, e.g. `read.bruker.opus.binary`
 
-* Add an example file in a sub-directory named to reflect the file format
-  under `inst/extdata`. The file should start with `example` and end in the
+* Add an example file in a sub-directory under `inst/extdata` named to reflect
+  the file format. The file should start with `example` and end in the
   suffix used for files of the format. Ensure there are no IP concerns with
-  making the file availble in the library.
+  making the file available in the library.
 
 * Create a file path function in `R/file_paths.R` to access this file. This
   function can be used for testing and by users of the library.
@@ -105,7 +105,7 @@ To run unit tests use this command:
   * See examples above those lines for other format reader tests that
     call `common_read_test`.
 
-* Under `tests/testthat`, add a unit test for the sub-class of `SpectrumFormat`
-  in a new file under `tests/testthat`. Look at other format-specific test files
+* Add a unit test for the sub-class of `SpectrumFormat` in a new file 
+  under `tests/testthat`. Look at other format-specific test files
   there to get started, e.g. `test_bruker_opus_binary.R` or
-  `test_asd_sco_binary.R`.
+  `test_asd_sco_binary.R`
