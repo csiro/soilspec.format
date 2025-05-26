@@ -31,26 +31,30 @@ NicoletSpa <- R6::R6Class("NicoletSpa",
     },
 
     read = function(path) {
-      result <- parse_nicolet_spa(path)
-      status <- as.integer(result$status)
+      status <- super$file_status(path)
 
+      spec.df <- NULL
+      meta.list <- NULL
       stdmeta <- NULL
+      mode <- NULL
 
       if (status == 0) {
+        result <- parse_nicolet_spa(path)
+        status <- as.integer(result$status)
+
+        if (status != 0) {
+          status <- 4
+        }
+
         spec.df <- data.frame(wavenumber=result$wavelengths, intensity=result$intensities)
+
         meta.list <- key.value.pairs(path)
         mode <- meta.list[["Final format"]]
-       # print(meta.list)
         stdmeta <- makeStandardMetaData_NicoletSpa(meta.list, path)
+
         if (stdmeta[['spectra_wavesignature_units']] != 'wn') {
           status <- 2
         }
-      } else {
-        status <- 4
-        spec.df <- NULL
-        meta.list <- NULL
-        stdmeta <- NULL
-        mode <- NULL
       }
 
       super$create.result(status, mode, spec.df, meta.list, std_meta=stdmeta)
