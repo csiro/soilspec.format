@@ -96,16 +96,15 @@ To run unit tests use this command:
 * Create a file path function in `R/file_paths.R` to access this file. This
   function can be used for testing and by users of the library.
 
-* Add unit tests under `tests/testthat`:
-  * Add a test case above the lines:
+* Under `tests/testthat`, add a test case for the new format above the lines:
 
-  `#######################################`
-  `# Add tests for new formats above ^^^ #`
-  `#######################################`
+     #######################################
+     # Add tests for new formats above ^^^ #
+     #######################################
 
-  for the new format. See examples for other formats that call
-  `common_read_test`.
+  See examples for other formats that call `common_read_test`.
 
-  * Add a unit test for the sub-class of `SpectrumFormat` in a new file under
-    `tests/testthat`. Look at other format-specific test files there to get
-    started, e.g. `test_bruker_opus_binary.R` or `test_asd_sco_binary.R`.
+* Under `tests/testthat`, add a unit test for the sub-class of `SpectrumFormat`
+  in a new file under `tests/testthat`. Look at other format-specific test files
+  there to get started, e.g. `test_bruker_opus_binary.R` or
+  `test_asd_sco_binary.R`.
