@@ -97,11 +97,11 @@ To run unit tests use this command:
   function can be used for testing and by users of the library.
 
 * Under `tests/testthat`, add a test case for the new format above the lines:
-
+~~~
      #######################################
      # Add tests for new formats above ^^^ #
      #######################################
-
+~~~
   See examples for other formats that call `common_read_test`.
 
 * Under `tests/testthat`, add a unit test for the sub-class of `SpectrumFormat`
