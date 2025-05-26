@@ -76,9 +76,9 @@ test_that("Read CSIRO SCANS example file with generic read function", {
     suffix = ".scan", is.descending = F, num.rows = 2151)
 })
 
-######################################
+#######################################
 # Add tests for new formats above ^^^ #
-######################################
+#######################################
 
 # * Special case tests *
 

@@ -64,11 +64,48 @@ R metadata lists from soil spectra of various formats, currently:
   ```
 
 # Developers
+## Install
 Instead of using `devtools::install_github()` to install `soilspec.format` for
 development purposes, use this command to install the package:
   
   `devtools::install()`
 
+## Test
 To run unit tests use this command:
 
   `devtools::test()`
+
+## Add Support for a New Format
+* Create a sub-class of `SpectrumFormat` (see `spectrum_format.R`) in the `R`
+  directory.
+  * Look at `R/*_format.R` files for examples.
+
+* Near the top of `R/read_soilspec.R` add a mapping from a file suffix to
+  an instance of the new ``SpectrumFormat` sub-class, e.g.
+
+  `soilspec.readers[[".asd"]] <- ASDBinary$new()`
+
+* Create a format-specific reader function in `R/read_soilspec.R` by starting
+  with an example, e.g. `read.bruker.opus.binary`.
+
+* Add an example file in a sub-directory named to reflect the file format
+  under `inst/extdata`. The file should start with `example` and end in the
+  suffix used for files of the format. Ensure there are no IP concerns with
+  making the file availble in the library.
+
+* Create a file path function in `R/file_paths.R` to access this file. This
+  function can be used for testing and by users of the library.
+
+* Add unit tests under `tests/testthat`:
+  * Add a test case above the lines:
+
+  `#######################################`
+  `# Add tests for new formats above ^^^ #`
+  `#######################################`
+
+  for the new format. See examples for other formats that call
+  `common_read_test`.
+
+  * Add a unit test for the sub-class of `SpectrumFormat` in a new file under
+    `tests/testthat`. Look at other format-specific test files there to get
+    started, e.g. `test_bruker_opus_binary.R` or `test_asd_sco_binary.R`.
