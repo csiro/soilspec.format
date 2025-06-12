@@ -8,6 +8,8 @@
 # PE IR format has so far only been understood by inspection.
 # Official Perkin Elmer format specifications would be helpful though.
 
+source("R/read_type.R", local=TRUE)
+
 PerkinElmerSP <- R6::R6Class("PerkinElmerSP",
   inherit = SpectrumFormat,
   public = list(
@@ -61,48 +63,6 @@ PerkinElmerSP <- R6::R6Class("PerkinElmerSP",
     }
   )
 )
-
-read.int16 <- function(con, num=1, signed=T) {
-  result <- readBin(con, "integer", signed = signed, size = 2, n = num)
-  if (length(result) == 0) {
-    result <- NA
-  }
-  result
-}
-
-read.int32 <- function(con, num=1, signed=T) {
-  result <- readBin(con, "integer", signed = signed, size = 4, n = num)
-  if (length(result) == 0) {
-    result <- NA
-  }
-  result
-}
-
-read.double <- function(con, num=1) {
-  result <- readBin(con, "double", n = num)
-  if (length(result) == 0) {
-    result <- NA
-  }
-  result
-}
-
-read.single <- function(con, num=1) {
-  result <- readBin(con, "numeric", size = 4, n = num)
-  if (length(result) == 0) {
-    result <- NA
-  }
-  result
-}
-
-read.string <- function(con, len) {
-  result <- readBin(con, "raw", len)
-  if (length(result) == 0) {
-    result <- NA
-  } else {
-    result <- rawToChar(result)
-  }
-  result
-}
 
 read.pepe <- function(path) {
   # block IDs
