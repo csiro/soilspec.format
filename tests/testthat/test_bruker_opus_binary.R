@@ -40,8 +40,6 @@ test_that("Read Bruker Opus Binary reflectance file", {
   bruker <- soilspec.format::BrukerOpusBinary$new()
   path <- soilspec.format::bruker.opus.binary.test.refl.file.path()
 
-  #r <- bruker$read(path)
-
   suppressWarnings({
     suppressWarnings({
       result <- common_soil_format_object_test(soil.format.obj = soilspec.format::BrukerOpusBinary$new(),
