@@ -40,6 +40,8 @@ test_that("Read Bruker Opus Binary reflectance file", {
   bruker <- soilspec.format::BrukerOpusBinary$new()
   path <- soilspec.format::bruker.opus.binary.test.refl.file.path()
 
+  #r <- bruker$read(path)
+
   suppressWarnings({
     suppressWarnings({
       result <- common_soil_format_object_test(soil.format.obj = soilspec.format::BrukerOpusBinary$new(),
@@ -59,7 +61,9 @@ test_that("Read Bruker Opus Binary reflectance file", {
   std.meta <- result$standardisedMetadata
 
   # check standard metadata potentially affected by "Bruker standard metadata: changes required" issue
-  testthat::expect_equal(object = std.meta[["DateTime"]], expected = "2024-03-07 11:49:31")
+  testthat::expect_equal(object = std.meta$basic_metadata,
+                         expected="dsn_filename, opus_sample_name, timestamp_string, local_datetime, local_timezone, utc_datetime_posixct")
+  testthat::expect_equal(object = std.meta$DateTime, expected = "2024-03-07 11:49:31 GMT+11")
   testthat::expect_equal(object = std.meta$spectra_source_file_name, expected = "test_refl.0")
   testthat::expect_equal(object = std.meta$instrument_min_wavelength, expected = 498.1621, tolerance=tolerance)
   testthat::expect_equal(object = std.meta$instrument_max_wavelength, expected = 3997.5973, tolerance=tolerance)
