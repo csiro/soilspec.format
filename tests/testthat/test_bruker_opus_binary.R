@@ -59,7 +59,7 @@ test_that("Read Bruker Opus Binary reflectance file", {
   std.meta <- result$standardisedMetadata
 
   # check standard metadata potentially affected by "Bruker standard metadata: changes required" issue
-  testthat::expect_equal(object = std.meta$DateTime, expected = "2024-03-07 11:49:31")
+  testthat::expect_equal(object = std.meta[["DateTime"]], expected = "2024-03-07 11:49:31")
   testthat::expect_equal(object = std.meta$spectra_source_file_name, expected = "test_refl.0")
   testthat::expect_equal(object = std.meta$instrument_min_wavelength, expected = 498.1621, tolerance=tolerance)
   testthat::expect_equal(object = std.meta$instrument_max_wavelength, expected = 3997.5973, tolerance=tolerance)
