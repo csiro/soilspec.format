@@ -12,8 +12,7 @@ makeStandardMetaData_BrukerOpusBinary <- function(meta.list, wavenumbers, opus2,
   md[['Sample_ID']] <- meta.list$sample_id
   md[['Spectra_ID']] <- meta.list$unique_id
   md[['spectra_source_file_name']] <- filename
-  md[['DateTime']] <- opus2[[filename]]$basic_metadata$timestamp_string #opus2[[filename]]$basic_metadata$local_datetime
-  md[["basic_metadata"]] <- str_flatten_comma(names(opus2[[filename]]$basic_metadata))
+  md[['DateTime']] <- as.character(meta.list$date_time_sm) #opus2[[filename]]$basic_metadata$timestamp_string
 
   # # DB Fields
   md[['instrument_technology_type']] <- 'MIR'
