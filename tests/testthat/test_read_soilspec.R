@@ -59,7 +59,9 @@ test_that("Read CSV example file with generic read function", {
   common_read_test(
     path = soilspec.format::csv.file.path(),
     read.function = soilspec.format::read.soilspec.csv,
-    suffix = ".csv", is.descending = T, num.rows = 4830)
+    suffix = ".csv", is.descending = T, num.rows = 4830,
+    is.absorbance = T, is.reflectance = F, is.transmittance = F,
+    source.col.names = c("wavenumber", "intensity"))
 })
 
 test_that("Read Hone Lab Red example file with generic read function", {

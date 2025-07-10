@@ -6,7 +6,7 @@ soil.format.obj <- soilspec.format::CSV$new()
 test.file.path <- soilspec.format::csv.file.path()
 
 test_that("Get CSV example file path", {
-  expected <- system.file("extdata", "BrukerCSV",
+  expected <- system.file("extdata", "CSV",
                           "example.csv", package = "soilspec.format")
 
   actual <- test.file.path
@@ -34,3 +34,5 @@ test_that("Read non-existent CSV file", {
   testthat::expect_null(result$meta.df)
   testthat::expect_null(result$mode)
 })
+
+# TODO: add tests for header skip/no header, different source.col.names, mode

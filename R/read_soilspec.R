@@ -58,7 +58,7 @@ read.soilspec <- function(path) {
     result[["mode"]] <- NULL
     result[["is.descending"]] <- NULL
     result[["data"]] <- NULL
-    result[["metadata"]] <- NULL
+    result[["metadata"]] <- NULL # TODO: need to be stdmeta etc now?
   }
 
   result
@@ -147,20 +147,29 @@ read.perkin.elmer.sp <- function(path) {
   read.soilspec.with.suffix(path, ".sp")
 }
 
+# TODO: shouldn't this function just be read.csv()? **
 #' Read a CSV spectroscopy file.
 #' This function should be used when the file does not have the expected ".csv" suffix.
 #' A precondition for correct functioning is that the file is of the expected type.
 #' @export
 #' @param path Full path to the file
+#' @param is.absorbance Does the sample data correspond to absorbance?
+#' @param is.reflectance Does the sample data correspond to reflectance?
+#' @param is.transmittance Does the sample data correspond to transmittance?
+#' @param source.col.names Vector of CSV column names to be read corresponding
+#'        to wavenumber and intensity data frame columns.
 #' @return A result list containing a file read status, a data.frame of
 #'         wavenumber-intensity pairs, a list of any available metadata,
 #'         instrument mode, units, whether wavenumbers are in descending order,
 #'         instrument origin, spectrum type;
 #'         status will be non-zero if file does not exist or cannot be read (1),
 #'         is of an unknown format (2) or some other error occurred (4).
-read.soilspec.csv <- function(path) {
+read.soilspec.csv <- function(path,
+                              is.absorbance = F, is.reflectance = F, is.transmittance = F,
+                              source.col.names = c("wavenumber", "intensity")) {
 
-  read.soilspec.with.suffix(path, ".csv")
+  read.soilspec.with.suffix(path, ".csv", is.absorbance, is.reflectance, is.transmittance,
+                            source.col.names)
 }
 
 #' Read an ASD Binary spectroscopy file.
@@ -217,13 +226,18 @@ read.thermo.spc <- function(path) {
 #' A precondition for correct functioning is that the file and assumed suffix are compatible.
 #' @param path Full path to the file
 #' @param assumed.suffix The assumed suffix for the expected file format, e.g. .spa, .0
+#' @param is.absorbance Does the sample data correspond to absorbance?
+#' @param is.reflectance Does the sample data correspond to reflectance?
+#' @param is.transmittance Does the sample data correspond to transmittance?
 #' @return A result list containing a file read status, a data.frame of
 #'         wavenumber-intensity pairs, a list of any available metadata,
 #'         instrument mode, units, whether wavenumbers are in descending order,
 #'         instrument origin, spectrum type;
 #'         status will be non-zero if file does not exist or cannot be read (1),
 #'         is of an unknown format (2) or some other error occurred (4).
-read.soilspec.with.suffix <- function(path, assumed.suffix) {
+read.soilspec.with.suffix <- function(path, assumed.suffix,
+                                      is.absorbance = F, is.reflectance = F, is.transmittance = F,
+                                      source.col.names = c("wavenumber", "intensity")) {
 
   result <- NULL
 
@@ -232,7 +246,13 @@ read.soilspec.with.suffix <- function(path, assumed.suffix) {
   } else {
     assumed.suffix <- stringr::str_to_lower(assumed.suffix)
     if (assumed.suffix %in% names(soilspec.readers)) {
-      result <- soilspec.readers[[assumed.suffix]]$read(path)
+      if (assumed.suffix == ".csv") {
+        result <- soilspec.readers[[assumed.suffix]]$read(path,
+                                                          is.absorbance, is.reflectance, is.transmittance,
+                                                          source.col.names)
+      } else {
+        result <- soilspec.readers[[assumed.suffix]]$read(path)
+      }
     } else {
       status <- 2
     }

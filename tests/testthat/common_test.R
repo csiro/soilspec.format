@@ -66,12 +66,20 @@ common_soil_format_object_test <- function(soil.format.obj,
 # test and asserts their equality with respect to actual results
 # for format specific and generic reader functions.
 common_read_test <- function(path, read.function, suffix,
-                             is.descending, num.rows) {
+                             is.descending, num.rows,
+                             is.absorbance = F, is.reflectance = F, is.transmittance = F,
+                             source.col.names = c("wavenumber", "intensity")) {
 
   # read.soilspec function test
 
   suppressWarnings({
-    result <- soilspec.format::read.soilspec(path)
+    if (suffix == ".csv") {
+      result <- soilspec.format::read.soilspec.csv(path,
+                                                   is.absorbance, is.reflectance, is.transmittance,
+                                                   source.col.names)
+    } else {
+      result <- soilspec.format::read.soilspec(path)
+    }
   })
 
   testthat::expect_equal(object = result$status,

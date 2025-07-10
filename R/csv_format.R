@@ -10,10 +10,26 @@ CSV <- R6::R6Class("CSV",
                         suffix = ".csv")
      },
 
-     read = function(path) {
+     mode.bool.to.str = function(is.absorbance, is.reflectance, is.transmittance) {
+         mode <- NULL
+
+         if (is.absorbance) {
+           mode <- "ab"
+         } else if (is.reflectance) {
+           mode <- "rfl"
+         } else if (is.transmittance) {
+           mode <- "tran"
+         }
+
+         mode
+     },
+
+     read = function(path,
+                     is.absorbance = F, is.reflectance = F, is.transmittance = F,
+                     source.col.names = c("wavenumber", "intensity")) {
        spec.df <- NULL
        meta.list <- NULL
-       mode <- NULL
+       mode <- self$mode.bool.to.str(is.absorbance, is.reflectance, is.transmittance)
        stdmeta <- createStandardMetadataContainer()  ### raw spec file does not contain any metadata so just
                                                      #   returning and empty standard metadata object for consistency
        status <- super$file_status(path)
@@ -22,7 +38,7 @@ CSV <- R6::R6Class("CSV",
          status <- 4
 
          out <- tryCatch({
-          spec.df <- read.csv(path, header = F, sep = ",", col.names = c("wavenumber", "intensity"))
+          spec.df <- read.csv(path, header = F, sep = ",", col.names = source.col.names)
           if (nrow(spec.df) != 0) {
             if (ncol(spec.df) != 2) {
               status <- 2

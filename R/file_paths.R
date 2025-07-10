@@ -38,11 +38,19 @@ bruker.opus.binary.test.abs.file.path <- function() {
               package = "soilspec.format")
 }
 
-#' Return the full path to the (Bruker) CSV example file
+#' Return the full path to the CSV example file
 #' @export
-#' @return The full path to the (Bruker) CSV example file
+#' @return The full path to the CSV example file
 csv.file.path <- function() {
-  system.file("extdata", "BrukerCSV", "example.csv",
+  system.file("extdata", "CSV", "example.csv",
+              package = "soilspec.format")
+}
+
+#' Return the full path to the CSV test file 1
+#' @export
+#' @return The full path to the CSV test file 1
+csv.test1.file.path <- function() {
+  system.file("extdata", "CSV", "test1.csv",
               package = "soilspec.format")
 }
 
