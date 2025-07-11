@@ -147,7 +147,6 @@ read.perkin.elmer.sp <- function(path) {
   read.soilspec.with.suffix(path, ".sp")
 }
 
-# TODO: shouldn't this function just be read.csv()? **
 #' Read a CSV spectroscopy file.
 #' This function should be used when the file does not have the expected ".csv" suffix.
 #' A precondition for correct functioning is that the file is of the expected type.
