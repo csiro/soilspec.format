@@ -55,6 +55,15 @@ test_that("Read Thermo spc example file with generic read function", {
     suffix = ".spc", is.descending = T, num.rows = 3676)
 })
 
+test_that("Read CSV test file with generic read function", {
+  common_read_test(
+    path = soilspec.format::csv.test.file.path(),
+    read.function = soilspec.format::read.soilspec.csv,
+    suffix = ".csv", is.descending = T, num.rows = 4830,
+    is.absorbance = T, is.reflectance = F, is.transmittance = F,
+    source.col.names = c("x", "y"))
+})
+
 test_that("Read CSV example file with generic read function", {
   common_read_test(
     path = soilspec.format::csv.file.path(),

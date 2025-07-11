@@ -24,6 +24,19 @@ CSV <- R6::R6Class("CSV",
          mode
      },
 
+     read.df = function(path) {
+       # Is there a header?
+       # If the first line doesn't start with a number, assume it's a header.
+       line <- readLines(path, n = 1)
+       match <- unlist(gregexpr("[0-9]", substr(line, 1, 1)))
+       has.header <- match == -1
+
+       # Read data frame with or without header
+       df <- read.csv(path, header = has.header, sep = ",")
+
+       df
+     },
+
      read = function(path,
                      is.absorbance = F, is.reflectance = F, is.transmittance = F,
                      source.col.names = c("wavenumber", "intensity")) {
@@ -38,15 +51,22 @@ CSV <- R6::R6Class("CSV",
          status <- 4
 
          out <- tryCatch({
-          spec.df <- read.csv(path, header = F, sep = ",", col.names = source.col.names)
-          if (nrow(spec.df) != 0) {
-            if (ncol(spec.df) != 2) {
-              status <- 2
-            } else {
-              meta.list <- list()
-              status <- 0
-            }
-          }
+           spec.df <- self$read.df(path)
+
+           if (ncol(spec.df) > 2) {
+             # Extract only the columns we want from.
+             # This will only work if the file has a header.
+             spec.df <- spec.df[source.col.names]
+           }
+           if (ncol(spec.df) != 2) {
+             # Not two columns even now?
+             status <- 2
+           } else {
+             # All fine, so name the columns.
+             colnames(spec.df) <- c("wavenumber", "intensity")
+             meta.list <- list()
+             status <- 0
+           }
          },
          error=function(cond) {
          },

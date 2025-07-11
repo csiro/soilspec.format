@@ -3,11 +3,21 @@
 source("common_test.R", local = T)
 
 soil.format.obj <- soilspec.format::CSV$new()
-test.file.path <- soilspec.format::csv.file.path()
+example.file.path <- soilspec.format::csv.file.path()
+test.file.path <- soilspec.format::csv.test.file.path()
 
 test_that("Get CSV example file path", {
   expected <- system.file("extdata", "CSV",
                           "example.csv", package = "soilspec.format")
+
+  actual <- example.file.path
+
+  testthat::expect_equal(object = actual, expected = expected)
+})
+
+test_that("Get CSV test file path", {
+  expected <- system.file("extdata", "CSV",
+                          "test.csv", package = "soilspec.format")
 
   actual <- test.file.path
 
@@ -16,7 +26,7 @@ test_that("Get CSV example file path", {
 
 test_that("Read CSV example file", {
   result <- common_soil_format_object_test(soil.format.obj = soil.format.obj,
-                        test.file.path = test.file.path,
+                        test.file.path = example.file.path,
                         status = 0, mode = NULL,
                         is.absorbance = F, is.reflectance = F, is.transmittance = F,
                         is.descending = T, num.data.rows = 4830,
@@ -34,5 +44,3 @@ test_that("Read non-existent CSV file", {
   testthat::expect_null(result$meta.df)
   testthat::expect_null(result$mode)
 })
-
-# TODO: add tests for header skip/no header, different source.col.names, mode

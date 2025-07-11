@@ -75,7 +75,9 @@ common_read_test <- function(path, read.function, suffix,
   suppressWarnings({
     if (suffix == ".csv") {
       result <- soilspec.format::read.soilspec.csv(path,
-                                                   is.absorbance, is.reflectance, is.transmittance,
+                                                   is.absorbance,
+                                                   is.reflectance,
+                                                   is.transmittance,
                                                    source.col.names)
     } else {
       result <- soilspec.format::read.soilspec(path)
@@ -95,14 +97,31 @@ common_read_test <- function(path, read.function, suffix,
   # lower case and upper case suffix
 
   suppressWarnings({
-    result <- soilspec.format::read.soilspec.with.suffix(path, suffix)
+    if (suffix == ".csv") {
+      result <- soilspec.format::read.soilspec.with.suffix(path, suffix,
+                                                           is.absorbance,
+                                                           is.reflectance,
+                                                           is.transmittance,
+                                                           source.col.names)
+    } else {
+      result <- soilspec.format::read.soilspec.with.suffix(path, suffix)
+    }
   })
 
   testthat::expect_equal(object = result$status, expected = 0)
 
   suppressWarnings({
-    result <-
-      soilspec.format::read.soilspec.with.suffix(path, str_to_upper(suffix))
+    if (suffix == ".csv") {
+      result <- soilspec.format::read.soilspec.with.suffix(path,
+                                                           str_to_upper(suffix),
+                                                           is.absorbance,
+                                                           is.reflectance,
+                                                           is.transmittance,
+                                                           source.col.names)
+    } else {
+      result <-
+        soilspec.format::read.soilspec.with.suffix(path, str_to_upper(suffix))
+    }
   })
 
   testthat::expect_equal(object = result$status, expected = 0)
@@ -110,7 +129,13 @@ common_read_test <- function(path, read.function, suffix,
   # format specific reader function (read.X) test
 
   suppressWarnings({
-    result <- read.function(path)
+    if (suffix == ".csv") {
+      result <- read.function(path,
+                              is.absorbance, is.reflectance, is.transmittance,
+                              source.col.names)
+    } else {
+      result <- read.function(path)
+    }
   })
 
   testthat::expect_equal(object = result$status, expected = 0)

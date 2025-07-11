@@ -46,11 +46,11 @@ csv.file.path <- function() {
               package = "soilspec.format")
 }
 
-#' Return the full path to the CSV test file 1
+#' Return the full path to the CSV test file
 #' @export
-#' @return The full path to the CSV test file 1
-csv.test1.file.path <- function() {
-  system.file("extdata", "CSV", "test1.csv",
+#' @return The full path to the CSV test file
+csv.test.file.path <- function() {
+  system.file("extdata", "CSV", "test.csv",
               package = "soilspec.format")
 }
 

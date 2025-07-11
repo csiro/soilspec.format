@@ -38,7 +38,7 @@ test_that("read.single test", {
   testthat::expect_equal(num, 8.086942e-39)
 })
 
-test_that("read.single multipe value test", {
+test_that("read.single multiple value test", {
   # see comment above
   con <- as.raw(c(0x1b, 0x0f, 0x58, 0x00, 0x1b, 0x0f, 0x58, 0x00))
   num <- read.single(con, num = 2)
