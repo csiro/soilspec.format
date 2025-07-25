@@ -12,7 +12,10 @@ R metadata lists from soil spectra of various formats, currently:
 * Perkin Elmer (.sp) [PEPE and PE IR magic numbers]
 * Hone Lab Red (.hlr)
 * CSIRO SCANS (.scan)
-  
+* CSV (.csv)
+
+The extracted data frames will always have the columns: "wavenumber" and "intensity".
+
 
 # Install
 
@@ -36,9 +39,8 @@ R metadata lists from soil spectra of various formats, currently:
   
   result <- soilspec.format::read.soilspec(path)
   
-  names(result)
   [1] "status"        "mode"          "is.descending" "origin"        "type"          "data"          "metadata"     
-  
+ 
   result$status
   [1] 0
   
