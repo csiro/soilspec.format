@@ -47,7 +47,7 @@ test_that("Read Bruker Opus Binary reflectance file", {
                             status = 0, mode = "RFL",
                             is.absorbance = F, is.reflectance = T, is.transmittance = F,
                             is.descending = T, num.data.rows = 1708,
-                            wavenumbers = c(3997.597, 498.1621),
+                            wavenumbers = c(3997.5973, 498.1621),
                             intensities = c(0.09282638, 0.02004875),
                             metadata.length = 18)
     })
@@ -55,6 +55,14 @@ test_that("Read Bruker Opus Binary reflectance file", {
 
   testthat::expect_equal(object = stringr::str_to_lower(result$allInstrumentMetadata$instr_name_range),
                          expected = "alpha ii-mir")
+
+  std.meta <- result$standardisedMetadata
+
+  # check standard metadata potentially affected by "Bruker standard metadata: changes required" issue
+  testthat::expect_equal(object = std.meta$DateTime, expected = "2024-03-07 11:48:11")
+  testthat::expect_equal(object = std.meta$spectra_source_file_name, expected = "test_refl.0")
+  testthat::expect_equal(object = std.meta$instrument_min_wavelength, expected = 498.1621, tolerance=tolerance)
+  testthat::expect_equal(object = std.meta$instrument_max_wavelength, expected = 3997.5973, tolerance=tolerance)
 })
 
 test_that("Read non-existent Bruker Opus Binary file", {
