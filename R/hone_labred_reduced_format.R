@@ -49,7 +49,7 @@ makeStandardMetaData_HoneLabRedReduced <- function(meta.list, filepath){
 }
 
 
-HoneLabRed <- R6::R6Class("HoneLabRedReduced",
+HoneLabRedReduced <- R6::R6Class("HoneLabRedReduced",
                           inherit = SpectrumFormat,
 
                           public = list(
