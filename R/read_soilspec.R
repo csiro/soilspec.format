@@ -9,6 +9,7 @@ source("R/asd_sco_binary_format.R", local=T)
 source("R/perkin_elmer_format.R", local=T)
 source("R/csv_format.R", local=T)
 source("R/hone_labred_format.R", local=T)
+source("R/hone_labred_reduced_format.R",local=T)
 source("R/SCANS_format.R", local=T)
 
 soilspec.readers <- list()
@@ -21,6 +22,7 @@ soilspec.readers[[".sp"]] <- PerkinElmerSP$new()
 soilspec.readers[[".csv"]] <- CSV$new()
 soilspec.readers[[".hlr"]] <- HoneLabRed$new()
 soilspec.readers[[".scan"]] <- SCANS$new()
+soilspec.readers[[".hlrr"]] <- HoneLabRedReduced$new()
 
 #' Read a spectroscopy file given only its path.
 #' @export
@@ -96,6 +98,22 @@ read.csiro.scans <- function(path) {
 read.hone.lab.red <- function(path) {
 
   read.soilspec.with.suffix(path, ".hlr")
+}
+
+#' Read a Reduced Output Hone Lab Red spectroscopy file given a path.
+#' A precondition for correct functioning is that the file is of the expected type.
+#' This function should be used when the file does not have the expected ".hlrr" suffix.
+#' @export
+#' @param path Full path to the file
+#' @return A result list containing a file read status, a data.frame of
+#'         wavenumber-intensity pairs, a list of any available metadata,
+#'         instrument mode, units, whether wavenumbers are in descending order,
+#'         instrument origin, spectrum type;
+#'         status will be non-zero if file does not exist or cannot be read (1),
+#'         is of an unknown format (2) or some other error occurred (4).
+read.hone.lab.red.reduced <- function(path) {
+
+  read.soilspec.with.suffix(path, ".hlrr")
 }
 
 
