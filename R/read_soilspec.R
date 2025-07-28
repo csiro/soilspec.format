@@ -21,8 +21,8 @@ soilspec.readers[[".sco"]] <- ASDScoBinary$new()
 soilspec.readers[[".sp"]] <- PerkinElmerSP$new()
 soilspec.readers[[".csv"]] <- CSV$new()
 soilspec.readers[[".hlr"]] <- HoneLabRed$new()
-soilspec.readers[[".scan"]] <- SCANS$new()
 soilspec.readers[[".hlrr"]] <- HoneLabRedReduced$new()
+soilspec.readers[[".scan"]] <- SCANS$new()
 
 #' Read a spectroscopy file given only its path.
 #' @export

@@ -14,6 +14,13 @@ hone.lab.red.file.path <- function() {
   system.file("extdata", "HoneLabRed", "example.hlr", package = "soilspec.format")
 }
 
+#' Return the full path to the Hone Lab Red Reduced example file
+#' @export
+#' @return The full path to the Hone Lab Red Reduced example file
+hone.lab.red.reduced.file.path <- function() {
+  system.file("extdata", "HoneLabRedReduced", "31462.hlrr", package = "soilspec.format")
+}
+
 #' Return the full path to the Bruker Opus Binary example file
 #' @export
 #' @return The full path to the Bruker Opus Binary example file

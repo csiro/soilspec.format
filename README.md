@@ -98,14 +98,17 @@ To run unit tests use this command:
 * Create a file path function in `R/file_paths.R` to access this file. This
   function can be used for testing and by users of the library.
 
-* Under `tests/testthat`, add a test case for the new format above the lines:
+* Add an empty file in `inst/extdata/Unknown` that starts with `example` and ends in the
+  suffix associated with the format. This will be used with `common_read_test` (see below).
+
+* In `tests/testthat/test_read_soilspec.R`, add a test case for the new format above the lines:
 ~~~
      #######################################
      # Add tests for new formats above ^^^ #
      #######################################
 ~~~
-  * See examples above those lines for other format reader tests that
-    call `common_read_test`.
+* See examples above those lines for other format reader tests that
+  call `common_read_test`.
 
 * Add a unit test for the sub-class of `SpectrumFormat` in a new file 
   under `tests/testthat`. Look at other format-specific test files
