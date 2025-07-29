@@ -1,6 +1,6 @@
 ##################################################################
-#####       Author : Ross Searle                             #####
-#####       Date :  Wed Dec 13 14:46:34 2023                 #####
+#####       Author : J Moloney                               #####
+#####       Date :  Wed July 23 2025                         #####
 #####       Purpose : Reads a reduced wavelength raw spectra #####
 #####                 file from the Hone                     #####
 #####                 Lab Red NIR instrument                 #####
@@ -18,15 +18,8 @@ makeStandardMetaData_HoneLabRedReduced <- function(meta.list, filepath){
   md[['spectra_source_file_name']] <- basename(filepath)
 
   rawDate <- meta.list$Date.Time
-  # bits <- stringr::str_split(rawDate, '_')
-  # dt <- sapply(bits, function (x) x[1])
-  # tm <- sapply(bits, function (x) x[2])
-  # d1 <- as.POSIXct(paste0(stringr::str_sub(dt, 1,4), '-', stringr::str_sub(dt, 5,6), '-', stringr::str_sub(dt, 7,8), ' ',
-  #                         stringr::str_sub(tm, 1,2), ':', stringr::str_sub(tm, 3,4), ':', stringr::str_sub(tm, 5,6)),
-  #                  tz = Sys.timezone())
-  md[['DateTime']] <- format(rawDate, format = '%d-%m-%Y %H:%M:%S')
 
-  # # DB Fields
+  md[['DateTime']] <- format(rawDate, format = '%d-%m-%Y %H:%M:%S')
 
 
   md[['instrument_technology_type']] <- 'NIR'
