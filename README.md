@@ -11,6 +11,7 @@ R metadata lists from soil spectra of various formats, currently:
 * ASD SCO (.sco)
 * Perkin Elmer (.sp) [PEPE and PE IR magic numbers]
 * Hone Lab Red (.hlr)
+* Hone Lab Red Reduced (.hlrr)
 * CSIRO SCANS (.scan)
 * CSV (.csv)
 
@@ -92,8 +93,10 @@ To run unit tests use this command:
 
 * Add an example file in a sub-directory under `inst/extdata` named to reflect
   the file format. The file should start with `example` and end in the
-  suffix used for files of the format. Ensure there are no IP concerns with
-  making the file available in the library.
+  suffix used for files of the format. In fact, it doesn't matter what the prefix
+  of the file is but the suffix does matter (unlike the empty file referred to in
+  a step below). Ensure there are no IP concerns with making the file available
+  in the library.
 
 * Create a file path function in `R/file_paths.R` to access this file. This
   function can be used for testing and by users of the library.
