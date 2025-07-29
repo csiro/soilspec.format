@@ -39,10 +39,6 @@ ThermoSpc <- R6::R6Class("ThermoSpc",
           status <- 2
         },
         finally={
-          # spec.data <- hyperSpec::read.spc(path, log.txt = F, )
-          # spec.df <- data.frame(wavenumber=as.double(names(spec.data$spc[,])),
-          #                       intensity=as.double(spec.data$spc[,]))
-          # status <- 0
         })
       }
 
