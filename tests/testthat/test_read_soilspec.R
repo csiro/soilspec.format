@@ -80,6 +80,13 @@ test_that("Read Hone Lab Red example file with generic read function", {
     suffix = ".hlr", is.descending = F, num.rows = 513)
 })
 
+test_that("Read Hone Lab Red Reduced example file with generic read function", {
+  common_read_test(
+    path = soilspec.format::hone.lab.red.reduced.file.path(),
+    read.function = soilspec.format::read.hone.lab.red.reduced,
+    suffix = ".hlrr", is.descending = F, num.rows = 144)
+})
+
 test_that("Read CSIRO SCANS example file with generic read function", {
   common_read_test(
     path = soilspec.format::csiro.scans.file.path(),

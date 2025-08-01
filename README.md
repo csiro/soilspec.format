@@ -11,6 +11,7 @@ R metadata lists from soil spectra of various formats, currently:
 * ASD SCO (.sco)
 * Perkin Elmer (.sp) [PEPE and PE IR magic numbers]
 * Hone Lab Red (.hlr)
+* Hone Lab Red Reduced (.hlrr)
 * CSIRO SCANS (.scan)
 * CSV (.csv)
 
@@ -92,20 +93,25 @@ To run unit tests use this command:
 
 * Add an example file in a sub-directory under `inst/extdata` named to reflect
   the file format. The file should start with `example` and end in the
-  suffix used for files of the format. Ensure there are no IP concerns with
-  making the file available in the library.
+  suffix used for files of the format. In fact, it doesn't matter what the prefix
+  of the file is but the suffix does matter (unlike the empty file referred to in
+  a step below). Ensure there are no IP concerns with making the file available
+  in the library.
 
 * Create a file path function in `R/file_paths.R` to access this file. This
   function can be used for testing and by users of the library.
 
-* Under `tests/testthat`, add a test case for the new format above the lines:
+* Add an empty file in `inst/extdata/Unknown` that starts with `example` and ends in the
+  suffix associated with the format. This will be used with `common_read_test` (see below).
+
+* In `tests/testthat/test_read_soilspec.R`, add a test case for the new format above the lines:
 ~~~
      #######################################
      # Add tests for new formats above ^^^ #
      #######################################
 ~~~
-  * See examples above those lines for other format reader tests that
-    call `common_read_test`.
+* See examples above those lines for other format reader tests that
+  call `common_read_test`.
 
 * Add a unit test for the sub-class of `SpectrumFormat` in a new file 
   under `tests/testthat`. Look at other format-specific test files
