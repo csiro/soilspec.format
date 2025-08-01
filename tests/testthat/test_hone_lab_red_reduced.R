@@ -18,8 +18,8 @@ test_that("Read Hone Lab Red Reduced Reduced example file", {
   suppressWarnings({
     result <- common_soil_format_object_test(soil.format.obj = soil.format.obj,
                           test.file.path = test.file.path,
-                          status = 0, mode = NULL,
-                          is.absorbance = F, is.reflectance = F, is.transmittance = F,
+                          status = 0, mode = "reflectance",
+                          is.absorbance = F, is.reflectance = T, is.transmittance = F,
                           is.descending = F, num.data.rows = 144,
                           wavenumbers = c(1347.597, 2561.417),
                           intensities = c(0.2082933, 0.1230230),

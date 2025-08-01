@@ -99,6 +99,9 @@ HoneLabRedReduced <- R6::R6Class("HoneLabRedReduced",
                                 })
                               }
 
+                              if(length(stdmeta[['spectra_mode']])>0){
+                                mode <- stdmeta[['spectra_mode']]
+                              }
 
 
                               super$create.result(status=status, mode=mode, data.df=spec.df, meta.list=meta.list, std_meta=stdmeta)
