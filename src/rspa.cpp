@@ -4,6 +4,10 @@
 // Adapted for use with Rcpp by David Benn - 03/09/2021
 // NOTE: this code assumes that your platform has 32-bit IEEE floats and CHAR_BIT == 8
 
+#include <cstdlib>
+#include <cstdio>
+#include <cstring>
+
 #include <Rcpp.h>
 using namespace Rcpp;
 
@@ -31,6 +35,7 @@ static size_t fread_le(void * ptr, size_t size, size_t nmemb, FILE* stream);
 
 // [[Rcpp::export]]
 List parse_nicolet_spa(const char* filename) {
+  char* path;
   char comment[256];
   comment[0] = '\0';
   float* intensities = 0;
@@ -38,7 +43,20 @@ List parse_nicolet_spa(const char* filename) {
   std::vector<float> intensities_vec;
   std::size_t num_points;
 
-	FILE* fh = fopen(filename, "rb");
+    if (filename[0] == '~') {
+        char* home = getenv("HOME");
+        size_t len = strlen(home) + strlen(filename) + 1;
+        path = (char*)malloc(len);
+        strcpy(path, home);
+        strcat(path, &filename[1]);
+    } else {
+        path = (char*)malloc(strlen(filename)+1);
+        strcpy(path, filename);
+    }
+
+	FILE* fh = fopen(path, "rb");
+    free(path);
+
 	if (!fh) {
 		return cleanup(intensities, fh, spa_open_error);
 	}
