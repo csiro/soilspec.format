@@ -19,7 +19,7 @@ test_that("Read Bruker Opus Binary absorbance file", {
                           is.absorbance = T, is.reflectance = F, is.transmittance = F,
                           is.descending = T, num.data.rows = 4827,
                           wavenumbers = c(7498.2, 598.9982),
-                          intensities = c(0.1366372, 1.656751),
+                          intensities = c(0.21754, 1.74638),
                           metadata.length = 18)
   })
 
