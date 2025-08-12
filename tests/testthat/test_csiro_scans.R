@@ -26,6 +26,9 @@ test_that("Read CSIRO SCANS example file", {
 
   testthat::expect_equal(object = result$standardisedMetadata$spectra_wavesignature_units,
                          expected = "nm")
+
+  testthat::expect_equal(object = result$standardisedMetadata$Sample_ID,
+                         expected = "EXA_01")
 })
 
 test_that("Read non-existent CSIRO SCANS file", {
