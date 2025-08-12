@@ -19,12 +19,20 @@ PerkinElmerSP <- R6::R6Class("PerkinElmerSP",
                        suffix = ".sp")
     },
 
-    read = function(path) {
-      status <- super$file_status(path)
-
+    create_std_metadata = function(meta.list) {
       stdmeta <- createStandardMetadataContainer()  ### raw spec file does not contain any metadata so just
       #   returning and empty standard metadata object for consistency
       stdmeta[['spectra_wavesignature_units']] <- 'wn'
+
+      suffix_index <- stringr::str_locate(meta.list$alias, pattern=".sp")
+      sample_id <- stringr::str_sub(meta.list$alias, 1, suffix_index-1)[1]
+      stdmeta$Sample_ID <- sample_id
+
+      stdmeta
+    },
+
+    read = function(path) {
+      status <- super$file_status(path)
 
       if (status == 0) {
         # which Perkin Elmer format is it?
@@ -51,10 +59,12 @@ PerkinElmerSP <- R6::R6Class("PerkinElmerSP",
         spec.df <- result$data
         meta.list <- result$metadata
 
+        stdmeta <- self$create_std_metadata(meta.list)
 
         mode <- result$metadata$mode
       } else {
         spec.df <- NULL
+        stdmeta <- NULL
         meta.list <- NULL
         mode <- NULL
       }
