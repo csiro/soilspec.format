@@ -33,6 +33,9 @@ test_that("Read Perkin Elmer SP PEPE example file", {
   testthat::expect_equal(object = result$allInstrumentMetadata$alias,
                          expected = "EXAMPLE01.sp")
 
+  testthat::expect_equal(object = result$allInstrumentMetadata[["original name"]],
+                         expected = "\\\\Fssa1-adl\\URRBPUBLIC\\PERKIN~1\\MIRSPE~1\\PE-SPE~1\\EXAMPLE1.SP")
+
   testthat::expect_equal(object = result$standardisedMetadata$Sample_ID,
                          expected = "EXAMPLE01")
 })
