@@ -24,9 +24,12 @@ PerkinElmerSP <- R6::R6Class("PerkinElmerSP",
       #   returning and empty standard metadata object for consistency
       stdmeta[['spectra_wavesignature_units']] <- 'wn'
 
-      suffix_index <- stringr::str_locate(meta.list$alias, pattern=".sp")
-      sample_id <- stringr::str_sub(meta.list$alias, 1, suffix_index-1)[1]
-      stdmeta$Sample_ID <- sample_id
+      if (!is.null(meta.list$alias)) {
+        # PEPE has alias, PEIR has name but unclear whether name is identifier or path
+        suffix_index <- stringr::str_locate(meta.list$alias, pattern='.sp')
+        sample_id <- stringr::str_sub(meta.list$alias, 1, suffix_index-1)[1]
+        stdmeta$Sample_ID <- sample_id
+      }
 
       stdmeta
     },

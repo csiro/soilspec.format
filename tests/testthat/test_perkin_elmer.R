@@ -76,4 +76,7 @@ test_that("Read Perkin Elmer SP PE IR example file", {
 
   testthat::expect_equal(object = result$allInstrumentMetadata$xLabel,
                          expected = "CM-1")
+
+  testthat::expect_equal(object = result$allInstrumentMetadata$name,
+                         expected = "EXAMPLE1.SP")
 })
