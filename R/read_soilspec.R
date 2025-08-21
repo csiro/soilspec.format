@@ -11,6 +11,7 @@ source("R/csv_format.R", local=T)
 source("R/hone_labred_format.R", local=T)
 source("R/hone_labred_reduced_format.R",local=T)
 source("R/SCANS_format.R", local=T)
+source("R/spectral_evolution_format.R", local=T)
 
 soilspec.readers <- list()
 soilspec.readers[[".spa"]] <- NicoletSpa$new()
@@ -23,6 +24,7 @@ soilspec.readers[[".csv"]] <- CSV$new()
 soilspec.readers[[".hlr"]] <- HoneLabRed$new()
 soilspec.readers[[".hlrr"]] <- HoneLabRedReduced$new()
 soilspec.readers[[".scan"]] <- SCANS$new()
+soilspec.readers[[".sed"]] <- SpectralEvolution$new()
 
 #' Read a spectroscopy file given only its path.
 #' @export
@@ -66,6 +68,21 @@ read.soilspec <- function(path) {
   result
 }
 
+#' Read a Spectral Evolution spectroscopy file given a path.
+#' A precondition for correct functioning is that the file is of the expected type.
+#' This function should be used when the file does not have the expected ".sed" suffix.
+#' @export
+#' @param path Full path to the file
+#' @return A result list containing a file read status, a data.frame of
+#'         wavenumber-intensity pairs, a list of any available metadata,
+#'         instrument mode, units, whether wavenumbers are in descending order,
+#'         instrument origin, spectrum type;
+#'         status will be non-zero if file does not exist or cannot be read (1),
+#'         is of an unknown format (2) or some other error occurred (4).
+read.spectral.evolution <- function(path) {
+
+  read.soilspec.with.suffix(path, ".sed")
+}
 
 #' Read a CSIRO SCANS spectroscopy file given a path.
 #' A precondition for correct functioning is that the file is of the expected type.

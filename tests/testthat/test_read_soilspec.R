@@ -94,6 +94,13 @@ test_that("Read CSIRO SCANS example file with generic read function", {
     suffix = ".scan", is.descending = F, num.rows = 2151)
 })
 
+test_that("Read Spectral Evolution example file with generic read function", {
+  common_read_test(
+    path = soilspec.format::spectral.evolution.file.path(),
+    read.function = soilspec.format::read.spectral.evolution,
+    suffix = ".sed", is.descending = F, num.rows = 2151)
+})
+
 #######################################
 # Add tests for new formats above ^^^ #
 #######################################
