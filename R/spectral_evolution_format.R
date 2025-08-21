@@ -32,8 +32,8 @@ SpectralEvolution <- R6::R6Class("SpectralEvolution",
       if (status == 0) {
         meta.list <- extract.metadata(path)
 
-        # read data, skipping over metadata + "Data:" + column header lines
-        spec.df <- parse.sed(path, length(meta.list)+2)
+        # read data, skipping over metadata + "Data:" line
+        spec.df <- parse.sed(path, length(meta.list)+1)
 
         mode <- meta.list[["Measurement"]]
         stdmeta <- makeStandardMetaData_SED(meta.list, path)
@@ -45,19 +45,16 @@ SpectralEvolution <- R6::R6Class("SpectralEvolution",
 )
 
 parse.sed <- function(path, skip.n.lines) {
+  # Assumptions:
+  # - Always 3 header column names; actually 2, but space in second:
+  #   e.g. "Wvl	Reflect. %"
+  # - y (intensity) column is always a % value
+  #
+  # Both assumptions may be wrong. More sample files or file format required.
   df <- read.csv(path, skip = skip.n.lines, sep = "",
-                 col.names = c("wavenumber", "intensity"), )
+                 col.names = c("x", "y", "z"))
 
-  intensities <- df$intensities
-  intensity.colname <- colnames(df)[2]
-
-  if (stringr::str_sub(intensity.colname,
-                       nchar(intensity.colname), 1) == "%") {
-    intensities <- intensities / 100;
-    df[intensity.colname] <- intensities
-  }
-
-  return(df)
+  data.frame(wavenumber=df$x, intensity=df$y / 100)
 }
 
 # Extract metadata key-value pairs from a .sed file and return them as a dictionary
