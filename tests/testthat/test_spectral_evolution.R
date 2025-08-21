@@ -25,6 +25,8 @@ test_that("Read Spectral Evolution example file", {
                         metadata.length = 25)
 
   testthat::expect_equal(object = result$standardisedMetadata$spectra_wavesignature_units,
+                         expected = "nm")
+  testthat::expect_equal(object = result$standardisedMetadata$instrument_units,
                          expected = "W/m^2/sr/nm")
 })
 

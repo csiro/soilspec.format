@@ -3,11 +3,17 @@ makeStandardMetaData_SED <- function(meta.list, filepath){
   md <- createStandardMetadataContainer()
   md[['spectra_source_file_name']] <- basename(filepath)
 
-  wavelength.range <- meta.list[["Wavelength Range"]]
+  md['DateTime'] <- paste(stringr::str_split(meta.list$Date, ",")[[1]][2],
+                          stringr::str_split(meta.list$Time, ",")[[1]][2])
+
+  wavelength.range <- meta.list[['Wavelength Range']]
   wavelength.minmax <- stringr::str_split(wavelength.range, ",", n = 2)[[1]]
-  md[['instrument_min_wavelength']] <- wavelength.minmax[1]
-  md[['instrument_max_wavelength']] <- wavelength.minmax[2]
-  md[['spectra_wavesignature_units']] <- meta.list[["Units"]]
+  md[['instrument_min_wavelength']] <- as.double(wavelength.minmax[1])
+  md[['instrument_max_wavelength']] <- as.double(wavelength.minmax[2])
+  md[['instrument_units']] <- meta.list[['Units']]
+  md[['instrument_model']] <- meta.list[['Instrument']]
+  md[['instrument_manufacturer']] <- 'Spectral Evolution'
+  md[['spectra_wavesignature_units']] <- 'nm' # TODO: correct?
 
   md
 }
