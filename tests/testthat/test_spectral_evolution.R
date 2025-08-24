@@ -22,12 +22,12 @@ test_that("Read Spectral Evolution example file", {
                         is.descending = F, num.data.rows = 2151,
                         wavenumbers = c(350, 2500),
                         intensities = c(0.069635, 0.105154),
-                        metadata.length = 25)
+                        metadata.length = 26)
 
   testthat::expect_equal(object = result$standardisedMetadata$spectra_wavesignature_units,
                          expected = "nm")
   testthat::expect_equal(object = result$standardisedMetadata$instrument_units,
-                         expected = "W/m^2/sr/nm")
+                         expected = "nm")
 })
 
 test_that("Read non-existent Spectral Evolution file", {

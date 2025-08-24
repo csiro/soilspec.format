@@ -3,6 +3,8 @@ makeStandardMetaData_SED <- function(meta.list, filepath){
   md <- createStandardMetadataContainer()
   md[['spectra_source_file_name']] <- basename(filepath)
 
+  # We take the rightmost (second) date and time because it appears to be
+  # the time for the sample spectrum vs background.
   md['DateTime'] <- paste(stringr::str_split(meta.list$Date, ",")[[1]][2],
                           stringr::str_split(meta.list$Time, ",")[[1]][2])
 
@@ -10,10 +12,10 @@ makeStandardMetaData_SED <- function(meta.list, filepath){
   wavelength.minmax <- stringr::str_split(wavelength.range, ",", n = 2)[[1]]
   md[['instrument_min_wavelength']] <- as.double(wavelength.minmax[1])
   md[['instrument_max_wavelength']] <- as.double(wavelength.minmax[2])
-  md[['instrument_units']] <- meta.list[['Units']]
   md[['instrument_model']] <- meta.list[['Instrument']]
   md[['instrument_manufacturer']] <- 'Spectral Evolution'
-  md[['spectra_wavesignature_units']] <- 'nm' # TODO: correct?
+  md[['instrument_units']] <- 'nm'
+  md[['spectra_wavesignature_units']] <- 'nm'
 
   md
 }
@@ -38,8 +40,12 @@ SpectralEvolution <- R6::R6Class("SpectralEvolution",
       if (status == 0) {
         meta.list <- extract.metadata(path)
 
-        # read data, skipping over metadata + "Data:" line
-        spec.df <- parse.sed(path, length(meta.list)+1)
+        # Read data, skipping over metadata, which does not include the "Data:"
+        # line, but does include an entry based upon the data header (see
+        # "intensity_is_percentage"), therefore is the length of the metadata
+        # in terms of number of lines.
+        spec.df <- parse.sed(path, length(meta.list),
+                             meta.list[["intensity_is_percentage"]])
 
         mode <- meta.list[["Measurement"]]
         stdmeta <- makeStandardMetaData_SED(meta.list, path)
@@ -50,25 +56,35 @@ SpectralEvolution <- R6::R6Class("SpectralEvolution",
   )
 )
 
-parse.sed <- function(path, skip.n.lines) {
-  # Assumptions:
-  # - Always 3 header column names; actually 2, but space in second:
-  #   e.g. "Wvl	Reflect. %"
-  # - y (intensity) column is always a % value
-  #
-  # Both assumptions may be wrong. More sample files or file format required.
-  df <- read.csv(path, skip = skip.n.lines, sep = "",
-                 col.names = c("x", "y", "z"))
+# Given a .sed file path, number of lines to skip
+parse.sed <- function(path, skip.n.lines, intensity_is_percentage) {
+  df <- read.csv(path, skip = skip.n.lines, sep = "")
 
-  data.frame(wavenumber=df$x, intensity=df$y / 100)
+  if (intensity_is_percentage) {
+    divisor <- 100
+  } else {
+    divisor <- 1
+  }
+
+  spec.df <- data.frame(wavenumber=df[,1], intensity=df[,2] / divisor)
+
+  spec.df
 }
 
-# Extract metadata key-value pairs from a .sed file and return them as a dictionary
-# given path. A key-value pair consists of "X: Y" here.
+# Extract metadata key-value pairs from a .sed file and return them as
+# a dictionary given path. A key-value pair consists of "X: Y" here.
 extract.metadata <- function(path) {
   key2value <- list()
 
-  for (line in readLines(path)) {
+  # We don't want to read all lines, just metadata lines, but without
+  # a formal file format specification, we don't know how many lines
+  # there are. We will only process as many as needed however. Yes,
+  # loops in R are not ideal, but this is a small list (~2000 elements).
+  lines <- readLines(path)
+
+  i <- 1
+  while (i <= length(lines)) {
+    line <- lines[i]
     if (!startsWith(line, "Data:")) {
       field.list <- stringr::str_split(line, ": ", n = 2)
 
@@ -83,8 +99,14 @@ extract.metadata <- function(path) {
         key2value[[key]] <- value
       }
     } else {
+      # Does header line end with "%"
+      # e.g. Wvl Reflect. %
+      key2value[["intensity_is_percentage"]] <-
+        length(grep("%$", lines[i+1])) == 1
+
       break
     }
+    i <- i + 1
   }
 
   key2value
