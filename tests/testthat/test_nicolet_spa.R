@@ -26,6 +26,9 @@ test_that("Read Nicolet spa example file", {
 
   testthat::expect_equal(object = result$allInstrumentMetadata[["Bench Serial Number"]],
                          expected = "AMM0900168")
+
+  testthat::expect_equal(object = result$allInstrumentMetadata[["Background file"]],
+                         expected = "C:\\AutoPRO5\\Spectra\\2025Exam\\Example1\\Example12345.spa")
 })
 
 test_that("Read non-existent Nicolet spa file", {

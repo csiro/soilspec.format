@@ -19,12 +19,18 @@ test_that("Read Bruker Opus Binary absorbance file", {
                           is.absorbance = T, is.reflectance = F, is.transmittance = F,
                           is.descending = T, num.data.rows = 4827,
                           wavenumbers = c(7498.2, 598.9982),
-                          intensities = c(0.1366372, 1.656751),
+                          intensities = c(0.21754, 1.74638),
                           metadata.length = 18)
   })
 
   testthat::expect_equal(object = stringr::str_to_lower(result$allInstrumentMetadata$instr_name_range),
                          expected = "invenio-s-mir")
+
+  testthat::expect_equal(object = result$standardisedMetadata$Sample_ID,
+                         expected = "M1")
+
+  testthat::expect_equal(object = result$standardisedMetadata$Spectra_ID,
+                         expected = "M1_2021-01-19 04:38:09")
 })
 
 test_that("Get Bruker Opus Binary reflectance file path", {
@@ -60,6 +66,8 @@ test_that("Read Bruker Opus Binary reflectance file", {
 
   # check standard metadata potentially affected by "Bruker standard metadata: changes required" issue
   testthat::expect_equal(object = std.meta$DateTime, expected = "2024-03-07 11:48:11")
+  testthat::expect_equal(object = std.meta$Sample_ID, expected = "Example_123")
+  testthat::expect_equal(object = std.meta$Spectra_ID, expected = "Example_123_2024-03-07 11:48:11")
   testthat::expect_equal(object = std.meta$spectra_source_file_name, expected = "test_refl.0")
   testthat::expect_equal(object = std.meta$instrument_min_wavelength, expected = 498.1621, tolerance=tolerance)
   testthat::expect_equal(object = std.meta$instrument_max_wavelength, expected = 3997.5973, tolerance=tolerance)
