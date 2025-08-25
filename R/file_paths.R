@@ -1,8 +1,15 @@
 # Example and test file path access functions
 
+#' Return the full path to the Spectral Evolution example file
+#' @export
+#' @return The full path to the Spectral Evolution example file
+spectral.evolution.file.path <- function() {
+  system.file("extdata", "SpectralEvolution", "example.sed", package = "soilspec.format")
+}
+
 #' Return the full path to the CSIRO SCANS example file
 #' @export
-#' @return The full path to the Hone Lab Red example file
+#' @return The full path to the CSIRO SCANS example file
 csiro.scans.file.path <- function() {
   system.file("extdata", "CSIROSCANS", "example.scan", package = "soilspec.format")
 }
