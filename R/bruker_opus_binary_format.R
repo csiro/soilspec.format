@@ -7,7 +7,7 @@
 
 makeStandardMetaData_BrukerOpusBinary <- function(meta.list, wavenumbers, opus2, filename) {
 
-  md <- createStandardMetadataContainer()
+  md <- create.standard.metadata.container()
 
   md[['sample.id']] <- meta.list$sample_id
   md[['spectra.id']] <- meta.list$unique_id

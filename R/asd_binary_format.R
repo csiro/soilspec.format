@@ -3,7 +3,7 @@
 
 makeStandardMetaData_ASD <- function(meta.list, filepath){
 
-  md <- createStandardMetadataContainer()
+  md <- create.standard.metadata.container()
 
   md[['sample.id']] <- ''
   md[['spectra.id']] <- ''

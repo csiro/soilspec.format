@@ -1,6 +1,6 @@
 makeStandardMetaData_SED <- function(meta.list, filepath){
 
-  md <- createStandardMetadataContainer()
+  md <- create.standard.metadata.container()
   md[['spectra_source_file_name']] <- basename(filepath)
 
   # We take the rightmost (second) date and time because it appears to be

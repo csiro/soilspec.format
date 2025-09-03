@@ -2,7 +2,7 @@
 
 makeStandardMetaData_SCANS <- function(meta.list, spec.data){
 
-  md <- createStandardMetadataContainer()
+  md <- create.standard.metadata.container()
 
   bits <- stringr::str_split(spec.data$core.label, '_')
 

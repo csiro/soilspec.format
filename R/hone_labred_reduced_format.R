@@ -11,7 +11,7 @@
 
 makeStandardMetaData_HoneLabRedReduced <- function(meta.list, filepath){
 
-  md <- createStandardMetadataContainer()
+  md <- create.standard.metadata.container()
 
   md[['sample.id']] <- meta.list$Sample.ID
   md[['spectra.id']] <- meta.list$NIRId

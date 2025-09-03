@@ -1,6 +1,6 @@
 # Standard Metadata Fields
 
-createStandardMetadataContainer = function(){
+create.standard.metadata.container = function() {
 
   md <- list()
   md[['sample.id']] <- ''
@@ -21,7 +21,7 @@ createStandardMetadataContainer = function(){
   md[['instrument_max_wavelength']] <- ''
   md[['instrument_units']] <- ''
 
-  md[['spectra_mode']] <- ''     # TODO: do we want this?
+  md[['spectra_mode']] <- ''
   md[['spectra_temperature']] <- ''
   md[['spectra_humidity']] <- ''
   md[['spectra_wavesignature_units']] <- ''

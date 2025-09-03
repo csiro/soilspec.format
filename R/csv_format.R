@@ -43,7 +43,7 @@ CSV <- R6::R6Class("CSV",
        spec.df <- NULL
        meta.list <- NULL
        mode <- self$mode.bool.to.str(is.absorbance, is.reflectance, is.transmittance)
-       stdmeta <- createStandardMetadataContainer()  ### raw spec file does not contain any metadata so just
+       stdmeta <- create.standard.metadata.container()  ### raw spec file does not contain any metadata so just
                                                      #   returning and empty standard metadata object for consistency
        status <- super$file_status(path)
 

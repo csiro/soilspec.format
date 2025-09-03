@@ -5,7 +5,7 @@ library(stringr)
 
 makeStandardMetaData_NicoletSpa <- function(meta.list, filepath){
 
-  md <- createStandardMetadataContainer()
+  md <- create.standard.metadata.container()
   md[['spectra_source_file_name']] <- basename(filepath)
   resLine <- meta.list$Resolution
   bits <- stringr::str_split(resLine, ' ')

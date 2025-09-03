@@ -4,7 +4,7 @@
 
 makeStandardMetaData_ASD_SCO <- function(meta.list, filepath){
 
-  md <- createStandardMetadataContainer()
+  md <- create.standard.metadata.container()
   md[['spectra_source_file_name']] <- meta.list$name
   md[['spectra_wavesignature_units']] <- 'nm'
 

@@ -20,7 +20,7 @@ PerkinElmerSP <- R6::R6Class("PerkinElmerSP",
     },
 
     create_std_metadata = function(meta.list) {
-      stdmeta <- createStandardMetadataContainer()  ### raw spec file does not contain any metadata so just
+      stdmeta <- create.standard.metadata.container()  ### raw spec file does not contain any metadata so just
       #   returning and empty standard metadata object for consistency
       stdmeta[['spectra_wavesignature_units']] <- 'wn'
 
