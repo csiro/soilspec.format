@@ -28,7 +28,7 @@ PerkinElmerSP <- R6::R6Class("PerkinElmerSP",
         # PEPE has alias, PEIR has name but unclear whether name is identifier or path
         suffix_index <- stringr::str_locate(meta.list$alias, pattern='.sp')
         sample_id <- stringr::str_sub(meta.list$alias, 1, suffix_index-1)[1]
-        stdmeta$Sample_ID <- sample_id
+        stdmeta$sample.id <- sample_id
       }
 
       stdmeta

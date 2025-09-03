@@ -3,11 +3,11 @@
 createStandardMetadataContainer = function(){
 
   md <- list()
-  md[['Sample_ID']] <- ''
-  md[['Spectra_ID']] <- ''
+  md[['sample.id']] <- ''
+  md[['spectra.id']] <- ''
   md[['spectra_source_file_name']] <- ''
-  md[['DateTime']] <- ''
-  md[['Response']] <- ''
+  md[['date.time']] <- ''
+  md[['response']] <- ''
 
 
   # DB Fields

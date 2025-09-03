@@ -36,7 +36,7 @@ test_that("Read Perkin Elmer SP PEPE example file", {
   testthat::expect_equal(object = result$all.instrument.metadata[["original name"]],
                          expected = "\\\\Fssa1-adl\\URRBPUBLIC\\PERKIN~1\\MIRSPE~1\\PE-SPE~1\\EXAMPLE1.SP")
 
-  testthat::expect_equal(object = result$standardised.metadata$Sample_ID,
+  testthat::expect_equal(object = result$standardised.metadata$sample.id,
                          expected = "EXAMPLE01")
 })
 

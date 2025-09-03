@@ -5,7 +5,7 @@ makeStandardMetaData_SED <- function(meta.list, filepath){
 
   # We take the rightmost (second) date and time because it appears to be
   # the time for the sample spectrum vs background.
-  md['DateTime'] <- paste(stringr::str_split(meta.list$Date, ",")[[1]][2],
+  md['date.time'] <- paste(stringr::str_split(meta.list$Date, ",")[[1]][2],
                           stringr::str_split(meta.list$Time, ",")[[1]][2])
 
   wavelength.range <- meta.list[['Wavelength Range']]

@@ -13,13 +13,13 @@ makeStandardMetaData_HoneLabRedReduced <- function(meta.list, filepath){
 
   md <- createStandardMetadataContainer()
 
-  md[['Sample_ID']] <- meta.list$Sample.ID
-  md[['Spectra_ID']] <- meta.list$NIRId
+  md[['sample.id']] <- meta.list$Sample.ID
+  md[['spectra.id']] <- meta.list$NIRId
   md[['spectra_source_file_name']] <- basename(filepath)
 
   rawDate <- meta.list$Date.Time
 
-  md[['DateTime']] <- format(rawDate, format = '%d-%m-%Y %H:%M:%S')
+  md[['date.time']] <- format(rawDate, format = '%d-%m-%Y %H:%M:%S')
 
 
   md[['instrument_technology_type']] <- 'NIR'

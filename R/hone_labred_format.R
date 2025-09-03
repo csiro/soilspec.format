@@ -12,8 +12,8 @@ makeStandardMetaData_HoneLabRed <- function(meta.list, filepath){
 
     md <- createStandardMetadataContainer()
 
-    md[['Sample_ID']] <- meta.list$Sample.ID
-    md[['Spectra_ID']] <- meta.list$SpectrumId
+    md[['sample.id']] <- meta.list$Sample.ID
+    md[['spectra.id']] <- meta.list$SpectrumId
     md[['spectra_source_file_name']] <- basename(filepath)
 
     rawDate <- meta.list$Date.Time
@@ -23,7 +23,7 @@ makeStandardMetaData_HoneLabRed <- function(meta.list, filepath){
     d1 <- as.POSIXct(paste0(stringr::str_sub(dt, 1,4), '-', stringr::str_sub(dt, 5,6), '-', stringr::str_sub(dt, 7,8), ' ',
                             stringr::str_sub(tm, 1,2), ':', stringr::str_sub(tm, 3,4), ':', stringr::str_sub(tm, 5,6)),
                             tz = Sys.timezone())
-    md[['DateTime']] <- format(d1, format = '%d-%m-%Y %H:%M:%S')
+    md[['date.time']] <- format(d1, format = '%d-%m-%Y %H:%M:%S')
 
     # # DB Fields
 

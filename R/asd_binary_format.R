@@ -5,11 +5,11 @@ makeStandardMetaData_ASD <- function(meta.list, filepath){
 
   md <- createStandardMetadataContainer()
 
-  md[['Sample_ID']] <- ''
-  md[['Spectra_ID']] <- ''
+  md[['sample.id']] <- ''
+  md[['spectra.id']] <- ''
   md[['spectra_source_file_name']] <- basename(filepath)
-  md[['Response']] <- meta.list$data_type
-  md[['DateTime']] <- meta.list$dc_time
+  md[['response']] <- meta.list$data_type
+  md[['date.time']] <- meta.list$dc_time
   md[['spectra_wavesignature_units']] <- 'nm'
 
    # DB Fields

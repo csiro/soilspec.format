@@ -6,8 +6,8 @@ makeStandardMetaData_SCANS <- function(meta.list, spec.data){
 
   bits <- stringr::str_split(spec.data$core.label, '_')
 
-  md[['Sample_ID']] <- paste0(bits[[1]][1], '_', bits[[1]][2])
-  md[['Spectra_ID']] <- stringr::str_remove(meta.list$name, '.scan')
+  md[['sample.id']] <- paste0(bits[[1]][1], '_', bits[[1]][2])
+  md[['spectra.id']] <- stringr::str_remove(meta.list$name, '.scan')
   md[['spectra_source_file_name']] <- meta.list$name
   md[['spectra_wavesignature_units']] <- 'nm'
 
