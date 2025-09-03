@@ -56,7 +56,7 @@ common_soil_format_object_test <- function(soil.format.obj,
   testthat::expect_equal(object = result$data[last.index,]$intensity,
                          expected = intensities[2], tolerance = tolerance)
 
-  testthat::expect_equal(object = length(result$allInstrumentMetadata),
+  testthat::expect_equal(object = length(result$all.instrument.metadata),
                          expected = metadata.length)
 
   result

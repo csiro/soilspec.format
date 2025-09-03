@@ -87,8 +87,8 @@ SpectrumFormat <- R6::R6Class("SpectrumFormat", public = list(
     result[["origin"]] <- self$origin
     result[["type"]] <- self$type_name
     result[["data"]] <- data.df
-    result[["standardisedMetadata"]] <- std_meta
-    result[["allInstrumentMetadata"]] <- meta.list
+    result[["standardised.metadata"]] <- std_meta
+    result[["all.instrument.metadata"]] <- meta.list
 
     result
   }

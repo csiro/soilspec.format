@@ -25,7 +25,7 @@ test_that("Read ASD binary example file", {
                           intensities = c(0.05269, 0.3073),
                           metadata.length = 31)
 
-    testthat::expect_equal(object = as.character(result$allInstrumentMetadata$instrument),
+    testthat::expect_equal(object = as.character(result$all.instrument.metadata$instrument),
                            expected = "FieldSpec FR")
   })
 })

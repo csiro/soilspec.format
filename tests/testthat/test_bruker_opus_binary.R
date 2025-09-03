@@ -23,13 +23,13 @@ test_that("Read Bruker Opus Binary absorbance file", {
                           metadata.length = 18)
   })
 
-  testthat::expect_equal(object = stringr::str_to_lower(result$allInstrumentMetadata$instr_name_range),
+  testthat::expect_equal(object = stringr::str_to_lower(result$all.instrument.metadata$instr_name_range),
                          expected = "invenio-s-mir")
 
-  testthat::expect_equal(object = result$standardisedMetadata$Sample_ID,
+  testthat::expect_equal(object = result$standardised.metadata$Sample_ID,
                          expected = "M1")
 
-  testthat::expect_equal(object = result$standardisedMetadata$Spectra_ID,
+  testthat::expect_equal(object = result$standardised.metadata$Spectra_ID,
                          expected = "M1_2021-01-19 04:38:09")
 })
 
@@ -59,10 +59,10 @@ test_that("Read Bruker Opus Binary reflectance file", {
     })
   })
 
-  testthat::expect_equal(object = stringr::str_to_lower(result$allInstrumentMetadata$instr_name_range),
+  testthat::expect_equal(object = stringr::str_to_lower(result$all.instrument.metadata$instr_name_range),
                          expected = "alpha ii-mir")
 
-  std.meta <- result$standardisedMetadata
+  std.meta <- result$standardised.metadata
 
   # check standard metadata potentially affected by "Bruker standard metadata: changes required" issue
   testthat::expect_equal(object = std.meta$DateTime, expected = "2024-03-07 11:48:11")

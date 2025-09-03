@@ -27,16 +27,16 @@ test_that("Read Perkin Elmer SP PEPE example file", {
                         intensities = c(0.8553731, 1.911237),
                         metadata.length = 5)
 
-  testthat::expect_equal(object = result$allInstrumentMetadata$xLabel,
+  testthat::expect_equal(object = result$all.instrument.metadata$xLabel,
                          expected = "cm-1")
 
-  testthat::expect_equal(object = result$allInstrumentMetadata$alias,
+  testthat::expect_equal(object = result$all.instrument.metadata$alias,
                          expected = "EXAMPLE01.sp")
 
-  testthat::expect_equal(object = result$allInstrumentMetadata[["original name"]],
+  testthat::expect_equal(object = result$all.instrument.metadata[["original name"]],
                          expected = "\\\\Fssa1-adl\\URRBPUBLIC\\PERKIN~1\\MIRSPE~1\\PE-SPE~1\\EXAMPLE1.SP")
 
-  testthat::expect_equal(object = result$standardisedMetadata$Sample_ID,
+  testthat::expect_equal(object = result$standardised.metadata$Sample_ID,
                          expected = "EXAMPLE01")
 })
 
@@ -74,9 +74,9 @@ test_that("Read Perkin Elmer SP PE IR example file", {
                         intensities = c(0.6823456, 1.726805),
                         metadata.length = 7)
 
-  testthat::expect_equal(object = result$allInstrumentMetadata$xLabel,
+  testthat::expect_equal(object = result$all.instrument.metadata$xLabel,
                          expected = "CM-1")
 
-  testthat::expect_equal(object = result$allInstrumentMetadata$name,
+  testthat::expect_equal(object = result$all.instrument.metadata$name,
                          expected = "EXAMPLE1.SP")
 })
