@@ -1,6 +1,6 @@
 # CSIRO SCANS format
 
-makeStandardMetaData_SCANS <- function(meta.list, spec.data){
+create.standard.meta.data_SCANS <- function(meta.list, spec.data){
 
   md <- create.standard.metadata.container()
 
@@ -56,7 +56,7 @@ SCANS <- R6::R6Class("SCANS",
 
          meta.list <- list()
          meta.list[["name"]] <- basename(path)
-         stdmeta <- makeStandardMetaData_SCANS(meta.list, spec.data)
+         stdmeta <- create.standard.meta.data_SCANS(meta.list, spec.data)
 
          #Insert splice correction
          spec.df$intensity <- prospectr::spliceCorrection(X=spec.df$intensity,

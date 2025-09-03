@@ -1,7 +1,7 @@
 # ASD binary format, e.g. for vis-NIR contact probe
 
 
-makeStandardMetaData_ASD <- function(meta.list, filepath){
+create.standard.meta.data_ASD <- function(meta.list, filepath){
 
   md <- create.standard.metadata.container()
 
@@ -70,7 +70,7 @@ ASDBinary <- R6::R6Class("ASDBinary",
                                                            splice = c(meta.list$splice1_wavelength,
                                                            meta.list$splice2_wavelength))
 
-          stdmeta <- makeStandardMetaData_ASD(meta.list, path)
+          stdmeta <- create.standard.meta.data_ASD(meta.list, path)
 
           mode <- as.character(meta.list$data_type)
           status <- 0

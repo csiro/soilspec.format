@@ -9,7 +9,7 @@
 
 
 
-makeStandardMetaData_HoneLabRedReduced <- function(meta.list, filepath){
+create.standard.meta.data_HoneLabRedReduced <- function(meta.list, filepath){
 
   md <- create.standard.metadata.container()
 
@@ -86,7 +86,7 @@ HoneLabRedReduced <- R6::R6Class("HoneLabRedReduced",
                                   ml <- as.list(b[[1]])
                                   names(ml) <- rownames(b)
                                   meta.list <- ml[1:9]
-                                  stdmeta <- makeStandardMetaData_HoneLabRedReduced(meta.list, path)
+                                  stdmeta <- create.standard.meta.data_HoneLabRedReduced(meta.list, path)
 
                                   status <- 0
 

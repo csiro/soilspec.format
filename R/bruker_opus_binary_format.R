@@ -5,7 +5,7 @@
 # - https://github.com/spectral-cockpit/opusreader2
 # - https://www.bruker.com/en/products-and-solutions/infrared-and-raman/ft-ir-routine-spectrometer/what-is-ft-ir-spectroscopy.html
 
-makeStandardMetaData_BrukerOpusBinary <- function(meta.list, wavenumbers, opus2, filename) {
+create.standard.meta.data_BrukerOpusBinary <- function(meta.list, wavenumbers, opus2, filename) {
 
   md <- create.standard.metadata.container()
 
@@ -78,7 +78,7 @@ BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
             intensities <- no_atm_comp[["data"]]
             wavenumbers <- no_atm_comp[["wavenumbers"]]
 
-            stdmeta <- makeStandardMetaData_BrukerOpusBinary(meta.list, wavenumbers, opus2, fname)
+            stdmeta <- create.standard.meta.data_BrukerOpusBinary(meta.list, wavenumbers, opus2, fname)
 
             spec.df <- data.frame(wavenumber=wavenumbers, intensity=unlist(as.list(intensities)))
 

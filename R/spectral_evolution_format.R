@@ -1,4 +1,4 @@
-makeStandardMetaData_SED <- function(meta.list, filepath){
+create.standard.meta.data_SED <- function(meta.list, filepath){
 
   md <- create.standard.metadata.container()
   md[['spectra_source_file_name']] <- basename(filepath)
@@ -48,7 +48,7 @@ SpectralEvolution <- R6::R6Class("SpectralEvolution",
                              meta.list[["intensity_is_percentage"]])
 
         mode <- meta.list[["Measurement"]]
-        stdmeta <- makeStandardMetaData_SED(meta.list, path)
+        stdmeta <- create.standard.meta.data_SED(meta.list, path)
       }
 
       super$create.result(status, mode, spec.df, meta.list, std_meta=stdmeta)

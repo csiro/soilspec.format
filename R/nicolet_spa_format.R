@@ -3,7 +3,7 @@
 library(stringr)
 
 
-makeStandardMetaData_NicoletSpa <- function(meta.list, filepath){
+create.standard.meta.data_NicoletSpa <- function(meta.list, filepath){
 
   md <- create.standard.metadata.container()
   md[['spectra_source_file_name']] <- basename(filepath)
@@ -50,7 +50,7 @@ NicoletSpa <- R6::R6Class("NicoletSpa",
 
         meta.list <- key.value.pairs(path)
         mode <- meta.list[["Final format"]]
-        stdmeta <- makeStandardMetaData_NicoletSpa(meta.list, path)
+        stdmeta <- create.standard.meta.data_NicoletSpa(meta.list, path)
 
         if (stdmeta[['spectra_wavesignature_units']] != 'wn') {
           status <- 2

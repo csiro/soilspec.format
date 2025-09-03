@@ -2,7 +2,7 @@
 
 
 
-makeStandardMetaData_ASD_SCO <- function(meta.list, filepath){
+create.standard.meta.data_ASD_SCO <- function(meta.list, filepath){
 
   md <- create.standard.metadata.container()
   md[['spectra_source_file_name']] <- meta.list$name
@@ -52,7 +52,7 @@ ASDScoBinary <- R6::R6Class("ASDScoBinary",
 
          meta.list <- list()
          meta.list[["name"]] <- colnames(spec.data)
-         stdmeta <- makeStandardMetaData_ASD_SCO(meta.list, path)
+         stdmeta <- create.standard.meta.data_ASD_SCO(meta.list, path)
          status <- 0
        })
      }
