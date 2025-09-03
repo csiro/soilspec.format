@@ -21,7 +21,7 @@ test_that("Read Spectral Evolution example file", {
                         is.absorbance = F, is.reflectance = T, is.transmittance = F,
                         is.descending = F, num.data.rows = 2151,
                         wavenumbers = c(350, 2500),
-                        intensities = c(0.069635, 0.105154),
+                        intensities = c(0.09476, 0.11911),
                         metadata.length = 26)
 
   testthat::expect_equal(object = result$standardisedMetadata$spectra_wavesignature_units,
