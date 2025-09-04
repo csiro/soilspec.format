@@ -26,7 +26,7 @@ test_that("Read ASD binary example file", {
                           metadata.length = 31)
 
     testthat::expect_equal(object = result$standardised.metadata$spectra_wavesignature_units,
-                           expected = "wn")
+                           expected = "nm")
 
     testthat::expect_equal(object = as.character(result$all.instrument.metadata$instrument),
                            expected = "FieldSpec FR")
