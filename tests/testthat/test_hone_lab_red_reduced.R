@@ -24,6 +24,9 @@ test_that("Read Hone Lab Red Reduced Reduced example file", {
                           wavenumbers = c(1347.597, 2561.417),
                           intensities = c(0.2082933, 0.1230230),
                           metadata.length = 9)
+
+    testthat::expect_equal(object = result$standardised.metadata$spectra_wavesignature_units,
+                           expected = "nm")
   })
 })
 

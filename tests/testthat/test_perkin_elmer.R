@@ -27,6 +27,12 @@ test_that("Read Perkin Elmer SP PEPE example file", {
                         intensities = c(0.8553731, 1.911237),
                         metadata.length = 5)
 
+  testthat::expect_equal(object = result$standardised.metadata$spectra_wavesignature_units,
+                         expected = "wn")
+
+  testthat::expect_equal(object = result$standardised.metadata$sample_id,
+                         expected = "EXAMPLE01")
+
   testthat::expect_equal(object = result$all.instrument.metadata$xLabel,
                          expected = "cm-1")
 
@@ -35,9 +41,6 @@ test_that("Read Perkin Elmer SP PEPE example file", {
 
   testthat::expect_equal(object = result$all.instrument.metadata[["original name"]],
                          expected = "\\\\Fssa1-adl\\URRBPUBLIC\\PERKIN~1\\MIRSPE~1\\PE-SPE~1\\EXAMPLE1.SP")
-
-  testthat::expect_equal(object = result$standardised.metadata$sample.id,
-                         expected = "EXAMPLE01")
 })
 
 # PEPE / PE IR
@@ -73,6 +76,9 @@ test_that("Read Perkin Elmer SP PE IR example file", {
                         wavenumbers = c(7800, 450),
                         intensities = c(0.6823456, 1.726805),
                         metadata.length = 7)
+
+  testthat::expect_equal(object = result$standardised.metadata$spectra_wavesignature_units,
+                         expected = "wn")
 
   testthat::expect_equal(object = result$all.instrument.metadata$xLabel,
                          expected = "CM-1")

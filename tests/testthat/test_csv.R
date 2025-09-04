@@ -33,6 +33,9 @@ test_that("Read CSV example file", {
                         wavenumbers = c(7497.58131, 598.60643),
                         intensities = c(0.92693, 0.03152),
                         metadata.length = 0)
+
+  testthat::expect_equal(object = result$standardised.metadata$spectra_wavesignature_units,
+                         expected = "")
 })
 
 test_that("Read non-existent CSV file", {

@@ -27,6 +27,35 @@ SpectrumFormat <- R6::R6Class("SpectrumFormat", public = list(
     }
   },
 
+  # create standard metadata fields
+  create.standard.metadata.container = function() {
+    md <- list()
+    md[['sample_id']] <- ''
+    md[['spectra_id']] <- ''
+    md[['spectra_source_file_name']] <- ''
+    md[['date_time']] <- ''
+    md[['response']] <- ''
+
+
+    # DB Fields
+
+    md[['instrument_technology_type']] <- ''
+    md[['instrument_manufacturer']] <- ''
+    md[['instrument_model']] <- ''
+    md[['instrument_serial_number']] <- ''
+    md[['instrument_resolution']] <- ''
+    md[['instrument_min_wavelength']] <- ''
+    md[['instrument_max_wavelength']] <- ''
+    md[['instrument_units']] <- ''
+
+    md[['spectra_mode']] <- ''
+    md[['spectra_temperature']] <- ''
+    md[['spectra_humidity']] <- ''
+    md[['spectra_wavesignature_units']] <- ''
+
+    md
+  },
+
   # each subclass must implement this to return a list
   # of the form returned by create.result
   read = function(path) { list() },

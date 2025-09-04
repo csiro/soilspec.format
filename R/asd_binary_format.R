@@ -1,36 +1,5 @@
 # ASD binary format, e.g. for vis-NIR contact probe
 
-
-create.standard.meta.data_ASD <- function(meta.list, filepath){
-
-  md <- create.standard.metadata.container()
-
-  md[['sample.id']] <- ''
-  md[['spectra.id']] <- ''
-  md[['spectra_source_file_name']] <- basename(filepath)
-  md[['response']] <- meta.list$data_type
-  md[['date.time']] <- meta.list$dc_time
-  md[['spectra_wavesignature_units']] <- 'nm'
-
-   # DB Fields
-
-  md[['instrument_technology_type']] <- 'visNIR'
-  md[['instrument_manufacturer']] <- 'ASD'
-  md[['instrument_model']] <- meta.list$instrument
-  md[['instrument_serial_number']] <- meta.list$instrument_num
-  md[['instrument_min_wavelength']] <- meta.list$ch1_wavel
-  md[['instrument_max_wavelength']] <- as.numeric(meta.list$ch1_wavel) + as.numeric(meta.list$channels) - 1
-
-  return(md)
-
-}
-
-
-
-
-
-
-
 ASDBinary <- R6::R6Class("ASDBinary",
   inherit = SpectrumFormat,
 
@@ -39,6 +8,29 @@ ASDBinary <- R6::R6Class("ASDBinary",
       super$initialize(origin = "ASD",
                        type_name = "visNIR",
                        suffix = ".asd")
+    },
+
+    create.standard.meta.data.container = function(meta.list, filepath){
+
+      md <- super$create.standard.metadata.container()
+
+      md[['sample_id']] <- ''
+      md[['spectra_id']] <- ''
+      md[['spectra_source_file_name']] <- basename(filepath)
+      md[['response']] <- meta.list$data_type
+      md[['date_time']] <- meta.list$dc_time
+      md[['spectra_wavesignature_units']] <- 'nm'
+
+      # DB Fields
+
+      md[['instrument_technology_type']] <- 'visNIR'
+      md[['instrument_manufacturer']] <- 'ASD'
+      md[['instrument_model']] <- meta.list$instrument
+      md[['instrument_serial_number']] <- meta.list$instrument_num
+      md[['instrument_min_wavelength']] <- meta.list$ch1_wavel
+      md[['instrument_max_wavelength']] <- as.numeric(meta.list$ch1_wavel) + as.numeric(meta.list$channels) - 1
+
+      md
     },
 
     read = function(path) {
@@ -64,13 +56,13 @@ ASDBinary <- R6::R6Class("ASDBinary",
                                 intensity=as.double(table[,2]))
           rownames(spec.df) <- NULL
 
-          #Insert splice correction
+          # Insert splice correction
           spec.df$intensity <- prospectr::spliceCorrection(X=spec.df$intensity,
                                                            wav=spec.df$wavenumber,
                                                            splice = c(meta.list$splice1_wavelength,
                                                            meta.list$splice2_wavelength))
 
-          stdmeta <- create.standard.meta.data_ASD(meta.list, path)
+          stdmeta <- self$create.standard.meta.data.container(meta.list, path)
 
           mode <- as.character(meta.list$data_type)
           status <- 0

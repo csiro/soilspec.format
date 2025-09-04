@@ -24,6 +24,9 @@ test_that("Read Nicolet spa example file", {
                         intensities = c(0.333132, 2.0022),
                         metadata.length = 7)
 
+  testthat::expect_equal(object = result$standardised.metadata$spectra_wavesignature_units,
+                         expected = "wn")
+
   testthat::expect_equal(object = result$all.instrument.metadata[["Bench Serial Number"]],
                          expected = "AMM0900168")
 

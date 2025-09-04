@@ -1,24 +1,4 @@
-create.standard.meta.data_SED <- function(meta.list, filepath){
-
-  md <- create.standard.metadata.container()
-  md[['spectra_source_file_name']] <- basename(filepath)
-
-  # We take the rightmost (second) date and time because it appears to be
-  # the time for the sample spectrum vs background.
-  md['date.time'] <- paste(stringr::str_split(meta.list$Date, ",")[[1]][2],
-                          stringr::str_split(meta.list$Time, ",")[[1]][2])
-
-  wavelength.range <- meta.list[['Wavelength Range']]
-  wavelength.minmax <- stringr::str_split(wavelength.range, ",", n = 2)[[1]]
-  md[['instrument_min_wavelength']] <- as.double(wavelength.minmax[1])
-  md[['instrument_max_wavelength']] <- as.double(wavelength.minmax[2])
-  md[['instrument_model']] <- meta.list[['Instrument']]
-  md[['instrument_manufacturer']] <- 'Spectral Evolution'
-  md[['instrument_units']] <- 'nm'
-  md[['spectra_wavesignature_units']] <- 'nm'
-
-  md
-}
+# Spectral Evolution .sed file format
 
 SpectralEvolution <- R6::R6Class("SpectralEvolution",
   inherit = SpectrumFormat,
@@ -27,6 +7,27 @@ SpectralEvolution <- R6::R6Class("SpectralEvolution",
       super$initialize(origin = "Spectral Evolution",
                        type_name = "visNIR",
                        suffix = ".sed")
+    },
+
+    create.standard.meta.data.container = function(meta.list, filepath){
+      md <- super$create.standard.metadata.container()
+      md[['spectra_source_file_name']] <- basename(filepath)
+
+      # We take the rightmost (second) date and time because it appears to be
+      # the time for the sample spectrum vs background.
+      md['date_time'] <- paste(stringr::str_split(meta.list$Date, ",")[[1]][2],
+                               stringr::str_split(meta.list$Time, ",")[[1]][2])
+
+      wavelength.range <- meta.list[['Wavelength Range']]
+      wavelength.minmax <- stringr::str_split(wavelength.range, ",", n = 2)[[1]]
+      md[['instrument_min_wavelength']] <- as.double(wavelength.minmax[1])
+      md[['instrument_max_wavelength']] <- as.double(wavelength.minmax[2])
+      md[['instrument_model']] <- meta.list[['Instrument']]
+      md[['instrument_manufacturer']] <- 'Spectral Evolution'
+      md[['instrument_units']] <- 'nm'
+      md[['spectra_wavesignature_units']] <- 'nm'
+
+      md
     },
 
     read = function(path) {
@@ -48,7 +49,7 @@ SpectralEvolution <- R6::R6Class("SpectralEvolution",
                              meta.list[["intensity_is_percentage"]])
 
         mode <- meta.list[["Measurement"]]
-        stdmeta <- create.standard.meta.data_SED(meta.list, path)
+        stdmeta <- self$create.standard.meta.data.container(meta.list, path)
       }
 
       super$create.result(status, mode, spec.df, meta.list, std_meta=stdmeta)

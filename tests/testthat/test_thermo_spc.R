@@ -24,6 +24,9 @@ test_that("Read Thermo spc example file", {
                           wavenumbers = c(7800, 450),
                           intensities = c(0.615247, 1.201563),
                           metadata.length = 0)
+
+    testthat::expect_equal(object = result$standardised.metadata$spectra_wavesignature_units,
+                           expected = "nm")
   })
 })
 
