@@ -113,14 +113,14 @@ common_read_test <- function(path, read.function, suffix,
   suppressWarnings({
     if (suffix == ".csv") {
       result <- soilspec.format::read.soilspec.with.suffix(path,
-                                                           str_to_upper(suffix),
+                                                           stringr::str_to_upper(suffix),
                                                            is.absorbance,
                                                            is.reflectance,
                                                            is.transmittance,
                                                            source.col.names)
     } else {
       result <-
-        soilspec.format::read.soilspec.with.suffix(path, str_to_upper(suffix))
+        soilspec.format::read.soilspec.with.suffix(path, stringr::str_to_upper(suffix))
     }
   })
 
