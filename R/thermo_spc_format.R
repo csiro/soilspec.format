@@ -18,9 +18,7 @@ ThermoSpc <- R6::R6Class("ThermoSpc",
 
       status <- super$file_status(path)
 
-      ### raw spec file does not contain any metadata so just
-      #   returning and empty standard metadata object for consistency
-      stdmeta <- createStandardMetadataContainer()
+      stdmeta <- super$create.standard.metadata.container()
       stdmeta[['spectra_wavesignature_units']] <- 'nm'
 
       if (status == 0) {

@@ -1,26 +1,5 @@
 # Nicolet .spa format, from Nicolet MIR
 
-library(stringr)
-
-
-makeStandardMetaData_NicoletSpa <- function(meta.list, filepath){
-
-  md <- createStandardMetadataContainer()
-  md[['spectra_source_file_name']] <- basename(filepath)
-  resLine <- meta.list$Resolution
-  bits <- stringr::str_split(resLine, ' ')
-  #print(bits)
-  if (length(bits) != 0) {
-    md[['instrument_resolution']] <- bits[[1]][1]
-    md[['instrument_min_wavelength']] <- bits[[1]][3]
-    md[['instrument_max_wavelength']] <- bits[[1]][5]
-    md[['spectra_wavesignature_units']] <- 'wn'
-  }
-
-  return(md)
-}
-
-
 NicoletSpa <- R6::R6Class("NicoletSpa",
   inherit = SpectrumFormat,
   public = list(
@@ -28,6 +7,23 @@ NicoletSpa <- R6::R6Class("NicoletSpa",
       super$initialize(origin = "Nicolet",
                        type_name = "MIR",
                        suffix = ".spa")
+    },
+
+    create.standard.meta.data.container = function(meta.list, filepath){
+      md <- super$create.standard.metadata.container()
+
+      md[['spectra_source_file_name']] <- basename(filepath)
+      resLine <- meta.list$Resolution
+      bits <- stringr::str_split(resLine, ' ')
+
+      if (length(bits) != 0) {
+        md[['instrument_resolution']] <- bits[[1]][1]
+        md[['instrument_min_wavelength']] <- bits[[1]][3]
+        md[['instrument_max_wavelength']] <- bits[[1]][5]
+        md[['spectra_wavesignature_units']] <- 'wn'
+      }
+
+      md
     },
 
     read = function(path) {
@@ -50,7 +46,7 @@ NicoletSpa <- R6::R6Class("NicoletSpa",
 
         meta.list <- key.value.pairs(path)
         mode <- meta.list[["Final format"]]
-        stdmeta <- makeStandardMetaData_NicoletSpa(meta.list, path)
+        stdmeta <- self$create.standard.meta.data.container(meta.list, path)
 
         if (stdmeta[['spectra_wavesignature_units']] != 'wn') {
           status <- 2

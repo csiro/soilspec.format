@@ -19,16 +19,16 @@ PerkinElmerSP <- R6::R6Class("PerkinElmerSP",
                        suffix = ".sp")
     },
 
-    create_std_metadata = function(meta.list) {
-      stdmeta <- createStandardMetadataContainer()  ### raw spec file does not contain any metadata so just
-      #   returning and empty standard metadata object for consistency
+    create.standard.metadata.container = function(meta.list) {
+      stdmeta <- super$create.standard.metadata.container()
       stdmeta[['spectra_wavesignature_units']] <- 'wn'
 
       if (!is.null(meta.list$alias)) {
-        # PEPE has alias, PEIR has name but unclear whether name is identifier or path
+        # PEPE has alias, PEIR has name but unclear whether name is identifier
+        # or path
         suffix_index <- stringr::str_locate(meta.list$alias, pattern='.sp')
         sample_id <- stringr::str_sub(meta.list$alias, 1, suffix_index-1)[1]
-        stdmeta$Sample_ID <- sample_id
+        stdmeta$sample_id <- sample_id
       }
 
       stdmeta
@@ -62,7 +62,7 @@ PerkinElmerSP <- R6::R6Class("PerkinElmerSP",
         spec.df <- result$data
         meta.list <- result$metadata
 
-        stdmeta <- self$create_std_metadata(meta.list)
+        stdmeta <- self$create.standard.metadata.container(meta.list)
 
         mode <- result$metadata$mode
       } else {

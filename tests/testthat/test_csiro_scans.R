@@ -24,10 +24,10 @@ test_that("Read CSIRO SCANS example file", {
                         intensities = c(0.09452194, 0.11418717),
                         metadata.length = 1)
 
-  testthat::expect_equal(object = result$standardisedMetadata$spectra_wavesignature_units,
+  testthat::expect_equal(object = result$standardised.metadata$spectra_wavesignature_units,
                          expected = "nm")
 
-  testthat::expect_equal(object = result$standardisedMetadata$Sample_ID,
+  testthat::expect_equal(object = result$standardised.metadata$sample_id,
                          expected = "EXA_01")
 })
 

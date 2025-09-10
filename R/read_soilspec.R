@@ -10,7 +10,7 @@ source("R/perkin_elmer_format.R", local=T)
 source("R/csv_format.R", local=T)
 source("R/hone_labred_format.R", local=T)
 source("R/hone_labred_reduced_format.R",local=T)
-source("R/SCANS_format.R", local=T)
+source("R/scans_format.R", local=T)
 source("R/spectral_evolution_format.R", local=T)
 
 soilspec.readers <- list()

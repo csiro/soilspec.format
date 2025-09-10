@@ -24,6 +24,12 @@ test_that("Read ASD SCO binary example file", {
                           wavenumbers = c(350, 2500),
                           intensities = c(0.1168832, 0.5238607),
                           metadata.length = 1)
+
+    testthat::expect_equal(object = result$standardised.metadata$spectra_wavesignature_units,
+                           expected = "nm")
+
+    testthat::expect_equal(object = as.character(result$all.instrument.metadata$name),
+                           expected = "example.asd.sco")
   })
 })
 

@@ -10,7 +10,7 @@
 ########################################################################
 
 
-#parseHoneLabRed <- function(path = path, outDirectory = outDirectory)
+#parse.hone.lab.red <- function(path = path, outDirectory = outDirectory)
 #' @title Parse a raw Hone Lab Red spectra file containing multiple spectra
 #' @description  Parses a raw Hone Lab Red spectra file containing multiple spectra into individual files containing a single spectra for reading in read.soilspec() function
 #' @export
@@ -18,7 +18,7 @@
 #' @param outDirectory Full path to the output directory
 #' @return A list of file names each containing 1 sample and 1 background record
 
-parseHoneLabRed <- function(path, outDirectory) {
+parse.hone.lab.red <- function(path, outDirectory) {
 
 if(!dir.exists(outDirectory)){dir.create(outDirectory)}
 
@@ -83,7 +83,7 @@ if(!dir.exists(outDirectory)){dir.create(outDirectory)}
 ########################################################################
 
 
-#parseSCANS <- function(path = path, outDirectory = outDirectory)
+#parse.scans <- function(path = path, outDirectory = outDirectory)
 #' @title Parse a raw SCANS spectra file containing multiple spectra
 #' @description  Parses a raw SCANS spectra file containing multiple spectra into individual files containing a single spectra for reading in read.soilspec() function
 #' @export
@@ -91,7 +91,7 @@ if(!dir.exists(outDirectory)){dir.create(outDirectory)}
 #' @param outDirectory Full path to the output directory
 #' @return A list of file names each containing 1 sample and 1 background record
 
-parseSCANS<- function(path, outDirectory) {
+parse.scans <- function(path, outDirectory) {
 
   if(!dir.exists(outDirectory)){dir.create(outDirectory)}
 

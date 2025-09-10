@@ -56,7 +56,7 @@ common_soil_format_object_test <- function(soil.format.obj,
   testthat::expect_equal(object = result$data[last.index,]$intensity,
                          expected = intensities[2], tolerance = tolerance)
 
-  testthat::expect_equal(object = length(result$allInstrumentMetadata),
+  testthat::expect_equal(object = length(result$all.instrument.metadata),
                          expected = metadata.length)
 
   result
@@ -113,14 +113,14 @@ common_read_test <- function(path, read.function, suffix,
   suppressWarnings({
     if (suffix == ".csv") {
       result <- soilspec.format::read.soilspec.with.suffix(path,
-                                                           str_to_upper(suffix),
+                                                           stringr::str_to_upper(suffix),
                                                            is.absorbance,
                                                            is.reflectance,
                                                            is.transmittance,
                                                            source.col.names)
     } else {
       result <-
-        soilspec.format::read.soilspec.with.suffix(path, str_to_upper(suffix))
+        soilspec.format::read.soilspec.with.suffix(path, stringr::str_to_upper(suffix))
     }
   })
 
