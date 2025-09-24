@@ -63,7 +63,11 @@ BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
             meta.list <- as.list(spec.data$metadata)
 
             # data and standard metadata via opusreader2
-            opus2 <- opusreader2::read_opus(path)
+            # see https://github.com/spectral-cockpit/opusreader2/issues/116
+            suppressWarnings({
+              opus2 <- opusreader2::read_opus(path)
+            })
+
             fname <- names(opus2)[1]
 
             mode <- opus2[[fname]]$acquisition$parameters$PLF$parameter_value
