@@ -1,5 +1,5 @@
 Package: soilspec.format
-Title: A package for extracting R data frames and metadata from soil spectroscopy files.
+Title: Soil spectroscopy file data and metadata extraction
 Version: 1.0.0
 Authors@R: 
    c( person(given = "David",
@@ -11,15 +11,14 @@ Authors@R:
            family = "Searle",
            role = c("aut"),
            email = "ross.searle@csiro.au",
-           comment = c(ORCID = "0000-0003-0256-1496"))
-           ),
+           comment = c(ORCID = "0000-0003-0256-1496")),
     person(given = "James",
            family = "Moloney",
            role = c("aut"),
            email = "james.moloney@csiro.au",
            comment = c(ORCID = "0009-0006-3115-3300"))
-           )
-Description: soilspec.format is a package for extracting data frames and R metadata lists from soil spectra of various formats.
+    )
+Description: soilspec.format is a package for extracting data frames and metadata lists from soil spectra of various formats.
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
