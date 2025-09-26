@@ -1,8 +1,8 @@
 ![test workflow](https://github.com/CSIRO-Soils/soilspec.format/actions/workflows/test.yml/badge.svg)
 
 # Overview
-soilspec.format is a package for extracting R data frames and
-R metadata lists from soil spectra of various formats, currently:
+soilspec.format is a package for extracting data frames and
+metadata lists from soil spectra of various formats, currently:
 
 * Nicolet (.spa)
 * Bruker Opus Binary (.0)
@@ -12,6 +12,7 @@ R metadata lists from soil spectra of various formats, currently:
 * Perkin Elmer (.sp) [PEPE and PE IR magic numbers]
 * Hone Lab Red (.hlr)
 * Hone Lab Red Reduced (.hlrr)
+* Spectral Evolution (.sed)
 * CSIRO SCANS (.scan)
 * CSV (.csv)
 
@@ -27,44 +28,78 @@ The extracted data frames will always have the columns: "wavenumber" and "intens
 	devtools::install_github("pierreroudier/opusreader")
 	devtools::install_github("spectral-cockpit/opusreader2")
 
-	# install package from GitHub where "..." is a GitHub Personal Access Token
-	devtools::install_github("CSIRO-Soils/soilspec.format", auth_token = "...")
+	# install package from GitHub
+	devtools::install_github("csiro/soilspec.format")
 
   Under Windows, you will also need to install [Rtools](https://cran.r-project.org/bin/windows/Rtools)
   to match your R version.
 
 	
 # Example Usage
-  ```
-  path <- soilspec.format::bruker.opus.binary.file.path()
-  
-  result <- soilspec.format::read.soilspec(path)
-  
-  [1] "status"        "mode"          "is.descending" "origin"        "type"          "data"          "metadata"     
- 
-  result$status
-  [1] 0
-  
-  head(result$data)
-    wavenumber intensity
-  1   7498.200 0.1366372
-  2   7496.770 0.1355442
-  3   7495.341 0.1333837
-  4   7493.911 0.1317485
-  5   7492.481 0.1320595
-  6   7491.052 0.1344453
-  
-  result$metadata$unique_id
-  [1] "DECCW257_2021-02-05 06:34:20"
-  
-  result$metadata$sample_name
-  [1] "DECCW257;Calibration;13;Ryan;Waite;;SOC_Calibration;Fine ground samples"
-  
-  result$metadata$laser_wn
-  [1] 11711.2
-  
-  plot(result$data, type="l")
-  ```
+```
+path <- asd.binary.file.path()
+
+result <- read.soilspec(path)
+
+names(result)
+[1] "status"        "mode"          "units"         "is.descending" "origin"        "type"          "data"          "metadata"   
+
+result$status
+[1] 0
+
+result$is.descending
+[1] FALSE
+
+result$mode
+[1] "reflectance"
+
+result$metadata
+$co
+[1] "as7"
+
+$comments
+[1] ""
+
+$when
+[1] "2017-06-20 19:04:47 ACST"
+
+...
+
+$instrument
+[1] "FieldSpec FR"
+
+$bulb
+[1] 0
+
+$swir1_gain
+[1] 569
+
+$swir2_gain
+[1] 1160
+
+$swir1_offset
+[1] 2180
+
+$swir2_offset
+[1] 2415
+
+$splice1_wavelength
+[1] 1000
+
+$splice2_wavelength
+[1] 1830
+
+head(result$data)
+  wavenumber  intensity
+1        350 0.05432920
+2        351 0.04792801
+3        352 0.05130503
+4        353 0.05339854
+5        354 0.04970677
+6        355 0.05435767
+
+plot(result$data)
+```
 
 # Developers
 ## Install

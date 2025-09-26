@@ -6,12 +6,25 @@
 This function should be used when the file does not have the expected suffix.
 A precondition for correct functioning is that the file and assumed suffix are compatible.}
 \usage{
-read.soilspec.with.suffix(path, assumed.suffix)
+read.soilspec.with.suffix(
+  path,
+  assumed.suffix,
+  is.absorbance = F,
+  is.reflectance = F,
+  is.transmittance = F,
+  source.col.names = c("wavenumber", "intensity")
+)
 }
 \arguments{
 \item{path}{Full path to the file}
 
 \item{assumed.suffix}{The assumed suffix for the expected file format, e.g. .spa, .0}
+
+\item{is.absorbance}{Does the sample data correspond to absorbance?}
+
+\item{is.reflectance}{Does the sample data correspond to reflectance?}
+
+\item{is.transmittance}{Does the sample data correspond to transmittance?}
 }
 \value{
 A result list containing a file read status, a data.frame of

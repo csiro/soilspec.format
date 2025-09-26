@@ -20,4 +20,12 @@ authors:
       Commonwealth Scientific and Industrial Research
       Organisation (CSIRO)
     orcid: 'https://orcid.org/0000-0003-0256-1496'
+  - given-names: James
+    family-names: Moloney
+    email: james.moloney@csiro.au
+    affiliation: >-
+      Commonwealth Scientific and Industrial Research
+      Organisation (CSIRO)
+    orcid: 'https://orcid.org/0009-0006-3115-3300'
+version: 0.0.2
 version: 0.0.2

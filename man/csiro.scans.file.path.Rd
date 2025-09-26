@@ -7,7 +7,7 @@
 csiro.scans.file.path()
 }
 \value{
-The full path to the Hone Lab Red example file
+The full path to the CSIRO SCANS example file
 }
 \description{
 Return the full path to the CSIRO SCANS example file

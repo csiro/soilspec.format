@@ -2,13 +2,13 @@
 % Please edit documentation in R/file_paths.R
 \name{csv.file.path}
 \alias{csv.file.path}
-\title{Return the full path to the (Bruker) CSV example file}
+\title{Return the full path to the CSV example file}
 \usage{
 csv.file.path()
 }
 \value{
-The full path to the (Bruker) CSV example file
+The full path to the CSV example file
 }
 \description{
-Return the full path to the (Bruker) CSV example file
+Return the full path to the CSV example file
 }
