@@ -4,12 +4,12 @@
 \alias{parse.hone.lab.red}
 \title{Parse a raw Hone Lab Red spectra file containing multiple spectra}
 \usage{
-parse.hone.lab.red(path, outDirectory)
+parse.hone.lab.red(path, out.directory)
 }
 \arguments{
 \item{path}{Full path to the raw Hone Lab Red spectra file}
 
-\item{outDirectory}{Full path to the output directory}
+\item{out.directory}{Full path to the output directory}
 }
 \value{
 A list of file names each containing 1 sample and 1 background record

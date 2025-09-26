@@ -4,12 +4,12 @@
 \alias{parse.scans}
 \title{Parse a raw SCANS spectra file containing multiple spectra}
 \usage{
-parse.scans(path, outDirectory)
+parse.scans(path, out.directory)
 }
 \arguments{
 \item{path}{Full path to the raw SCANS spectra file}
 
-\item{outDirectory}{Full path to the output directory}
+\item{out.directory}{Full path to the output directory}
 }
 \value{
 A list of file names each containing 1 sample and 1 background record

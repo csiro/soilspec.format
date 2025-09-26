@@ -10,17 +10,17 @@
 ########################################################################
 
 
-#parse.hone.lab.red <- function(path = path, outDirectory = outDirectory)
+#parse.hone.lab.red <- function(path = path, out.directory = out.directory)
 #' @title Parse a raw Hone Lab Red spectra file containing multiple spectra
 #' @description  Parses a raw Hone Lab Red spectra file containing multiple spectra into individual files containing a single spectra for reading in read.soilspec() function
 #' @export
 #' @param path Full path to the raw Hone Lab Red spectra file
-#' @param outDirectory Full path to the output directory
+#' @param out.directory Full path to the output directory
 #' @return A list of file names each containing 1 sample and 1 background record
 
-parse.hone.lab.red <- function(path, outDirectory) {
+parse.hone.lab.red <- function(path, out.directory) {
 
-if(!dir.exists(outDirectory)){dir.create(outDirectory)}
+if(!dir.exists(out.directory)){dir.create(out.directory)}
 
   indf <- read.csv(path, header = T, check.names=F)
 
@@ -45,11 +45,9 @@ if(!dir.exists(outDirectory)){dir.create(outDirectory)}
 
       fname = paste0(srec$'Sample ID', '_', srec$SampleSpectrumSetId, '_', srec$SpectrumId)
       odf <- rbind(bkgDF, srec)
-      write.csv(odf, paste0(outDirectory, '/', fname, '.hlr'), row.names = F)
+      write.csv(odf, paste0(out.directory, '/', fname, '.hlr'), row.names = F)
 
     }
-
-
   }
 
   idxs <- which(indf$Type=='BACKGROUND')
@@ -64,11 +62,9 @@ if(!dir.exists(outDirectory)){dir.create(outDirectory)}
   sites <- sapply(bits, function(x) paste0(x[1], "_", x[2]))
   odfm <- data.frame(Sname=indf$`Sample ID`,	Upper=NA,	Lower=NA,	Lat=NA,	Lon=NA,	Datum='GDA94',
                      Filename=paste0(indf$'Sample ID', '_', indf$SampleSpectrumSetId, '_', indf$SpectrumId, '.hlr'),	Date=paste0(d, '/', m, '/',y))
-  print(paste0(paste0(outDirectory, '/submit.meta')))
-  write.csv(odfm,  paste0(outDirectory, '/submit.meta'), row.names = F)
+  print(paste0(paste0(out.directory, '/submit.meta')))
+  write.csv(odfm,  paste0(out.directory, '/submit.meta'), row.names = F)
 }
-
-
 
 
 ########################################################################
@@ -83,17 +79,17 @@ if(!dir.exists(outDirectory)){dir.create(outDirectory)}
 ########################################################################
 
 
-#parse.scans <- function(path = path, outDirectory = outDirectory)
+#parse.scans <- function(path = path, out.directory = out.directory)
 #' @title Parse a raw SCANS spectra file containing multiple spectra
 #' @description  Parses a raw SCANS spectra file containing multiple spectra into individual files containing a single spectra for reading in read.soilspec() function
 #' @export
 #' @param path Full path to the raw SCANS spectra file
-#' @param outDirectory Full path to the output directory
+#' @param out.directory Full path to the output directory
 #' @return A list of file names each containing 1 sample and 1 background record
 
-parse.scans <- function(path, outDirectory) {
+parse.scans <- function(path, out.directory) {
 
-  if(!dir.exists(outDirectory)){dir.create(outDirectory)}
+  if(!dir.exists(out.directory)){dir.create(out.directory)}
 
   indf <- read.csv(path, header = T, check.names=F)
 
@@ -103,7 +99,7 @@ parse.scans <- function(path, outDirectory) {
     specid <- paste0( rec$core.label, '_',  rec$core_position)
     fname <- paste0(specid, '.scan')
     odf<-rec
-    write.csv(odf, paste0(outDirectory, '/', fname), row.names = F)
+    write.csv(odf, paste0(out.directory, '/', fname), row.names = F)
   }
 
   bits <- stringr::str_split(indf$core.label, '_')
@@ -112,9 +108,5 @@ parse.scans <- function(path, outDirectory) {
   dts <- format(Sys.Date(), "%d/%m/%Y")
   odfm <- data.frame(Sname=sites,	Upper=indf$core_position,	Lower=indf$core_position+1,	Lat=NA,	Lon=NA,	Datum='GDA94',
                      Filename= paste0( indf$core.label, '_',  indf$core_position, '.scan'),	Date=NA)
-  write.csv(odfm,  paste0(outDirectory, '/submit.meta'), row.names = F)
+  write.csv(odfm,  paste0(out.directory, '/submit.meta'), row.names = F)
 }
-
-
-
-
