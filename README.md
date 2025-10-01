@@ -37,6 +37,8 @@ The extracted data frames will always have the columns: "wavenumber" and "intens
 	
 # Example Usage
 ```
+> library(soilspec.format)
+
 > path <- asd.binary.file.path()
 
 > result <- read.soilspec(path)
@@ -135,7 +137,6 @@ $file_version
 
 $dc_corr
 [1] TRUE
-
 ...
 ```
 
