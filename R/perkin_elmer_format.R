@@ -4,9 +4,8 @@
 # - PEPE in first 4 bytes of file (block structured)
 # - PE IR in first 5 bytes of file
 #
-# Re: PEPE, see: https://au.mathworks.com/matlabcentral/fileexchange/22736-perkinelmer-ir-data-file-import-tools?s_tid=srchtitle
-# PE IR format has so far only been understood by inspection.
-# Official Perkin Elmer format specifications would be helpful though.
+# For PEPE, see https://au.mathworks.com/matlabcentral/fileexchange/22736-perkinelmer-ir-data-file-import-tools?s_tid=srchtitle
+# PE IR format has been understood by inspection.
 
 source("R/read_type.R", local=TRUE)
 
@@ -76,6 +75,17 @@ PerkinElmerSP <- R6::R6Class("PerkinElmerSP",
     }
   )
 )
+
+# This function is a partial port of the spload() function found here:
+# https://au.mathworks.com/matlabcentral/fileexchange/22736-perkinelmer-ir-data-file-import-tools
+#
+# Citation: Ben Perston (2025). PerkinElmer IR data file import tools
+# (https://www.mathworks.com/matlabcentral/fileexchange/22736-perkinelmer-ir-data-file-import-tools),
+# MATLAB Central File Exchange. Retrieved September 29, 2025.
+#
+# In spload() function header comment:
+# Copyright (C)2007 PerkinElmer Life and Analytical Sciences
+# Stephen Westlake, Seer Green
 
 read.pepe <- function(path) {
   # block IDs

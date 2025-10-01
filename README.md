@@ -37,36 +37,66 @@ The extracted data frames will always have the columns: "wavenumber" and "intens
 	
 # Example Usage
 ```
-path <- asd.binary.file.path()
+> library(soilspec.format)
 
-result <- read.soilspec(path)
+> path <- asd.binary.file.path()
 
-names(result)
-[1] "status"        "mode"          "units"         "is.descending" "origin"        "type"          "data"          "metadata"   
+> result <- read.soilspec(path)
 
-result$status
+> names(result)
+ [1] "status"                  "mode"                    "is.absorbance"           "is.reflectance"          "is.transmittance"       
+ [6] "is.descending"           "origin"                  "type"                    "data"                    "standardised.metadata"  
+[11] "all.instrument.metadata"   
+
+> result$status
 [1] 0
 
-result$is.descending
+> result$is.descending
 [1] FALSE
 
-result$mode
+> result$is.reflectance
+[1] TRUE
+
+> result$mode
 [1] "reflectance"
 
-result$metadata
-$co
-[1] "as7"
+> head(result$data)
+  wavenumber  intensity
+1        350 0.05432920
+2        351 0.04792801
+3        352 0.05130503
+4        353 0.05339854
+5        354 0.04970677
+6        355 0.05435767
 
-$comments
+> plot(result$data, type="l")
+
+> result$standardised.metadata
+$sample_id
 [1] ""
 
-$when
-[1] "2017-06-20 19:04:47 ACST"
+$spectra_id
+[1] ""
 
-...
+$spectra_source_file_name
+[1] "example.asd"
+
+$date_time
+[1] "2017-06-21 10:33:49 ACST"
+
+$response
+[1] "reflectance"
+
+$instrument_technology_type
+[1] "visNIR"
+
+$instrument_manufacturer
+[1] "ASD"
 
 $instrument
 [1] "FieldSpec FR"
+
+...
 
 $bulb
 [1] 0
@@ -89,16 +119,25 @@ $splice1_wavelength
 $splice2_wavelength
 [1] 1830
 
-head(result$data)
-  wavenumber  intensity
-1        350 0.05432920
-2        351 0.04792801
-3        352 0.05130503
-4        353 0.05339854
-5        354 0.04970677
-6        355 0.05435767
+> result$all.instrument.metadata
+$co
+[1] "as7"
 
-plot(result$data)
+$comments
+[1] ""
+
+$when
+[1] "2017-06-20 19:04:47 ACST"
+
+$program_version
+[1] "6.0"
+
+$file_version
+[1] "7.0"
+
+$dc_corr
+[1] TRUE
+...
 ```
 
 # Developers
