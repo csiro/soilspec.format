@@ -61,10 +61,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-#      - name: set-up-R-${{ matrix.r-version }}
-#        uses: r-lib/actions/setup-r@f57f1301a053485946083d7a45022b278929a78a
-#        with:
-#          r-version: ${{ matrix.r-version }}
+      - name: set-up-R-${{ matrix.r-version }}
+        uses: r-lib/actions/setup-r2@v2
+        with:
+          r-version: ${{ matrix.r-version }}
           
       - name: install-dependencies
         run: |
