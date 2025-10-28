@@ -28,7 +28,7 @@ test_that("Read Nicolet spa example file", {
                          expected = "wn")
 
   testthat::expect_equal(object = result$all.instrument.metadata[["Bench Serial Number"]],
-                         expected = "AMM0900168")
+                         expected = "EXAMPLE001")
 
   testthat::expect_equal(object = result$all.instrument.metadata[["Background file"]],
                          expected = "C:\\AutoPRO5\\Spectra\\2025Exam\\Example1\\Example12345.spa")
