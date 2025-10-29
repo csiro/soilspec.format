@@ -18,7 +18,6 @@ metadata lists from soil spectra of various formats, currently:
 
 The extracted data frames will always have the columns: "wavenumber" and "intensity".
 
-
 # Install
 
 	# need devtools and Rcpp packages
@@ -34,7 +33,6 @@ The extracted data frames will always have the columns: "wavenumber" and "intens
   Under Windows, you will also need to install [Rtools](https://cran.r-project.org/bin/windows/Rtools)
   to match your R version.
 
-	
 # Example Usage
 ```
 > library(soilspec.format)
