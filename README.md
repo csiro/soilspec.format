@@ -1,6 +1,4 @@
-<!--
 ![test workflow](https://github.com/csiro-internal/soilspec.format/actions/workflows/test.yml/badge.svg)
--->
 
 # Overview
 soilspec.format is a package for extracting data frames and
