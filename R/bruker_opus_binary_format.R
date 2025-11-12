@@ -62,11 +62,7 @@ BrukerOpusBinary <- R6::R6Class("BrukerOpusBinary",
           if (!is.null(names(spec.data)) && length(names(spec.data)) != 0) {
             meta.list <- as.list(spec.data$metadata)
 
-            # data and standard metadata via opusreader2
-            # see https://github.com/spectral-cockpit/opusreader2/issues/116
-            suppressWarnings({
-              opus2 <- opusreader2::read_opus(path)
-            })
+            opus2 <- opusreader2::read_opus(path)
 
             fname <- names(opus2)[1]
 
