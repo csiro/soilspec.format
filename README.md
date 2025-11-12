@@ -69,6 +69,8 @@ The extracted data frames will always have the columns: "wavenumber" and "intens
 
 > plot(result$data, type="l")
 
+<img width="1244" height="760" alt="asd_example_plot" src="https://github.com/user-attachments/assets/49dfa0af-2fc1-4601-aca7-660423c197f2" />
+
 > result$standardised.metadata
 $sample_id
 [1] ""
