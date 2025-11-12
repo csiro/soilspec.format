@@ -42,8 +42,8 @@ The extracted data frames will always have the columns: "wavenumber" and "intens
 > result <- read.soilspec(path)
 
 > names(result)
- [1] "status"                    "mode"     "is.absorbance"   "is.reflectance"   "is.transmittance"       
- [6] "is.descending"             "origin"   "type"            "data"             "standardised.metadata"  
+ [1] "status"                  "mode"   "is.absorbance" "is.reflectance" "is.transmittance"       
+ [6] "is.descending"           "origin" "type"          "data"           "standardised.metadata"  
 [11] "all.instrument.metadata"   
 
 > result$status
