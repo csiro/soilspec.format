@@ -42,8 +42,8 @@ The extracted data frames will always have the columns: "wavenumber" and "intens
 > result <- read.soilspec(path)
 
 > names(result)
- [1] "status"                  "mode"                    "is.absorbance"           "is.reflectance"          "is.transmittance"       
- [6] "is.descending"           "origin"                  "type"                    "data"                    "standardised.metadata"  
+ [1] "status"                    "mode"     "is.absorbance"   "is.reflectance"   "is.transmittance"       
+ [6] "is.descending"             "origin"   "type"            "data"             "standardised.metadata"  
 [11] "all.instrument.metadata"   
 
 > result$status
@@ -70,8 +70,7 @@ The extracted data frames will always have the columns: "wavenumber" and "intens
 > plot(result$data, type="l")
 ```
 
-![ASD plot](https://github.com/csiro/soilspec.format/assets/asd_example_plot.png)
-
+<img src="https://github.com/csiro/soilspec.format/blob/main/assets/asd_example_plot.png" alt="ASD spectrum plot" width="800"/>
 
 ```
 > result$standardised.metadata
