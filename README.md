@@ -68,9 +68,12 @@ The extracted data frames will always have the columns: "wavenumber" and "intens
 6        355 0.05435767
 
 > plot(result$data, type="l")
+```
 
 ![ASD plot](https://github.com/csiro/soilspec.format/assets/asd_example_plot.png)
 
+
+```
 > result$standardised.metadata
 $sample_id
 [1] ""
