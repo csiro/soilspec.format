@@ -1,4 +1,4 @@
-![test workflow](https://github.com/csiro/soilspec.format/actions/.github/workflows/test.yml/badge.svg)
+[![pkg-test](https://github.com/csiro/soilspec.format/actions/workflows/test.yml/badge.svg)](https://github.com/csiro/soilspec.format/actions/workflows/test.yml) [![CodeQL](https://github.com/csiro/soilspec.format/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/csiro/soilspec.format/actions/workflows/github-code-scanning/codeql)
 
 # Overview
 soilspec.format is a package for extracting data frames and
