@@ -66,9 +66,9 @@ key.value.pairs <- function(path) {
 
   for (str in strings.from.spa(path)) {
     delimiter <- NULL
-    if (grepl(str, pattern="=")) {
+    if (grepl(str, pattern="=", fixed = TRUE)) {
       delimiter <- "="
-    } else if (grepl(str, pattern=":")) {
+    } else if (grepl(str, pattern=":", fixed = TRUE)) {
       delimiter <- ":"
     }
 

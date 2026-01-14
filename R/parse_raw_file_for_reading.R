@@ -26,7 +26,7 @@ if(!dir.exists(out.directory)){dir.create(out.directory)}
 
   SpecSets <- unique(indf$SampleSpectrumSetId)
 
-  for(i in 1:length(SpecSets)){
+  for(i in seq_along(SpecSets)){
     print(paste0('Processing Spectral Set ', i, ' of ', length(SpecSets)))
     specid <- SpecSets[i]
     idxs <- which(indf$SampleSpectrumSetId==specid)
@@ -39,11 +39,11 @@ if(!dir.exists(out.directory)){dir.create(out.directory)}
     idxS <-  which(specdf$Type=='SAMPLE')
     sampDF <- specdf[idxS,]
 
-    for (j in 1:nrow(sampDF)) {
-      srec = sampDF[j,]
+    for (j in seq_len(nrow(sampDF))) {
+      srec <- sampDF[j,]
       #brec = specdf[1,]
 
-      fname = paste0(srec$'Sample ID', '_', srec$SampleSpectrumSetId, '_', srec$SpectrumId)
+      fname <- paste0(srec$'Sample ID', '_', srec$SampleSpectrumSetId, '_', srec$SpectrumId)
       odf <- rbind(bkgDF, srec)
       write.csv(odf, paste0(out.directory, '/', fname, '.hlr'), row.names = F)
 
@@ -93,7 +93,7 @@ parse.scans <- function(path, out.directory) {
 
   indf <- read.csv(path, header = T, check.names=F)
 
-  for(i in 1:nrow(indf)){
+  for(i in seq_len(nrow(indf))){
     rec <- indf[i,]
     print(paste0('Processing Spectra ', i, ' of ', nrow(indf)))
     specid <- paste0( rec$core.label, '_',  rec$core_position)
