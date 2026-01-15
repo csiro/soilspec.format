@@ -40,7 +40,7 @@ ASDScoBinary <- R6::R6Class("ASDScoBinary",
 
          spec.df <-
             data.frame(wavenumber=as.integer(rownames(spec.data)),
-                       intensity=spec.data[1:length(spec.data)])
+                       intensity=spec.data[seq_along(spec.data)])
 
          meta.list <- list()
          meta.list[["name"]] <- colnames(spec.data)
