@@ -7,6 +7,7 @@ on:
     branches: [main, master]
 
 name: pkg-test
+#name: Unit Tests
 
 jobs:
   pkg-test:
