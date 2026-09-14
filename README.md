@@ -160,7 +160,7 @@ To run unit tests use this command:
   * Look at `R/*_format.R` files for examples.
 
 * Near the top of `R/read_soilspec.R` add a mapping from a file suffix to
-  an instance of the new ``SpectrumFormat` sub-class, e.g.
+  an instance of the new `SpectrumFormat` sub-class, e.g.
 
   `soilspec.readers[[".asd"]] <- ASDBinary$new()`
 
