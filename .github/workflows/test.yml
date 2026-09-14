@@ -38,6 +38,6 @@ jobs:
         run: devtools::test(stop_on_failure = T)
         shell: Rscript {0}
 
-      - name: coverage
-        run: covr::package_coverage()
-        shell: Rscript {0}
+      #- name: coverage
+      #  run: covr::package_coverage()
+      #  shell: Rscript {0}
